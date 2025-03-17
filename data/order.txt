@@ -1,0 +1,8 @@
+admin,burger,pizza,pasta,salad
+john_doe,Vegan Tacos, Buddha Bowl, Quinoa Salad, Avocado Toast, Smoothie Bowl
+alice_smith,Vegan Burger, Spaghetti Aglio e Olio, Lentil Soup, Grilled Veggies, Chia Pudding
+michael_jordan,Chicken Caesar Salad, Grilled Salmon, Quinoa Pilaf, Avocado Toast, Protein Shake
+emma_watson,Gluten-Free Pizza, Zucchini Noodles with Pesto, Smoothie Bowl, Baked Sweet Potatoes, Chickpea Salad
+mark_zucker,Keto Burger, Grilled Chicken, Zucchini Fries, Spinach and Avocado Salad, Almond Butter Smoothie
+john_doe,Vegan Burrito, Sweet Potato Fries, Avocado Toast, Plant-Based Burger, Smoothie Bowl
+newUserName,Protein Pancakes, Scrambled Eggs with Spinach, Avocado Toast, Greek Yogurt with Berries, Keto Smoothie
