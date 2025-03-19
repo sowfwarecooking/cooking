@@ -5,7 +5,6 @@ package FeatureTest;
 import io.cucumber.java.en.*;
 import static org.junit.jupiter.api.Assertions.*;
 import ProductionCode.UserService; // Import your service class
-import ProductionCode.User; // Import your User class
 
 public class login {
 

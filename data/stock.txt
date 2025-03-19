@@ -1,0 +1,15 @@
+pepper,70
+banana,5
+kiwi,-1
+onion,1
+cucumber,8
+tomato,10
+grape,8
+sun,10
+mango,7
+orange,4
+apple,10
+lemon,7
+pineapple,6
+potato,12
+carrot,15

@@ -99,4 +99,5 @@ public class TrackOrders {
         String actualReportDetails = report.analyzeOrderTrends();
         assertEquals(expectedReportDetails, actualReportDetails);
     }
+
 }
