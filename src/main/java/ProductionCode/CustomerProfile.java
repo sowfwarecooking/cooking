@@ -1,5 +1,9 @@
 package ProductionCode;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 
 public class CustomerProfile {
@@ -31,5 +35,31 @@ public class CustomerProfile {
 
     public void updateAllergies(List<String> newAllergies) {
         this.allergies = newAllergies;
+    }
+
+    public void addCustomerProfile(String name, List<String> preferences, List<String> allergies) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("data/customer_profiles.txt", true))) {
+            writer.write(name + ",");
+            writer.write(String.join("", preferences) + ",");
+            writer.write(String.join(",", allergies));
+            writer.newLine();
+            System.out.println("Customer profile added successfully.");
+        } catch (IOException e) {
+            System.err.println("Error writing to file: " + e.getMessage());
+        }
+
+    }
+
+    public static void main(String[] args) {
+        // Sample customer profile
+        String name = "tester122";
+        CustomerProfile customer = new CustomerProfile(name,
+                Arrays.asList("Vegetarian"),
+                Arrays.asList("Peanuts", "Shellfish"));
+
+        // Add profile to file
+        customer.addCustomerProfile(customer.getCustomerName(),
+                customer.getDietaryPreferences(),
+                customer.getAllergies());
     }
 }

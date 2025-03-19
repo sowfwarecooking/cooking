@@ -5,9 +5,8 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>Health.System</groupId>
+    <groupId>org.example</groupId>
     <artifactId>Cook</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
     <name>Cook</name>
 
     <dependencies>
@@ -45,6 +44,12 @@
             <artifactId>surefire-api</artifactId>
             <version>2.22.2</version>
         </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>RELEASE</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>
@@ -58,6 +63,14 @@
                     <includes>
                         <include>**/*Test.java</include>
                     </includes>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>9</source>
+                    <target>9</target>
                 </configuration>
             </plugin>
         </plugins>
