@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.*;
 import ProductionCode.supplyVewing;
 import ProductionCode.Admin;
 
+import java.util.concurrent.CountDownLatch;
+
 public class supplyTest {
 
     @Given("the kitchen manager is logged into the system")
@@ -67,6 +69,7 @@ public class supplyTest {
         // Assert that the restocking message matches the expected message.
         assertEquals(expectedMessage, message);
     }
+
     @Then("it should automatically generate a  multi restocking suggestion and notify the kitchen manager")
     public void it_should_automatically_generate_a_multi_restocking_suggestion_and_notify_the_kitchen_manager() {
         supplyVewing supply = new supplyVewing();
@@ -77,5 +80,35 @@ public class supplyTest {
                 "Restock needed: orange (4 left)\n";
 
         assertEquals(expectedMessage, message);
+    }
+
+    @Then("it should automatically after 5sec generate a  multi restocking suggestion and notify the kitchen manager")
+    public void it_should_automatically_after_5sec_generate_a_multi_restocking_suggestion_and_notify_the_kitchen_manager() throws InterruptedException {
+        // Create a CountDownLatch to wait for 1 signal (5 seconds)
+        CountDownLatch latch = new CountDownLatch(1);
+
+        // Create a new supplyVewing object and start the stock checker thread
+        supplyVewing supply = new supplyVewing();
+        supply.startStockChecker();
+
+        // Sleep for 5 seconds to allow the stock checker to run
+        Thread.sleep(5000);
+        supply.updateIngredientQuantity("kiwi",2);
+
+        // Now check the updated stock status
+        String message = supply.checkLowStock();
+        String expectedMessage = "Restock needed: banana (5 left)\n" +
+                "Restock needed: kiwi (1 left)\n" +
+                "Restock needed: onion (1 left)\n" +
+                "Restock needed: orange (4 left)\n";
+
+        // Assert the expected message
+        assertEquals(expectedMessage, message);
+
+        // Signal that the thread has finished
+        latch.countDown();
+
+        // Wait until the latch reaches 0, ensuring that the stock checker thread finishes
+        latch.await();
     }
 }

@@ -14,3 +14,8 @@ Feature: admin view the supply status
     Given an ingredient's stock level falls below a predefined threshold
     When the system detects the low stock level
     Then it should automatically generate a  multi restocking suggestion and notify the kitchen manager
+
+      Scenario: after 5 sec it should automatically generate a  multi restocking suggestion and notify the kitchen manager
+      Given an ingredient's stock level falls below a predefined threshold
+      When the system detects the low stock level
+      Then it should automatically after 5sec generate a  multi restocking suggestion and notify the kitchen manager
