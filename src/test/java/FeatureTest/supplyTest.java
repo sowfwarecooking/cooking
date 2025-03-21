@@ -111,4 +111,6 @@ public class supplyTest {
         // Wait until the latch reaches 0, ensuring that the stock checker thread finishes
         latch.await();
     }
+
+
 }
