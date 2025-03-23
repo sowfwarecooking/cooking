@@ -1,0 +1,27 @@
+@startuml
+'https://plantuml.com/activity-diagram-beta
+
+start
+if (shortage) then
+    if (price1 > price2) then
+        if (price1 > price3) then
+            :money = money - price1;
+            :engrengdet = engrengdet + supply;
+        else
+            :money = money - price3;
+            :engrengdet = engrengdet + supply;
+        endif
+    else
+        if (price2 > price3) then
+            :money = money - price2;
+            :engrengdet = engrengdet + supply;
+        else
+            :money = money - price3;
+            :engrengdet = engrengdet + supply;
+        endif
+    endif
+endif
+
+stop
+
+@enduml

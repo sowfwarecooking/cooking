@@ -12,7 +12,7 @@ public class supplyVewing  {
         loadStockFromFile();
     }
 
-    private synchronized void loadStockFromFile() {
+    public synchronized void loadStockFromFile() {
         File file = new File(FILE_PATH);
         if (!file.exists()) {
             System.out.println("Stock data file not found. Starting fresh.");

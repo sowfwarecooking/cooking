@@ -3,6 +3,7 @@ package ProductionCode;
 import java.io.*;
 import java.util.*;
 
+
 public class Suppliers {
 
     public Map<String, LinkedHashMap<Float, Float>> suppliers1 = new HashMap<>();
@@ -47,59 +48,143 @@ public class Suppliers {
         return dataMap;
     }
 
-    public void displaySuppliersData() {
-        System.out.println("Supplier 1:");
-        suppliers1.forEach((key, value) -> System.out.println(key + ": " + value));
 
-        System.out.println("\nSupplier 2:");
-        suppliers2.forEach((key, value) -> System.out.println(key + ": " + value));
+    public String getBestPrice(String ingredient, float quantity) {
+        Float bestPrice = Float.MAX_VALUE;
+        LinkedHashMap<Float, Float> supply1 = suppliers1.getOrDefault(ingredient, new LinkedHashMap<>());
+        LinkedHashMap<Float, Float> supply2 = suppliers2.getOrDefault(ingredient, new LinkedHashMap<>());
+        LinkedHashMap<Float, Float> supply3 = suppliers3.getOrDefault(ingredient, new LinkedHashMap<>());
 
-        System.out.println("\nSupplier 3:");
-        suppliers3.forEach((key, value) -> System.out.println(key + ": " + value));
+        String path = null;
 
+        for (Map.Entry<Float, Float> entry : supply1.entrySet()) {
+            Float stock = entry.getKey();
+            Float price = entry.getValue();
+            if (quantity <= stock && Float.compare(price, bestPrice) < 0) {
+                bestPrice = price;
+                path = "data/supplier1.txt";
+            }
+        }
 
+        for (Map.Entry<Float, Float> entry : supply2.entrySet()) {
+            Float stock = entry.getKey();
+            Float price = entry.getValue();
+            if (quantity <= stock && Float.compare(price, bestPrice) < 0) {
+                bestPrice = price;
+                path = "data/supplier2.txt";
+            }
+        }
+
+        for (Map.Entry<Float, Float> entry : supply3.entrySet()) {
+            Float stock = entry.getKey();
+            Float price = entry.getValue();
+            if (quantity <= stock && Float.compare(price, bestPrice) < 0) {
+                bestPrice = price;
+                path = "data/supplier3.txt";
+            }
+        }
+
+        return path;  // Returns the supplier with the best price
     }
 
+    public void editTheStock(String ingredient, float quant) {
+
+    }
     public Float getBestPrice(String ingredient) {
         Float bestPrice = Float.MAX_VALUE;
         LinkedHashMap<Float, Float> supply1 = suppliers1.getOrDefault(ingredient, new LinkedHashMap<>());
         LinkedHashMap<Float, Float> supply2 =  suppliers2.getOrDefault(ingredient, new LinkedHashMap<>());
         LinkedHashMap<Float, Float> supply3 = suppliers3.getOrDefault(ingredient, new LinkedHashMap<>());
         for (Map.Entry<Float, Float> entry : supply1.entrySet()) {
-            Float key = entry.getKey();
             Float value = entry.getValue();
+                bestPrice =  Math.min(bestPrice, value); // Use Math.min to find the minimum value;
+                System.out.println(bestPrice);}
 
-            bestPrice =  value;
-            System.out.println(bestPrice);
-        }
         for (Map.Entry<Float, Float> entry : supply2.entrySet()) {
-            Float key = entry.getKey();
             Float value = entry.getValue();
-            bestPrice = Math.min(bestPrice, value);
-            System.out.println(bestPrice);
 
-        }
+            bestPrice =  Math.min(bestPrice, value); // Use Math.min to find the minimum value;
+                System.out.println(bestPrice);}
+
+
         for (Map.Entry<Float, Float> entry : supply3.entrySet()) {
-            Float key = entry.getKey();
-            Float value = entry.getValue();
-            bestPrice = Math.min(bestPrice, value);
-            System.out.println(bestPrice);
 
-        }
+            Float value = entry.getValue();
+
+             bestPrice =  Math.min(bestPrice, value); // Use Math.min to find the minimum value;
+                System.out.println(bestPrice);}
+
+
         return bestPrice;
 
 
     }
 
+    public void restock(String ingredient, float quantity) {
+        String table = getBestPrice(ingredient, quantity);
+        if  (table == null){
+            System.out.println("No supplier found with sufficient stock or ingredient not found");
+        }
+        else {
+
+            supplyVewing add = new supplyVewing();
+            add.addIngredient(ingredient, (int) quantity);
+        }
 
 
+    }
+    public void editStock(String ingredient, int quantity) {
+        String target = getBestPrice(ingredient, quantity);
+        List<String> lines = new ArrayList<>();
+        String line;
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(target))) {
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split(",");
+                if (parts.length == 3 && parts[0].equals(ingredient)) {
+                    try {
+                        float oldValue = Float.parseFloat(parts[1]);
+                        float newValue = Math.max(0, oldValue - quantity); // Prevent negative stock
+                        parts[1] = String.valueOf(newValue);
+                    } catch (NumberFormatException e) {
+                        System.err.println("Error parsing stock value: " + parts[1]);
+                    }
+                }
+                lines.add(String.join(",", parts));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            return;
+        }
+
+        // Write back to the file
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(target))) {
+            for (String updatedLine : lines) {
+                writer.write(updatedLine);
+                writer.newLine();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    void restock(String ingredient, int quantity) {
+        String table = getBestPrice(ingredient, quantity);
+        if  (table == null){
+            System.out.println("No supplier found with sufficient stock or ingredient not found");
+        }
+        else {
+            supplyVewing add = new supplyVewing();
+            add.updateIngredientQuantity(ingredient, quantity);
+            editStock(ingredient, quantity);
+
+        }
+    }
 
     public static void main(String[] args) throws IOException {
         Suppliers supplierObj = new Suppliers();
         supplierObj.loadFromFiles();
         LinkedHashMap<Float, Float> suppliers = supplierObj.suppliers1.getOrDefault("pepper", new LinkedHashMap<>());
-     System.out.println(supplierObj.getBestPrice("potato"));
-
+        supplierObj.editStock("pepper",5);
 
 
     }

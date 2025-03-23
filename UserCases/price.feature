@@ -13,4 +13,4 @@ Feature: Real-Time Supplier Pricing and Ordering Integration
     Given the system is connected to the suppliers
     When the kitchen manager requests the price for an ingredient
     Then the system should return the current price for ingredient from the suppliers
-    And the system should reload the stock
+    And the system should reload the stock by number

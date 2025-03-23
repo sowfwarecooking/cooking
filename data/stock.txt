@@ -11,5 +11,5 @@ orange,4
 apple,10
 lemon,7
 pineapple,6
-potato,12
+potato,10
 carrot,15

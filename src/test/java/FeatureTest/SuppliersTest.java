@@ -3,7 +3,7 @@ package FeatureTest;
 import io.cucumber.java.en.*;
 import static org.junit.Assert.*;
 import ProductionCode.Suppliers;
-
+import ProductionCode.supplyVewing;
 import java.io.IOException;
 
 public class SuppliersTest {
@@ -36,7 +36,19 @@ public class SuppliersTest {
         assertEquals(expectedPrice, actualPrice,0.00000000001f);
     }
 
-    @And("the system should reload the stock")
-    public void theSystemShouldReloadTheStock() {
+    @Then("the system should reload the stock by number")
+    public void the_system_should_reload_the_stock_by_number() throws IOException {
+        Suppliers supplierObj = new Suppliers();
+        supplyVewing supplyVewing = new supplyVewing();
+        supplierObj.loadFromFiles();
+        supplyVewing.loadStockFromFile();
+        supplierObj.restock("potato",10);
+        int actualStock = supplyVewing.getStockLevel("potato");
+        int expectedStock = 22;
+        assertEquals(expectedStock, actualStock);
+
+
+
+        throw new io.cucumber.java.PendingException();
     }
 }
