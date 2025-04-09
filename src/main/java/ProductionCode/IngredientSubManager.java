@@ -1,15 +1,44 @@
 package ProductionCode;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class IngredientSubManager {
     Order myOrder = new Order();
+
     public ArrayList<String>restrictedVeganIngredients=new ArrayList<>();
     public ArrayList<String>restrictedLowCarbIngredients=new ArrayList<>();
     public ArrayList<String>restrictedVegetarianIngredients=new ArrayList<>();
     public ArrayList<String>restrictedKetoIngredients=new ArrayList<>();
     public ArrayList<String>restrictedGlutenFreeIngredients=new ArrayList<>();
 
+    public ArrayList<String>alternativeVeganIngredients=new ArrayList<>();
+    public ArrayList<String>alternativeLowCarbIngredients=new ArrayList<>();
+    public ArrayList<String>alternativeVegetarianIngredients=new ArrayList<>();
+    public ArrayList<String>alternativeKetoIngredients=new ArrayList<>();
+    public ArrayList<String>alternativeGlutenFreeIngredients=new ArrayList<>();
+
+    public ArrayList<String> myOrderforSubRev =new ArrayList<>();
+
+    public void addAlternativeVeganIngredients(String...s){
+       this.alternativeVeganIngredients.addAll(Arrays.asList(s));
+    }
+    public void addAlternativeLowCarbIngredients(String...s){
+        this.alternativeLowCarbIngredients.addAll(Arrays.asList(s));
+    }
+    public void addAlternativeVegetarianIngredients(String...s){
+        this.alternativeVegetarianIngredients.addAll(Arrays.asList(s));
+    }
+    public void addAlternativeKetoIngredients(String...s){
+        this.alternativeKetoIngredients.addAll(Arrays.asList(s));
+    }
+    public void addAlternativeGlutenFreeIngredients(String...s){
+        this.alternativeGlutenFreeIngredients.addAll(Arrays.asList(s));
+    }
+
+    public void sumbitOrderForSubReview(String... s){
+        this.myOrderforSubRev.addAll(Arrays.asList(s));
+    }
 
     public void setOrder(Order o){this.myOrder=o;}
 
@@ -53,7 +82,13 @@ public class IngredientSubManager {
             return true;
         }
         return false;
+    }
+    //---------->Start From here
+    public String suggestAlternativeIngredients(Order o){
+        String suggestionMessage = "";
+        String orderDietaryPreference = o.getDietaryPreference();
 
+        return "";
     }
 
 }

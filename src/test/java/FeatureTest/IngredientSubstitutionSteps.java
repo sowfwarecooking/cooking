@@ -5,9 +5,11 @@ import ProductionCode.Order;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import io.cucumber.java.sl.In;
 
 import java.util.ArrayList;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class IngredientSubstitutionSteps {
@@ -35,6 +37,12 @@ public class IngredientSubstitutionSteps {
     @When("the system processes the recipe")
     public void theSystemProcessesTheRecipe() {
         // Write code here that turns the phrase above into concrete actions
+        IngredientSubManager i = new IngredientSubManager();
+        String s = "Tuna";
+        String s2 = "Milk";
+        i.sumbitOrderForSubReview(s,s2);
+        assertEquals(s, i.myOrderforSubRev.get(0));
+        assertEquals(s2, i.myOrderforSubRev.get(1));
 
     }
     @Then("the system suggests suitable alternatives that adhere to the user's dietary restrictions")
