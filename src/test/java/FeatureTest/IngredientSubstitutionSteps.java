@@ -39,7 +39,7 @@ public class IngredientSubstitutionSteps {
         IngredientSubManager i = new IngredientSubManager();
         String s = "Tuna";
         String s2 = "Milk";
-        i.sumbitOrderForSubReview(s,s2);
+        i.submitOrderForSubReview(s,s2);
         assertEquals(s, i.myOrderForSubRev.get(0));
         assertEquals(s2, i.myOrderForSubRev.get(1));
 
