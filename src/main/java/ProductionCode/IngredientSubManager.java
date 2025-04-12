@@ -18,7 +18,7 @@ public class IngredientSubManager {
     public ArrayList<String>alternativeKetoIngredients=new ArrayList<>();
     public ArrayList<String>alternativeGlutenFreeIngredients=new ArrayList<>();
 
-    public ArrayList<String> myOrderforSubRev =new ArrayList<>();
+    public ArrayList<String> myOrderForSubRev =new ArrayList<>();
 
     public void addAlternativeVeganIngredients(String...s){
        this.alternativeVeganIngredients.addAll(Arrays.asList(s));
@@ -36,8 +36,8 @@ public class IngredientSubManager {
         this.alternativeGlutenFreeIngredients.addAll(Arrays.asList(s));
     }
 
-    public void sumbitOrderForSubReview(String... s){
-        this.myOrderforSubRev.addAll(Arrays.asList(s));
+    public void submitOrderForSubReview(String... s){
+        this.myOrderForSubRev.addAll(Arrays.asList(s));
     }
 
     public void setOrder(Order o){this.myOrder=o;}
@@ -54,9 +54,8 @@ public class IngredientSubManager {
 
     }
     public boolean isRestrictedIngredient(String s){
-        if(this.restrictedVeganIngredients.stream().anyMatch(a->a.equalsIgnoreCase(s))){
-            return true;
-        }
+        if (containNonVegan(this.restrictedVeganIngredients, s)) return true;
+        //continue refactoring those->
         if(this.restrictedLowCarbIngredients.stream().anyMatch(a->a.equalsIgnoreCase(s))){
             return true;
         }
@@ -73,6 +72,14 @@ public class IngredientSubManager {
 
 
     }
+
+    private boolean containNonVegan(ArrayList<String> restrictedVeganIngredients, String s) {
+        if (restrictedVeganIngredients.stream().anyMatch(a -> a.equalsIgnoreCase(s))) {
+            return true;
+        }
+        return false;
+    }
+
     public boolean selectionContainsRestrictions (ArrayList<String> arr){
         if(arr.isEmpty()){
             return false;
@@ -87,7 +94,11 @@ public class IngredientSubManager {
     public String suggestAlternativeIngredients(Order o){
         String suggestionMessage = "";
         String orderDietaryPreference = o.getDietaryPreference();
-
+        if (myOrderForSubRev.isEmpty())return"No Order To Check";
+        
+        switch (orderDietaryPreference) {
+            case "vegan":
+        }
         return "";
     }
 

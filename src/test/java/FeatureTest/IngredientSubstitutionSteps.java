@@ -5,7 +5,6 @@ import ProductionCode.Order;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import io.cucumber.java.sl.In;
 
 import java.util.ArrayList;
 
@@ -41,8 +40,8 @@ public class IngredientSubstitutionSteps {
         String s = "Tuna";
         String s2 = "Milk";
         i.sumbitOrderForSubReview(s,s2);
-        assertEquals(s, i.myOrderforSubRev.get(0));
-        assertEquals(s2, i.myOrderforSubRev.get(1));
+        assertEquals(s, i.myOrderForSubRev.get(0));
+        assertEquals(s2, i.myOrderForSubRev.get(1));
 
     }
     @Then("the system suggests suitable alternatives that adhere to the user's dietary restrictions")
