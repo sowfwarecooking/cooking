@@ -23,9 +23,9 @@ public class customMealRequestSteps {
     public void iSelectIngredientsAnd(String string, String string2, String string3) {
         Order o = new Order();
         o.setIngredients(string,string2,string3);
-        assertTrue(o.ingredients.get(0).equals(string));
-        assertTrue(o.ingredients.get(1).equals(string2));
-        assertTrue(o.ingredients.get(2).equals(string3));
+        assertEquals(o.ingredients.get(0), string);
+        assertEquals(o.ingredients.get(1), string2);
+        assertEquals(o.ingredients.get(2), string3);
 
     }
 
@@ -81,8 +81,8 @@ public class customMealRequestSteps {
     public void iSubmitMyCustomMealRequestWithoutSelectingIngredients() {
         // Write code here that turns the phrase above into concrete actions
         Order o = new Order();
-        assertEquals(o.submitOrder(), "Please select at least one ingredient");
-        assertEquals(o.submitOrderWithDietaryPreferences(), "Please select at least one ingredient");
+        assertEquals("Please select at least one ingredient", o.submitOrder());
+        assertEquals("Please select at least one ingredient", o.submitOrderWithDietaryPreferences());
     }
 
 

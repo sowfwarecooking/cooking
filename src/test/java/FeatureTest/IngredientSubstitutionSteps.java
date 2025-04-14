@@ -1,6 +1,7 @@
 package FeatureTest;
 
 import ProductionCode.IngredientSubManager;
+import ProductionCode.Ingredients;
 import ProductionCode.Order;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -8,26 +9,36 @@ import io.cucumber.java.en.When;
 
 import java.util.ArrayList;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class IngredientSubstitutionSteps {
     Order myOrder = new Order();
+    IngredientSubManager i = new IngredientSubManager();
+
     void initializeOrder(){
-        myOrder.setDietaryPreference("VEGAN");
+        i.setAlternativeVeganIngredients("Vegan Meat");
+        i.setRestrictedVeganIngredients("Beef");
+        myOrder.setDietaryPreference("Vegan");
+        myOrder.setIngredients("Beef","RICE","milk");
+        i.setOrder(myOrder);
+    }
+    public void resetState() {
+        i = new IngredientSubManager();
+        myOrder = new Order();
+        i.reset();
     }
     @Given("the user follows a specific diet type \\(e.g., VEGAN, KETO, LOW_CARB, VEGETARIAN, GLUTEN_FREE)")
     public void theUserFollowsASpecificDietTypeEGVEGANKETOLOWCARBVEGETARIANGLUTENFREE() {
         // Write code here that turns the phrase above into concrete actions
-        IngredientSubManager i = new IngredientSubManager();
+
         initializeOrder();
-        i.setOrder(myOrder);
         assertTrue(i.hasADiet());
+
     }
     @Given("the user inputs a recipe containing restricted ingredients")
     public void theUserInputsARecipeContainingRestrictedIngredients() {
         // Write code here that turns the phrase above into concrete actions
-        IngredientSubManager i = new IngredientSubManager();
+
         i.restrictedKetoIngredients.add("bread");
         ArrayList<String>tempSelection = new ArrayList<>();
         tempSelection.add("BREAD");
@@ -36,55 +47,56 @@ public class IngredientSubstitutionSteps {
     @When("the system processes the recipe")
     public void theSystemProcessesTheRecipe() {
         // Write code here that turns the phrase above into concrete actions
-        IngredientSubManager i = new IngredientSubManager();
+        IngredientSubManager x = new IngredientSubManager();
         String s = "Tuna";
         String s2 = "Milk";
-        i.submitOrderForSubReview(s,s2);
-        assertEquals(s, i.myOrderForSubRev.get(0));
-        assertEquals(s2, i.myOrderForSubRev.get(1));
+        x.submitOrderForSubReview(s,s2);
+        assertEquals(s, x.myOrderForSubRev.get(0));
+        assertEquals(s2, x.myOrderForSubRev.get(1));
 
     }
     @Then("the system suggests suitable alternatives that adhere to the user's dietary restrictions")
     public void theSystemSuggestsSuitableAlternativesThatAdhereToTheUserSDietaryRestrictions() {
         // Write code here that turns the phrase above into concrete actions
+        IngredientSubManager z = i;
+        System.out.println(z.suggestAlternativeIngredients(myOrder));
+        assertNotNull(z.suggestAlternativeIngredients(myOrder));
 
     }
-    @Then("displays explanations for each suggestion")
-    public void displaysExplanationsForEachSuggestion() {
-        // Write code here that turns the phrase above into concrete actions
 
-    }
     @Given("the user indicates an ingredient is unavailable")
     public void theUserIndicatesAnIngredientIsUnavailable() {
         // Write code here that turns the phrase above into concrete actions
+        Ingredients i = new Ingredients();
+        String str1 = "cheese";
+        String str2 = "pasta";
+        String str3 = "beef";
 
+        i.addAvailableIngredients(2, str1);
+        i.addAvailableIngredients(str2);
+        assertTrue(i.isAvailableIngredient(str2));
+        assertFalse(i.isAvailableIngredient(str3));
     }
     @Given("the user inputs a recipe containing that ingredient")
     public void theUserInputsARecipeContainingThatIngredient() {
         // Write code here that turns the phrase above into concrete actions
-
+        Ingredients i = new Ingredients();
+        String str1 = "cheese";
+        String str2 = "pasta";
+        String str3 = "Onion";
+        i.addAvailableIngredients(2, str1);
+        i.addAvailableIngredients(str2);
+        System.out.println(i.addDesiredIngredients(str1, str3));
+        assertEquals(str3+ " IS UNAVAILABLE\n", i.addDesiredIngredients(str1, str3));
     }
     @Then("the system suggests suitable alternatives based on availability")
     public void theSystemSuggestsSuitableAlternativesBasedOnAvailability() {
         // Write code here that turns the phrase above into concrete actions
 
     }
-    /// /////CHANGE 3RD SCENARIO
-    @Given("the user receives ingredient suggestions")
-    public void theUserReceivesIngredientSuggestions() {
-        // Write code here that turns the phrase above into concrete actions
 
-    }
-    @When("the suggestions are displayed")
-    public void theSuggestionsAreDisplayed() {
-        // Write code here that turns the phrase above into concrete actions
 
-    }
-    @Then("each suggestion includes an explanation of why it is suitable")
-    public void eachSuggestionIncludesAnExplanationOfWhyItIsSuitable() {
-        // Write code here that turns the phrase above into concrete actions
 
-    }
 
 
 

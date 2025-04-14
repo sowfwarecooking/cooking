@@ -6,16 +6,11 @@ Feature: Ingredient Substitution System
     And the user inputs a recipe containing restricted ingredients
     When the system processes the recipe
     Then the system suggests suitable alternatives that adhere to the user's dietary restrictions
-    And displays explanations for each suggestion
+
 
   Scenario: Suggesting Alternatives for Unavailable Ingredients
     Given the user indicates an ingredient is unavailable
     And the user inputs a recipe containing that ingredient
     When the system processes the recipe
     Then the system suggests suitable alternatives based on availability
-    And displays explanations for each suggestion
 
-  Scenario: Providing Substitution Explanations
-    Given the user receives ingredient suggestions
-    When the suggestions are displayed
-    Then each suggestion includes an explanation of why it is suitable

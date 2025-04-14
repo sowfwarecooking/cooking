@@ -56,6 +56,11 @@ public class Order {
       else{s=selectIngredientsMessage();}
       return s;
    }
+   public ArrayList<String> getOrderAsArray(){
+
+return this.ingredients;
+
+   }
 
    public String mealCreatedSuccessfullyMessage(){
       return "Meal Created Successfully";
