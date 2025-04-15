@@ -73,11 +73,13 @@ public class Ingredients {
             return status;
         }
 
-        if(this.availableIngredientsA.contains(this.selectedIngredients.getFirst())){grpABias = true;}
+      /*  if(this.availableIngredientsA.contains(this.selectedIngredients.getFirst())){grpABias = true;}
+        else {grpBBias=true;}*/
+        if(containsIgnoreCase(availableIngredientsA, this.selectedIngredients.getFirst())){grpABias = true;}
         else {grpBBias=true;}
        for(String temp :this.selectedIngredients){
            if(grpABias){
-               if(this.availableIngredientsA.contains(temp)){
+               if(containsIgnoreCase(this.availableIngredientsA, temp)){
              inIngredientGrpA = true;
              selectedIngredientsTemp.add(temp);
                }
@@ -86,7 +88,8 @@ public class Ingredients {
                 }
            }
            else if (grpBBias) {
-               if(this.availableIngredientsA.contains(temp)){
+               if(
+                       containsIgnoreCase(this.availableIngredientsA, temp)){
                    inIngredientGrpA = true;
                }
                else {
@@ -117,8 +120,40 @@ public class Ingredients {
 
         return  status;
     }
+    public void removeDesiredIngredients(String s){
+        for(int i =0;i<selectedIngredients.size();i++){
+            String ing = selectedIngredients.get(i);
+            if(ing.equalsIgnoreCase(s)){
+                selectedIngredients.remove(i);
+            }
+        }
 
 
+    }
+    public void substituteDesiredIngredients(String toBeSubbed, String subbedWith){
+        for(int i =0;i<selectedIngredients.size();i++){
+            String ing = selectedIngredients.get(i);
+            if(ing.equalsIgnoreCase(toBeSubbed)){
+                selectedIngredients.remove(i);
+                addDesiredIngredients(subbedWith);
+            }
+        }
+
+
+    }
+public ArrayList<String> getSelectedIngredients(){
+
+        return selectedIngredients;
+
+}
+boolean containsIgnoreCase(ArrayList<String> arr, String s){
+        for(String temp: arr){
+            if (temp.equalsIgnoreCase(s))return true;
+
+        }
+
+        return false;
+}
 
 
 
