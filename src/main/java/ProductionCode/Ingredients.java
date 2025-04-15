@@ -1,6 +1,7 @@
 package ProductionCode;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Ingredients {
     public ArrayList<String> availableIngredientsA = new ArrayList<>();
@@ -43,23 +44,32 @@ public class Ingredients {
     }
 //fix "remove" problem -> use iterator!!!!!!!!!!!!!!!!
     public String addDesiredIngredients(String ...s){
-
+        addAvailableIngredients(2,"def B");
+        addAvailableIngredients("def A");
+        Random random = new Random();
         String status = "";
         ArrayList<String> selectedIngredientsTemp = new ArrayList<>();
         boolean inIngredientGrpA = false;
         boolean inIngredientGrpB = false;
         boolean grpABias = false;
         boolean grpBBias = false;
-        for(String temp:s){
+        int cnt = 0;
+        String unavailableMsg="For the Unavailable Ingredients You Can Try These Instead:\n";
+       for(String temp:s){
             if(this.isAvailableIngredient(temp))
           this.selectedIngredients.add(temp);
             else{
                 status += temp+" IS UNAVAILABLE\n";
-
+                cnt++;
             }
         }
 //If the selection wasn't available -> return the status and don't worry about the rest
         if(selectedIngredients.isEmpty()){
+            status+="Try These Instead: \n";
+            for(int i = 0; i<cnt; i++){
+                String randomElement = availableIngredientsA.get(random.nextInt(availableIngredientsB.size()));
+                status+= randomElement+"\n";
+            }
             return status;
         }
 
@@ -89,6 +99,21 @@ public class Ingredients {
             status = "Selected Ingredients were incompatible, incompatible ingredients were removed";
             this.selectedIngredients=selectedIngredientsTemp;
         }
+        if(grpABias){
+            for(int i = 0; i<cnt; i++){
+                String randomElement = availableIngredientsA.get(random.nextInt(availableIngredientsA.size()));
+                unavailableMsg += randomElement+"\n";
+            }
+            if(cnt!=0)status+=unavailableMsg;
+        }
+        if(grpBBias){
+            for(int i = 0; i<cnt; i++){
+                String randomElement = availableIngredientsB.get(random.nextInt(availableIngredientsB.size()));
+                unavailableMsg += randomElement+"\n";
+            }
+            if(cnt!=0)status+=unavailableMsg;
+        }
+
 
         return  status;
     }

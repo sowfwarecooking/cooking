@@ -7,6 +7,7 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 
 import static org.junit.Assert.*;
@@ -84,15 +85,21 @@ public class IngredientSubstitutionSteps {
         String str1 = "cheese";
         String str2 = "pasta";
         String str3 = "Onion";
-        i.addAvailableIngredients(2, str1);
-        i.addAvailableIngredients(str2);
+
+
         System.out.println(i.addDesiredIngredients(str1, str3));
-        assertEquals(str3+ " IS UNAVAILABLE\n", i.addDesiredIngredients(str1, str3));
+        assertEquals(str1+ " IS UNAVAILABLE\n"+str3+ " IS UNAVAILABLE\n"+"Try These Instead: \n" +
+                "def A\ndef A\n", i.addDesiredIngredients(str1, str3));
     }
     @Then("the system suggests suitable alternatives based on availability")
     public void theSystemSuggestsSuitableAlternativesBasedOnAvailability() {
         // Write code here that turns the phrase above into concrete actions
+    Ingredients i = new Ingredients();
+    i.addAvailableIngredients("A","B","C");
+        i.addAvailableIngredients(2,"D","E","F");
 
+        System.out.println( i.addDesiredIngredients("G"));
+        System.out.println( i.addDesiredIngredients("A","B","L"));
     }
 
 

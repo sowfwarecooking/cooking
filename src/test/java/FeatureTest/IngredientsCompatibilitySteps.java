@@ -73,7 +73,7 @@ public class IngredientsCompatibilitySteps {
     public void aCustomerSelectsAnd(String string, String string2) {
         // Write code here that turns the phrase above into concrete actions
     Ingredients i = new Ingredients();
-    String expected = string+" IS UNAVAILABLE\n"+string2+" IS UNAVAILABLE\n";
+    String expected = string+" IS UNAVAILABLE\n"+string2+" IS UNAVAILABLE\n"+"Try These Instead: \n"+"def A\n"+"def A\n";
     assertEquals(expected,i.addDesiredIngredients(string,string2));
 
     }
