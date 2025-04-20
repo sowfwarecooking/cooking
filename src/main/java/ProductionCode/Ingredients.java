@@ -7,6 +7,7 @@ public class Ingredients {
     public ArrayList<String> availableIngredientsA = new ArrayList<>();
     public ArrayList<String> availableIngredientsB = new ArrayList<>();
     public ArrayList<String> selectedIngredients = new ArrayList<>();
+    public ArrayList<String> selectedIngredientsOld = new ArrayList<>();
 
     public boolean isAvailableIngredient(String s){
         for(String i:this.availableIngredientsA){
@@ -42,8 +43,10 @@ public class Ingredients {
 
         }
     }
-//fix "remove" problem -> use iterator!!!!!!!!!!!!!!!!
-    public String addDesiredIngredients(String ...s){
+
+    public String addDesiredIngredients(Chef c, String ...s){
+        this.selectedIngredientsOld = new ArrayList<>(this.selectedIngredients) ;
+
         addAvailableIngredients(2,"def B");
         addAvailableIngredients("def A");
         Random random = new Random();
@@ -70,6 +73,7 @@ public class Ingredients {
                 String randomElement = availableIngredientsA.get(random.nextInt(availableIngredientsB.size()));
                 status+= randomElement+"\n";
             }
+            c.setIngredientChangeMessage(selectedIngredientsOld +" to "+selectedIngredients);
             return status;
         }
 
@@ -117,28 +121,36 @@ public class Ingredients {
             if(cnt!=0)status+=unavailableMsg;
         }
 
-
+        c.setIngredientChangeMessage(selectedIngredientsOld +" to "+ selectedIngredients);
         return  status;
     }
-    public void removeDesiredIngredients(String s){
+    public void removeDesiredIngredients(String s, Chef c){
+        this.selectedIngredientsOld = new ArrayList<>(this.selectedIngredients) ;
+
         for(int i =0;i<selectedIngredients.size();i++){
             String ing = selectedIngredients.get(i);
             if(ing.equalsIgnoreCase(s)){
                 selectedIngredients.remove(i);
             }
+
+            c.setIngredientChangeMessage(selectedIngredientsOld+" to "+selectedIngredients);
         }
 
 
     }
-    public void substituteDesiredIngredients(String toBeSubbed, String subbedWith){
+    public void substituteDesiredIngredients(String toBeSubbed, String subbedWith, Chef c){
+        ArrayList<String> temp = new ArrayList<>(new ArrayList<>(this.selectedIngredients));
+
+        System.out.println("\n"+selectedIngredientsOld);
         for(int i =0;i<selectedIngredients.size();i++){
             String ing = selectedIngredients.get(i);
             if(ing.equalsIgnoreCase(toBeSubbed)){
                 selectedIngredients.remove(i);
-                addDesiredIngredients(subbedWith);
+                addDesiredIngredients(c, subbedWith);
             }
         }
-
+        this.selectedIngredientsOld = new ArrayList<>(temp);
+        c.setIngredientChangeMessage(selectedIngredientsOld+" to "+selectedIngredients);
 
     }
 public ArrayList<String> getSelectedIngredients(){

@@ -1,5 +1,6 @@
 package FeatureTest;
 
+import ProductionCode.Chef;
 import ProductionCode.IngredientSubManager;
 import ProductionCode.Ingredients;
 import ProductionCode.Order;
@@ -15,6 +16,7 @@ import static org.junit.Assert.*;
 public class IngredientSubstitutionSteps {
     Order myOrder = new Order();
     IngredientSubManager i = new IngredientSubManager();
+    Chef c = new Chef();
 
     void initializeOrder(){
         i.setAlternativeVeganIngredients("Vegan Meat");
@@ -87,9 +89,9 @@ public class IngredientSubstitutionSteps {
         String str3 = "Onion";
 
 
-        System.out.println(i.addDesiredIngredients(str1, str3));
+        System.out.println(i.addDesiredIngredients(c, str1, str3));
         assertEquals(str1+ " IS UNAVAILABLE\n"+str3+ " IS UNAVAILABLE\n"+"Try These Instead: \n" +
-                "def A\ndef A\n", i.addDesiredIngredients(str1, str3));
+                "def A\ndef A\n", i.addDesiredIngredients(c, str1, str3));
     }
     @Then("the system suggests suitable alternatives based on availability")
     public void theSystemSuggestsSuitableAlternativesBasedOnAvailability() {
@@ -98,8 +100,8 @@ public class IngredientSubstitutionSteps {
     i.addAvailableIngredients("A","B","C");
         i.addAvailableIngredients(2,"D","E","F");
 
-        System.out.println( i.addDesiredIngredients("G"));
-        System.out.println( i.addDesiredIngredients("A","B","L"));
+        System.out.println( i.addDesiredIngredients(c, "G"));
+        System.out.println( i.addDesiredIngredients(c, "A","B","L"));
     }
 
 
