@@ -28,10 +28,28 @@ public class Chef {
         this. ingredientChangeMessage = s;
     }
 
-    public void approveOrder(Ingredients i) {
+    public String approveOrder(Ingredients i) {
         approvedOrder = i.getSelectedIngredients();
+        return"\nOrder Approved\n";
     }
     public ArrayList<String> getApprovedOrder(){
         return approvedOrder;
     }
+
+    public String removeIngredient(Ingredients i, String s){
+        i.removeDesiredIngredients(s, this);
+        this.approveOrder(i);
+        return "\nChef Removed Ingredient Successfully\n";
+    }
+    public String addIngredient(Ingredients i, String... s){
+        i.addDesiredIngredients(this, s);
+        this.approveOrder(i);
+        return "\nChef Added Ingredient Successfully\n";
+    }
+    public String subIngredient(Ingredients i, String toBeSubbed, String subbedWith){
+        i.substituteDesiredIngredients(toBeSubbed, subbedWith, this);
+        this.approveOrder(i);
+        return "\nChef Substituted Ingredient Successfully\n";
+    }
+
 }
