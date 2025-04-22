@@ -4,6 +4,57 @@ package ProductionCode;
 import java.util.ArrayList;
 
 public class Chef {
+
+    public Chef(){};
+    public Chef(String name, expertise chefExpertise){
+        this.name = name;
+        this.myExpertise=chefExpertise;
+    }
+    public Chef(String name, expertise chefExpertise, int WorkLoad){
+        this.name = name;
+        this.myExpertise=chefExpertise;
+        this.workLoad = WorkLoad;
+    }
+    public enum expertise{
+        PASTRY_EXPERTISE,
+        GRILLING_EXPERTISE,
+        SALAD_EXPERTISE,
+        SEAFOOD_EXPERTISE,
+        MULTI_CUISINE_EXPERTISE;
+    }
+
+    int workLoad;
+    expertise myExpertise;
+    String name;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getWorkLoad() {
+        return workLoad;
+    }
+
+    public void setWorkLoad(int workLoad) {
+        this.workLoad = workLoad;
+    }
+
+    public expertise getMyExpertise() {
+        return myExpertise;
+    }
+
+    public void setMyExpertise(expertise myExpertise) {
+        this.myExpertise = myExpertise;
+    }
+
+
+
+
+
     String ingredientChangeMessage  = "";
     ArrayList<String> approvedOrder =new ArrayList<>();
 
