@@ -121,21 +121,55 @@ public class assignTasksToChefsSteps {
     @Given("the task {string} requires grilling expertise")
     public void the_task_requires_grilling_expertise(String string) {
         // Write code here that turns the phrase above into concrete actions
+        m.setCurrentTask("Toasting", Expertise.GRILLING_EXPERTISE);
+        assertEquals(Expertise.GRILLING_EXPERTISE,m.getCurrentTask().getTaskExpertise());
 
     }
     @Then("it should be assigned to Chef Bob")
     public void it_should_be_assigned_to_chef_bob() {
         // Write code here that turns the phrase above into concrete actions
-
+        m.setCurrentTask("Cut Salmon", Expertise.SEAFOOD_EXPERTISE);
+        String actual = m.assignTask();
+        String expected = "\nTask Assigned To: Khaled\n";
+        assertEquals(expected, actual);
     }
     @Given("all chefs have full workloads")
     public void all_chefs_have_full_workloads() {
         // Write code here that turns the phrase above into concrete actions
+        for(Chef c: m.getAvailableChefs()){
+            c.setWorkLoad(5);
+        }
+        Chef actualChef = m.getAvailableChefs()
+                .stream()
+                .filter(c -> c.getName().equals("Yousef"))
+                .findFirst()
+                .orElseThrow();
+
+        m.setCurrentTask("Cut Greens", Expertise.SALAD_EXPERTISE);
+        String actual = m.assignTask();
+        String expected = "\nNo Available Chefs At The Moment!\n";
+        assertEquals(expected, actual);
+
+        assertTrue(actualChef.getMyTasks().isEmpty());
 
     }
     @When("I attempt to assign the task")
     public void i_attempt_to_assign_the_task() {
         // Write code here that turns the phrase above into concrete actions
+    m.setCurrentTask("Prepare Dish X", Expertise.MULTI_CUISINE_EXPERTISE);
+    String actual = m.assignTask();
+    String expected = "\nNo Available Chefs At The Moment!\n";
+    assertEquals(expected, actual);
+        Chef actualChef = m.getAvailableChefs()
+                .stream()
+                .filter(c -> c.getName().equals("Nour"))
+                .findFirst()
+                .orElseThrow();
+
+       expected ="Tasks: ";
+        assertEquals(expected, actualChef.printCurrentTasks());
+
+
 
     }
 

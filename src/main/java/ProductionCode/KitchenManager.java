@@ -34,7 +34,7 @@ public class KitchenManager {
 
     public String assignTask() {
         for(Chef chef: availableChefs){
-            if(chef.getMyExpertise()==currentTask.taskExpertise && chef.getWorkLoad()<=5){
+            if(chef.getMyExpertise()==currentTask.taskExpertise && chef.getWorkLoad()<5){
                 chef.addTask(currentTask);
                 currentTask = new Task();
                 return "\nTask Assigned To: "+chef.getName()+"\n";
