@@ -11,7 +11,7 @@ Feature: Task Assignment for Chefs
     Then it should be assigned to Chef Alice
 
   Scenario: Avoid overloading a chef
-    Given Chef Bob specializes in grilling with a workload of 5
+    Given Chef Bob specializes in grilling with a workload of 4
     And the task "Grill steaks" requires grilling expertise
     When I assign the task
     Then it should be assigned to Chef Bob

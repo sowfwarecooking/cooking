@@ -5,26 +5,21 @@ import java.util.ArrayList;
 
 public class Chef {
 
+    ArrayList<Task> myTasks = new ArrayList<>();
+
     public Chef(){};
-    public Chef(String name, expertise chefExpertise){
+    public Chef(String name, Expertise chefExpertise){
         this.name = name;
         this.myExpertise=chefExpertise;
     }
-    public Chef(String name, expertise chefExpertise, int WorkLoad){
+    public Chef(String name, Expertise chefExpertise, int WorkLoad){
         this.name = name;
         this.myExpertise=chefExpertise;
         this.workLoad = WorkLoad;
     }
-    public enum expertise{
-        PASTRY_EXPERTISE,
-        GRILLING_EXPERTISE,
-        SALAD_EXPERTISE,
-        SEAFOOD_EXPERTISE,
-        MULTI_CUISINE_EXPERTISE;
-    }
 
     int workLoad;
-    expertise myExpertise;
+    Expertise myExpertise;
     String name;
 
     public String getName() {
@@ -43,23 +38,19 @@ public class Chef {
         this.workLoad = workLoad;
     }
 
-    public expertise getMyExpertise() {
+    public Expertise getMyExpertise() {
         return myExpertise;
     }
 
-    public void setMyExpertise(expertise myExpertise) {
+    public void setMyExpertise(Expertise myExpertise) {
         this.myExpertise = myExpertise;
     }
-
-
-
-
 
     String ingredientChangeMessage  = "";
     ArrayList<String> approvedOrder =new ArrayList<>();
 
 
-
+//
     public void viewCustomerProfile(CustomerProfile profile) {
         if (profile != null) {
             System.out.println("Customer: " + profile.getCustomerName());
@@ -69,7 +60,7 @@ public class Chef {
             System.out.println("No customer profile found.");
         }
     }
-
+//
     public String getIngredientChangeMessage() {
         return this. ingredientChangeMessage;
     }
@@ -101,6 +92,20 @@ public class Chef {
         i.substituteDesiredIngredients(toBeSubbed, subbedWith, this);
         this.approveOrder(i);
         return "\nChef Substituted Ingredient Successfully\n";
+    }
+    public void addTask(Task t){
+        myTasks.add(t);
+        this.workLoad++;
+    }
+    public ArrayList<Task> getMyTasks(){
+        return myTasks;
+    }
+    public String printCurrentTasks(){
+        String s = "Tasks: ";
+        for(Task t: myTasks){
+            s+="\n"+t.getTaskName();
+        }
+        return s;
     }
 
 }
