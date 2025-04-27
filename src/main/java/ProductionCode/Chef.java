@@ -6,6 +6,7 @@ import java.util.ArrayList;
 public class Chef {
 
     ArrayList<Task> myTasks = new ArrayList<>();
+    String notificationMessage="";
 
     public Chef(){};
     public Chef(String name, Expertise chefExpertise){
@@ -96,7 +97,13 @@ public class Chef {
     public void addTask(Task t){
         myTasks.add(t);
         this.workLoad++;
+        this.setNotificationMessage("New Task Added: "+t.getTaskName()+"\n");
     }
+
+    private void setNotificationMessage(String s) {
+        this.notificationMessage = s;
+    }
+
     public ArrayList<Task> getMyTasks(){
         return myTasks;
     }
@@ -108,4 +115,23 @@ public class Chef {
         return s;
     }
 
+    public void clearCurrentTasks() {
+        myTasks.clear();
+    }
+
+    public String completedTask(String s) {
+        for(Task t:myTasks){
+            if(s.equalsIgnoreCase(t.getTaskName())){
+                this.myTasks.remove(t);
+                return (t.getTaskName()+" COMPLETED!\n");
+            }
+        }
+        return"No Such Task Found!\n";
+
+    }
+
+    public String getNotificationMessage() {
+
+        return notificationMessage;
+    }
 }
