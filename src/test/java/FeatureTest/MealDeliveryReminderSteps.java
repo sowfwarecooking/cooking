@@ -1,13 +1,28 @@
 package FeatureTest;
 
+import ProductionCode.Customer;
+import ProductionCode.deliveryAlertManager;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 public class MealDeliveryReminderSteps {
     @Given("a delivery is scheduled for tomorrow")
     public void a_delivery_is_scheduled_for_tomorrow() {
-        // Write code here that turns the phrase above into concrete actions
+        // Write code here that turns the phrase above into concrete action
+deliveryAlertManager m = new deliveryAlertManager();
+
+String expected = "03-05-2025 21:30";
+
+m.setCurrentDeliveryTimeString(expected);
+
+String actual = m.getCurrentDeliveryTimeString();
+
+assertEquals(expected, actual);
+        System.out.println(m.getTargetDateTime());
+
 
     }
     @When("the system checks reminders")
