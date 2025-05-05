@@ -1,7 +1,5 @@
 package FeatureTest;
-import ProductionCode.Chef; // Import your service class
-import ProductionCode.CustomerProfile;
-import ProductionCode.CustomerProfileService;
+import ProductionCode.*; // Import your service class
 import static org.junit.jupiter.api.Assertions.*;
 import io.cucumber.java.en.*;
 import java.util.*;
