@@ -52,6 +52,15 @@ public class recipeAssistant {
     public String sugestmeal(){
         String response = app.sugestmeal(restrictions);
         return  response;
-}
 
+}
+public String sugestMealBeasdonTime(int time){
+    String response = app.promrtBestTime(time);
+    return response;
+    }
+
+    public String sugestmealOningredint() {
+        String response = app.sugestmealBasedONIngredients(getTime(), getRestrictions(), getIngredient());
+        return response;
+    }
 }
