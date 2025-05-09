@@ -20,7 +20,7 @@ public class recipeAssistant {
         this.app = new llmConnction();
     }
     public recipeAssistant(){
-
+        this.app = new llmConnction();
     }
     public  void setIngredient(String ingredient) {
         this.ingredient = ingredient;

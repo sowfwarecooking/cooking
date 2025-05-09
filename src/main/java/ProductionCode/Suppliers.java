@@ -11,6 +11,9 @@ public class Suppliers {
     public Map<String, LinkedHashMap<Float, Float>> suppliers3 = new HashMap<>();
     List<String> filePaths = Arrays.asList("data/supplier1.txt", "data/supplier2.txt", "data/supplier3.txt");
 
+    public Suppliers() throws IOException {
+        loadFromFiles();
+    }
     public void loadFromFiles() throws IOException {
         readFromFiles(filePaths);
     }
@@ -87,6 +90,54 @@ public class Suppliers {
         return path;  // Returns the supplier with the best price
     }
 
+    public float getBest(String ingredient, float quantity) {
+        Float bestPrice = Float.MAX_VALUE;
+
+        // Get the stock and prices for each supplier
+        LinkedHashMap<Float, Float> supply1 = suppliers1.getOrDefault(ingredient, new LinkedHashMap<>());
+        LinkedHashMap<Float, Float> supply2 = suppliers2.getOrDefault(ingredient, new LinkedHashMap<>());
+        LinkedHashMap<Float, Float> supply3 = suppliers3.getOrDefault(ingredient, new LinkedHashMap<>());
+
+        System.out.println("Checking best price for: " + ingredient + ", quantity: " + quantity);
+
+        // Check supplier 1
+        for (Map.Entry<Float, Float> entry : supply1.entrySet()) {
+            Float stock = entry.getKey();
+            Float price = entry.getValue();
+            System.out.println("Supplier 1 - Stock: " + stock + ", Price: " + price);
+            if (quantity <= stock && Float.compare(price, bestPrice) < 0) {
+                bestPrice = price;
+            }
+        }
+
+        // Check supplier 2
+        for (Map.Entry<Float, Float> entry : supply2.entrySet()) {
+            Float stock = entry.getKey();
+            Float price = entry.getValue();
+            System.out.println("Supplier 2 - Stock: " + stock + ", Price: " + price);
+            if (quantity <= stock && Float.compare(price, bestPrice) < 0) {
+                bestPrice = price;
+            }
+        }
+
+        // Check supplier 3
+        for (Map.Entry<Float, Float> entry : supply3.entrySet()) {
+            Float stock = entry.getKey();
+            Float price = entry.getValue();
+            System.out.println("Supplier 3 - Stock: " + stock + ", Price: " + price);
+            if (quantity <= stock && Float.compare(price, bestPrice) < 0) {
+                bestPrice = price;
+            }
+        }
+
+        // If no suitable price was found, return 0
+        if (bestPrice == Float.MAX_VALUE) {
+            return 0;
+        }
+
+        System.out.println("Best price found: " + bestPrice);
+        return bestPrice;  // Return the best price found
+    }
     public void editTheStock(String ingredient, float quant) {
 
     }
@@ -181,12 +232,14 @@ public class Suppliers {
     }
 
     public static void main(String[] args) throws IOException {
-        Suppliers supplierObj = new Suppliers();
-        supplierObj.loadFromFiles();
-        LinkedHashMap<Float, Float> suppliers = supplierObj.suppliers1.getOrDefault("pepper", new LinkedHashMap<>());
-        supplierObj.editStock("pepper",5);
+        // Initialize the finance object or Suppliers object
+        Suppliers supplierObj = new Suppliers(); // Assuming Suppliers class has a default constructor
+        //supplierObj.loadFromFiles(); // Ensure that this method loads the data into the suppliers maps
 
-
+        // Now call getBest() correctly using an instance of Suppliers
+        float bestPrice = supplierObj.getBest("pepper", 2); // Assuming the method is in Suppliers and takes ingredient and quantity
+        System.out.println("Best price for pepper with quantity 2: " + bestPrice);
     }
+
 
 }

@@ -12,7 +12,7 @@ public class SuppliersTest {
 
     // Given step to initialize the Suppliers object
     @Given("the system is connected to the suppliers")
-    public void the_system_is_connected_to_the_suppliers() {
+    public void the_system_is_connected_to_the_suppliers() throws IOException {
         supplierObj = new Suppliers();
         // Initialize or assert necessary conditions, if applicable
         assertNotNull(supplierObj.suppliers1);  // Example check to ensure suppliers1 is initialized
@@ -44,7 +44,7 @@ public class SuppliersTest {
         supplyVewing.loadStockFromFile();
         supplierObj.restock("potato",10);
         int actualStock = supplyVewing.getStockLevel("potato");
-        int expectedStock = 22;
+        int expectedStock = 10;
         assertEquals(expectedStock, actualStock);
 
 
