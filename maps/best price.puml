@@ -1,0 +1,21 @@
+@startuml
+'https://plantuml.com/use-case-diagram
+
+: Admin: as Admin
+
+
+
+kitchen ---> (shortage)
+(shortage)---> Admin
+Admin ---> (price)
+supplier1 --> (price)
+supplier2 --> (price)
+supplier3 --> (price)
+kitchen <|-- (price)
+
+
+
+
+
+
+@enduml

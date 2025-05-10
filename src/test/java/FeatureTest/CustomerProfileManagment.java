@@ -1,7 +1,5 @@
 package FeatureTest;
-import ProductionCode.Chef; // Import your service class
-import ProductionCode.CustomerProfile;
-import ProductionCode.CustomerProfileService;
+import ProductionCode.*; // Import your service class
 import static org.junit.jupiter.api.Assertions.*;
 import io.cucumber.java.en.*;
 import java.util.*;
@@ -14,7 +12,7 @@ public class CustomerProfileManagment {
     @Given("a customer with an empty profile")
     public void a_customer_with_an_empty_profile() {
         customerProfileService = new CustomerProfileService();
-        customerProfile = null;  // No profile created yet
+        customerProfile = null;
     }
 
     @When("the customer inputs dietary preferences {string} and allergies {string}")
@@ -24,6 +22,7 @@ public class CustomerProfileManagment {
 
         customerProfileService.addCustomerProfile("John Doe", preferenceList, allergyList);
         customerProfile = customerProfileService.getCustomerProfile("John Doe");
+        customerProfile.addCustomerProfile("John Doe", preferenceList, allergyList);
     }
 
     @Then("the system should store the preferences and allergies")

@@ -1,7 +1,7 @@
 Feature: User Login
 
   Scenario: Successful login with correct credentials
-    Given a registered user "john_doe" with password "SecurePass123"
+    Given a registered user "admin" with password "SecurePass123"
     When the user enters username "john_doe" and password "SecurePass123"
     Then the system should authenticate the user and grant access
 
