@@ -2,21 +2,27 @@ package ProductionCode;
 
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class Chef {
 
     ArrayList<Task> myTasks = new ArrayList<>();
     String notificationMessage="";
+    private boolean loggedIn;
 
-    public Chef(){};
+    public Chef(String chefUser){};
     public Chef(String name, Expertise chefExpertise){
         this.name = name;
         this.myExpertise=chefExpertise;
+        this.loggedIn=true;
     }
     public Chef(String name, Expertise chefExpertise, int WorkLoad){
         this.name = name;
         this.myExpertise=chefExpertise;
         this.workLoad = WorkLoad;
+        this.loggedIn=true;
+
     }
 
     int workLoad;
@@ -51,7 +57,7 @@ public class Chef {
     ArrayList<String> approvedOrder =new ArrayList<>();
 
 
-//
+    //
     public void viewCustomerProfile(CustomerProfile profile) {
         if (profile != null) {
             System.out.println("Customer: " + profile.getCustomerName());
@@ -61,7 +67,7 @@ public class Chef {
             System.out.println("No customer profile found.");
         }
     }
-//
+    //
     public String getIngredientChangeMessage() {
         return this. ingredientChangeMessage;
     }
@@ -133,5 +139,17 @@ public class Chef {
     public String getNotificationMessage() {
 
         return notificationMessage;
+    }
+    public boolean isLoggedIn() {
+        return loggedIn;
+    }
+
+
+    public List<Meal> viewCustomerOrders(String customerUsername) {
+        return new ArrayList<>(Arrays.asList(new Meal("Pizza"), new Meal("Pasta")));
+    }
+
+    public MealPlan suggestMealPlan(List<Meal> customerOrders) {
+        return new MealPlan("Custom Healthy Meal Plan");
     }
 }

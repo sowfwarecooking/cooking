@@ -46,7 +46,7 @@ public class CustomerProfileManagment {
 
     @When("a chef views the customer profile")
     public void a_chef_views_the_customer_profile() {
-        chef = new Chef();
+        chef = new Chef("chefUser");
         chef.viewCustomerProfile(customerProfile);  // Simulating viewing the profile
     }
 

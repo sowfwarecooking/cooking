@@ -4,7 +4,6 @@ import ProductionCode.Ingredients;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import io.cucumber.java.sl.In;
 
 import java.util.ArrayList;
 
@@ -12,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class IngredientSubstitutionAlertsSteps {
-    Chef c = new Chef();
+    Chef c = new Chef("chefUser");
     @Given("{string} is unavailable in a recipe")
     public void is_unavailable_in_a_recipe(String string) {
         // Write code here that turns the phrase above into concrete actions
@@ -24,7 +23,7 @@ public class IngredientSubstitutionAlertsSteps {
     public void is_substituted(String string) {
         // Write code here that turns the phrase above into concrete actions
     Ingredients i = new Ingredients();
-    Chef c = new Chef();
+    Chef c = new Chef("chefUser");
     i.addAvailableIngredients("a","b","c","d");
     i.addDesiredIngredients(c,"a","B","c");
         System.out.println(i.getSelectedIngredients());
@@ -75,7 +74,7 @@ public class IngredientSubstitutionAlertsSteps {
     @When("the chef approves {string}")
     public void the_chef_approves(String string) {
         // Write code here that turns the phrase above into concrete actions
-        Chef c = new Chef();
+        Chef c = new Chef("chefUser");
         Ingredients i = new Ingredients();
         i.addAvailableIngredients("a","b","c",string);
         i.addDesiredIngredients(c,"a","b",string);
@@ -90,7 +89,7 @@ public class IngredientSubstitutionAlertsSteps {
         // Write code here that turns the phrase above into concrete actions
         //--------------->Continue tomorrow!!!!!!!!!!
         String string = "d";
-        Chef c = new Chef();
+        Chef c = new Chef("chefUser");
         Ingredients i = new Ingredients();
         i.addAvailableIngredients("a","b","c",string);
         i.addDesiredIngredients(c,"a","b",string);
@@ -104,7 +103,7 @@ public class IngredientSubstitutionAlertsSteps {
     public void the_approval_logged() {
         // Write code here that turns the phrase above into concrete actions
         String string = "d";
-        Chef c = new Chef();
+        Chef c = new Chef("chefUser");
         Ingredients i = new Ingredients();
         i.addAvailableIngredients("a","b","c",string);
         i.addDesiredIngredients(c,"a","b",string);
@@ -115,7 +114,7 @@ public class IngredientSubstitutionAlertsSteps {
     @When("the chef selects {string}")
     public void the_chef_selects(String string) {
         // Write code here that turns the phrase above into concrete actions
-        Chef c = new Chef();
+        Chef c = new Chef("chefUser");
         Ingredients i = new Ingredients();
         i.addAvailableIngredients("a","b","c",string);
         i.addDesiredIngredients(c,"a","b");
@@ -143,7 +142,7 @@ public class IngredientSubstitutionAlertsSteps {
     @Then("the recipe is updated with {string}")
     public void the_recipe_is_updated_with(String string) {
         // Write code here that turns the phrase above into concrete actions
-        Chef c = new Chef();
+        Chef c = new Chef("chefUser");
         Ingredients i = new Ingredients();
         i.addAvailableIngredients("a","b","c",string);
         i.addDesiredIngredients(c,"a","b");
@@ -155,7 +154,7 @@ public class IngredientSubstitutionAlertsSteps {
     @Then("the adjustment logged.")
     public void the_adjustment_logged() {
         // Write code here that turns the phrase above into concrete actions
-        Chef c = new Chef();
+        Chef c = new Chef("chefUser");
         Ingredients i = new Ingredients();
         i.addAvailableIngredients("a","b","c");
         i.addDesiredIngredients(c,"a","b");

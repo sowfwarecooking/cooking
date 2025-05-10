@@ -37,7 +37,7 @@ public class Order {
          for(int i=1; i<this.ingredients.size();i++){
             s+=", "+this.ingredients.get(i);
          }
-         JOptionPane.showMessageDialog(null,mealCreatedSuccessfullyMessage());
+         //JOptionPane.showMessageDialog(null,mealCreatedSuccessfullyMessage());
 
       }
       else{s=selectIngredientsMessage();}
@@ -51,7 +51,7 @@ public class Order {
          for(int i=0; i<this.ingredients.size();i++){
             s+=", "+this.ingredients.get(i);
          }
-         JOptionPane.showMessageDialog(null,mealCreatedSuccessfullyMessage());
+         //JOptionPane.showMessageDialog(null,mealCreatedSuccessfullyMessage());
       }
       else{s=selectIngredientsMessage();}
       return s;

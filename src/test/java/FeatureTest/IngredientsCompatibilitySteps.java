@@ -12,7 +12,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class IngredientsCompatibilitySteps {
-    Chef c= new Chef();
+    Chef c= new Chef("chefUser");
     @Given("the following available ingredients:")
     public void theFollowingAvailableIngredients(io.cucumber.datatable.DataTable dataTable) {
         Ingredients i = new Ingredients();
@@ -39,7 +39,7 @@ public class IngredientsCompatibilitySteps {
     @Then("the meal request is valid")
     public void theMealRequestIsValid() {
         // Write code here that turns the phrase above into concrete actions
-        Chef c = new Chef();
+        Chef c = new Chef("chefUser");
         Ingredients i = new Ingredients();
         String string = "tomato";
         String string1 = "onion";

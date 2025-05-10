@@ -8,7 +8,6 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
-import java.sql.SQLOutput;
 import java.util.ArrayList;
 
 import static org.junit.Assert.*;
@@ -16,7 +15,7 @@ import static org.junit.Assert.*;
 public class IngredientSubstitutionSteps {
     Order myOrder = new Order();
     IngredientSubManager i = new IngredientSubManager();
-    Chef c = new Chef();
+    Chef c = new Chef("chefUser");
 
     void initializeOrder(){
         i.setAlternativeVeganIngredients("Vegan Meat");
