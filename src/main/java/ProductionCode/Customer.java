@@ -82,8 +82,5 @@ public class Customer {
         return true;
     }
 
-    public static void main(String[] args) {
-        Customer customer = new Customer("admin", "Vegetarian", "Peanuts");
-        System.out.println("Order History: " + customer.viewOrderHistory("admin"));
-    }
+
 }

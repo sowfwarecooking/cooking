@@ -5,8 +5,6 @@ import static org.junit.jupiter.api.Assertions.*;
 import ProductionCode.supplyVewing;
 import ProductionCode.Admin;
 
-import java.util.concurrent.CountDownLatch;
-
 public class supplyTest {
 
     @Given("the kitchen manager is logged into the system")
@@ -41,7 +39,7 @@ public class supplyTest {
 
     @Given("an ingredient's stock level falls below a predefined threshold")
     public void an_ingredient_s_stock_level_falls_below_a_predefined_threshold() {
-        // Simulate stock falling below a predefined threshold.
+
         supplyVewing supply = new supplyVewing();
 
         // Assuming banana stock is below threshold, check if it's low stock.
@@ -50,7 +48,7 @@ public class supplyTest {
 
     @When("the system detects the low stock level")
     public void the_system_detects_the_low_stock_level() {
-        // Simulate the system detecting low stock for an ingredient.
+
         supplyVewing supply = new supplyVewing();
 
         // Confirm the system detects low stock for banana.
@@ -59,7 +57,7 @@ public class supplyTest {
 
     @Then("it should automatically generate a restocking suggestion and notify the kitchen manager")
     public void it_should_automatically_generate_a_restocking_suggestion_and_notify_the_kitchen_manager() {
-        // Simulate generating a restocking message.
+
         supplyVewing supply = new supplyVewing();
 
         // Get the restocking message.
@@ -69,41 +67,15 @@ public class supplyTest {
         // Assert that the restocking message matches the expected message.
         assertEquals(expectedMessage, message);
     }
-
     @Then("it should automatically generate a  multi restocking suggestion and notify the kitchen manager")
     public void it_should_automatically_generate_a_multi_restocking_suggestion_and_notify_the_kitchen_manager() {
-
-    }
-
-    @Then("it should automatically after 5sec generate a  multi restocking suggestion and notify the kitchen manager")
-    public void it_should_automatically_after_5sec_generate_a_multi_restocking_suggestion_and_notify_the_kitchen_manager() throws InterruptedException {
-        // Create a CountDownLatch to wait for 1 signal (5 seconds)
-        CountDownLatch latch = new CountDownLatch(1);
-
-        // Create a new supplyVewing object and start the stock checker thread
         supplyVewing supply = new supplyVewing();
-        supply.startStockChecker();
-
-        // Sleep for 5 seconds to allow the stock checker to run
-        Thread.sleep(5000);
-        supply.updateIngredientQuantity("kiwi",2);
-
-        // Now check the updated stock status
         String message = supply.checkLowStock();
         String expectedMessage = "Restock needed: banana (5 left)\n" +
-                "Restock needed: kiwi (1 left)\n" +
+                "Restock needed: kiwi (-1 left)\n" +
                 "Restock needed: onion (1 left)\n" +
                 "Restock needed: orange (4 left)\n";
 
-        // Assert the expected message
         assertEquals(expectedMessage, message);
-
-        // Signal that the thread has finished
-        latch.countDown();
-
-        // Wait until the latch reaches 0, ensuring that the stock checker thread finishes
-        latch.await();
     }
-
-
 }

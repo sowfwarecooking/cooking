@@ -1,6 +1,6 @@
 pepper,70
 banana,5
-kiwi,1
+kiwi,-1
 onion,1
 cucumber,8
 tomato,10

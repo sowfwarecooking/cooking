@@ -10,17 +10,15 @@ import java.util.Scanner;
 
 public class llmConnction {
 
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Enter dietary restriction: ");
-        String restriction = scanner.nextLine();
 
-        llmConnction app = new llmConnction();
-        String meal = app.sugestmeal(restriction);
-        System.out.println("Suggested meal: " + meal);
-    }
-
-    // Builds the prompt with correct formatting
+    /**
+     * Generates a prompt string based on a dietary restriction.
+     *
+     * @author Mohammed Saeed Enab
+     * @date 2025-08-10
+     * @param restriction The dietary restriction to consider (e.g., vegetarian, gluten-free).
+     * @return A prompt string requesting a single meal name based on the given restriction.
+     */
     String promrtMaker(String restriction) {
         return "Given the following information:\n\n" +
                 "Dietary restriction: " + restriction + "\n\n" +
@@ -28,6 +26,14 @@ public class llmConnction {
                 "if it was not possible to find a suitable meal, just say 'no suitable meal found'"+
                 "if you find one just add " + restriction + " to it";
     }
+
+    /***
+     *
+     * @author Mohammed Saeed Enab
+     * @date 2025-08-10
+     * @param time
+     * @return A prompt string requesting a single meal name based on the given time
+     */
     String promrtBestTime(int time) {
         return "Given the following information:\n\n" +
                 "Time: " + time + "\n\n" +
@@ -36,6 +42,14 @@ public class llmConnction {
                 "if you find one just add " + time + " to it";
 
     }
+
+    /***
+     *
+     * @param time
+     * @param restriction
+     * @param ingredient
+     * @return A prompt string requesting a single meal name based on the given restriction , available ingredient and time
+     */
     String promrtAll(int time , String restriction , String ingredient) {
         return "Given the following information:\n\n" +
                 "Time: " + time + "\n\n" +
@@ -121,6 +135,19 @@ public class llmConnction {
 
     }
 
+    /***
+     * Sends a dietary restriction prompt to the OpenRouter API and retrieves a suggested meal name.
+     * <p>
+     * The response will contain the name of a meal that fits the specified dietary restriction,
+     * or a message indicating that no suitable meal was found.
+     * @auther Mohammed Saeed Enab
+     * @date 2025-08-10
+     *
+     * @param restriction The user's dietary restriction (e.g., "vegan", "gluten-free").
+     * @return A string containing either the name of a suitable meal or a fallback message.
+
+     */
+
     public String sugestmeal(String restriction ) {
         String reply = null;
 
@@ -194,6 +221,19 @@ public class llmConnction {
 
         return reply;
     }
+
+    /***
+     **
+     * Sends a prompt to the OpenRouter API to suggest a meal based on preparation time,
+     * dietary restriction, and a key ingredient.
+     * <p>
+     * The API is expected to return a detailed meal suggestion suitable for the input parameters.
+     *
+     * @param time        The maximum cooking time allowed (in minutes).
+     * @param restriction The dietary restriction to follow.
+     * @param ingredient  A key ingredient the user wants in the meal.
+     * @return A string containing the suggested meal description, or a fallback message.
+     */
 
     public String sugestmealBasedONIngredients(int time , String restriction , String ingredient) {
         String reply = null;

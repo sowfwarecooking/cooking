@@ -50,16 +50,5 @@ public class CustomerProfile {
 
     }
 
-    public static void main(String[] args) {
-        // Sample customer profile
-        String name = "tester122";
-        CustomerProfile customer = new CustomerProfile(name,
-                Arrays.asList("Vegetarian"),
-                Arrays.asList("Peanuts", "Shellfish"));
 
-        // Add profile to file
-        customer.addCustomerProfile(customer.getCustomerName(),
-                customer.getDietaryPreferences(),
-                customer.getAllergies());
-    }
 }
