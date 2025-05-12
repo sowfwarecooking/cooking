@@ -17,4 +17,7 @@ public class User {
     public boolean validatePassword(String inputPassword) {
         return this.password.equals(inputPassword);
     }
+
+    public static class genratePDF {
+    }
 }

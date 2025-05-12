@@ -1,17 +1,20 @@
 package FeatureTest;
 
 import ProductionCode.Admin;
+import ProductionCode.CookReportPDF;
 import ProductionCode.finance;
-import io.cucumber.java.en.*;
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 
+import java.io.File;
 import java.io.IOException;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 public class balanceSteps {
-    finance F = new finance(); // Make sure this is initialized
-
+    finance F = new finance();
+    CookReportPDF reportPDF = new CookReportPDF(F);
     public balanceSteps() throws IOException {
     }
 
@@ -55,6 +58,34 @@ public class balanceSteps {
         float expectedBalance = 981f;
 
         assertEquals(expectedBalance, F.getBalance(), 0.01f);
+
+    }
+
+    @When("i request a pdf")
+    public void iRequestAPdf() {
+
+    }
+
+    @Then("i should see balance history")
+    public void iShouldSeeBalanceHistory() throws IOException {
+        finance financeOBJ = new finance();
+        financeOBJ.buy("pepper",2);
+        financeOBJ.buy("kiwi",5);
+        financeOBJ.buy("Carrot",3);
+        System.out.println(financeOBJ.printHistory());
+        String expicted = "13-05-2025:\n" +
+                "  pepper - Quantity: 2 - Price: $4.0\n" +
+                "  kiwi - Quantity: 5 - Price: $15.0\n";
+        assertEquals(expicted, financeOBJ.printHistory());
+    }
+
+    @Then("i should see the pdf file")
+    public void iShouldSeeThePdfFile() {
+        String path = "reports/test.pdf";
+        File file = new File(path);
+        assertFalse("File does not exist",file.exists());
+        reportPDF.generateReportPDF(path);
+        assertTrue("File does exist ", file.exists());
 
     }
 }
