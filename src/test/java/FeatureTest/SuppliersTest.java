@@ -1,14 +1,22 @@
 package FeatureTest;
 
-import io.cucumber.java.en.*;
-import static org.junit.Assert.*;
 import ProductionCode.Suppliers;
+import io.cucumber.java.en.And;
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
+import org.junit.Test;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.junit.Assert.*;
 
 public class SuppliersTest {
 
     private Suppliers supplierObj;
+    private Object Arrays;
 
     // Given step to initialize the Suppliers object
     @Given("the system is connected to the suppliers")
@@ -39,4 +47,18 @@ public class SuppliersTest {
     @And("the system should reload the stock")
     public void theSystemShouldReloadTheStock() {
     }
-}
+    @Test
+    public void lessThan3Suppliers() throws IOException {
+        Suppliers supplierObj = new Suppliers();
+
+        // Manually create a List using ArrayList
+        List<String> filePaths = new ArrayList<>();
+        filePaths.add("data/supplier1.txt");
+        filePaths.add("data/supplier2.txt");
+        // No need to add a third file to trigger the exception
+
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            supplierObj.readFromFiles(filePaths);
+        });}}
+
+

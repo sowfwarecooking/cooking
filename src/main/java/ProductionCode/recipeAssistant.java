@@ -1,66 +1,53 @@
 package ProductionCode;
-import org.json.JSONArray;
-import org.json.JSONObject;
-
-import java.io.*;
-import java.net.*;
 
 public class recipeAssistant {
 
-    String ingredient;
-    int time;
-    String restrictions;
-    String recommendation;
-    llmConnction app = new llmConnction();
+    private String ingredient;
+    private int time;
+    private String restrictions;
+    private String recommendation;
+    private llmConnction app;
 
-    public recipeAssistant(String ingredient, int time, String restrictions) {
-        this.ingredient = ingredient;
-        this.time = time;
-        this.restrictions = restrictions;
+
+    public recipeAssistant() {
         this.app = new llmConnction();
     }
-    public recipeAssistant(){
-        this.app = new llmConnction();
-    }
-    public  void setIngredient(String ingredient) {
+
+    public void setIngredient(String ingredient) {
         this.ingredient = ingredient;
     }
+
     public void setTime(int time) {
         this.time = time;
     }
+
     public void setRestrictions(String restrictions) {
         this.restrictions = restrictions;
-    }
-
-    public String getRecommendation() {
-        return recommendation;
-    }
-
-    public void setRecommendation(String recommendation) {
-        this.recommendation = recommendation;
     }
 
     public String getIngredient() {
         return ingredient;
     }
+
     public int getTime() {
         return time;
     }
+
     public String getRestrictions() {
         return restrictions;
     }
-    public String sugestmeal(){
-        String response = app.sugestmeal(restrictions);
-        return  response;
 
-}
-public String sugestMealBeasdonTime(int time){
-    String response = app.promrtBestTime(time);
-    return response;
+    public String suggestMeal(String restriction) {
+        return app.suggestMeal(this.getRestrictions());
     }
 
-    public String sugestmealOningredint() {
-        String response = app.sugestmealBasedONIngredients(getTime(), getRestrictions(), getIngredient());
-        return response;
+    public String suggestMealBasedOnTime(int time) {
+        return app.suggetMealTime(time);
     }
+
+    public String suggestMealBasedOnIngredient(int i, String vegetarian, String checkin) {
+        return app.sugestmealBasedONIngredients(time, restrictions, ingredient);
+    }
+
+
 }

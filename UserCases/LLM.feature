@@ -1,21 +1,25 @@
 Feature: Recipe Recommendation Assistant
-  Background: seter up the recipe recommendation assistant
+  Background: Set up the recipe recommendation assistant
 
-  Scenario: chef provides dietary preferences
+  Scenario: Chef provides dietary preferences
     Given the user has a dietary preference of "vegetarian"
     When the user requests recipe recommendations
     Then the assistant should recommend only vegetarian recipes
 
-  Scenario: User requests recipes based on cooking time
-    Given the user wants recipes that take less than 30 minutes to cook
-    When the user requests recipe recommendations based on cooking time
-    Then the assistant should recommend recipes with a cooking time of less than 30 minutes
+  Scenario: Chef provides unmatched dietary preferences with ingredients
+    Given the user has a dietary preference of "vegan" and ingredients "beef" and time "1"
+    When the user requests recipe recommendations based on unmatch
+    Then the assistant should return No suitable meal
 
-    Scenario: user requests recipes based on cooking time and dietary preferences and available ingredient and dietary preferences
-    Given the user has a dietary preference is "keto"
-    And the user wants recipes that take  30 minutes to cook
-    And the user has a ingredient of "chicken breast , pasta , tomato"
-    When the user requests recipe recommendations based on cooking time and dietary preferences and available ingredient and dietary preferences
-    Then the assistant should recommend recipes with a cooking time of less than 30 minutes and dietary preferences of keto
-
-
+  Scenario: Chef provides unmatched dietary preferences without enter
+    Given the user has a entered of nothing
+    When the user requests recipe recommendations of nothing
+    Then the assistant should return Nothing
+    Scenario: chef provide time for cooking
+    Given the chef entered the time for cooking
+    When the user requests recipe recommendations
+    Then the assistant should recommend recipes that can be cooked in the given time
+      Scenario: chef provide ingredients and restrictions and time for cooking
+      Given the chef entered the time for cooking and ingredients and restrictions
+      When the user requests recipe recommendations
+      Then the assistant should know recommend recipes t

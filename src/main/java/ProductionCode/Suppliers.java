@@ -49,18 +49,7 @@ public class Suppliers {
         return dataMap;
     }
 
-    public void displaySuppliersData() {
-        System.out.println("Supplier 1:");
-        suppliers1.forEach((key, value) -> System.out.println(key + ": " + value));
 
-        System.out.println("\nSupplier 2:");
-        suppliers2.forEach((key, value) -> System.out.println(key + ": " + value));
-
-        System.out.println("\nSupplier 3:");
-        suppliers3.forEach((key, value) -> System.out.println(key + ": " + value));
-
-
-    }
 
     public Float getBestPrice(String ingredient) {
         Float bestPrice = Float.MAX_VALUE;

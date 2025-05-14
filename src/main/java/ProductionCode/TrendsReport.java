@@ -1,24 +1,30 @@
 package ProductionCode;
 
-import java.io.*;
-import java.util.Arrays;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.HashMap;
-import java.util.LinkedHashSet;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 public class TrendsReport {
     private String reportDetails;
     private HashMap<String,Integer> orderCounts = new HashMap<>();
+    private String filePath;
 
     public TrendsReport(String reportDetails) {
-
+        this.filePath= "data/order.txt";
         this.reportDetails = reportDetails;
     }
-
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
+    }
+    String getFilePath() {
+        return filePath;
+    }
     public void loadOrdersFromFile() {
         orderCounts.clear();
-        try (BufferedReader br = new BufferedReader(new FileReader("data/order.txt"))) {
+        try (BufferedReader br = new BufferedReader(new FileReader(this.getFilePath()))) {
             String line;
             while ((line = br.readLine()) != null) {
                 String[] order = line.split(",");
@@ -69,9 +75,5 @@ public class TrendsReport {
                 .collect(Collectors.joining("\n")); // Join them with a newline
     }
 
-    public static void main(String[] args) {
-        TrendsReport report = new TrendsReport("Trends Report");
-        report.loadOrdersFromFile();
-        System.out.println(report.analyzeOrderTrends());
-    }
+
 }

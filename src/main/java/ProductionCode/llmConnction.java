@@ -3,310 +3,270 @@ package ProductionCode;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.Scanner;
 
 public class llmConnction {
 
+  private static   String apiKey;
+  private EnvLoader env ;
 
+    llmConnction() {
+        env = new EnvLoader();
+        apiKey = env.loadEnv("key.env").get("API_KEY");
+    }
     /**
      * Generates a prompt string based on a dietary restriction.
-     *
-     * @author Mohammed Saeed Enab
-     * @date 2025-08-10
-     * @param restriction The dietary restriction to consider (e.g., vegetarian, gluten-free).
-     * @return A prompt string requesting a single meal name based on the given restriction.
      */
     String promrtMaker(String restriction) {
         return "Given the following information:\n\n" +
                 "Dietary restriction: " + restriction + "\n\n" +
-                "Give me the name of just one meal. No ingredients or how to make it. Just give me the name. no other information no greadding just the name of the name no intoddaction\n" +
-                "if it was not possible to find a suitable meal, just say 'no suitable meal found'"+
-                "if you find one just add " + restriction + " to it";
+                "Give me the name of just one meal. No ingredients or how to make it. Just give me the name. No other information, no greeting, just the name. No introduction.\n" +
+                "If it was not possible to find a suitable meal, just say 'no suitable meal found.'\n" +
+                "If you find one, just add " + restriction + " to it.";
     }
 
-    /***
-     *
-     * @author Mohammed Saeed Enab
-     * @date 2025-08-10
-     * @param time
-     * @return A prompt string requesting a single meal name based on the given time
+    /**
+     * Generates a prompt string based on the time.
      */
-    String promrtBestTime(int time) {
-        return "Given the following information:\n\n" +
-                "Time: " + time + "\n\n" +
-                "Give me the name of just one meal. No ingredients or how to make it. Just give me the name. no other information no greadding just the name of the name no intoddaction\n" +
-                "if it was not possible to find a suitable meal, just say 'no suitable meal found'"+
-                "if you find one just add " + time + " to it";
-
+    String promptExactMealTime(int time) {
+        return "Given the time constraint of " + time + " minutes, determine the name of a suitable meal that can be prepared exactly within that time. " +
+                "If a suitable meal is found, return just the meal name followed by the exact time it takes to prepare in minutes. " +
+                "If no meal can be prepared within the exact given time, respond with 'not suitable'.\n\n" +
+                "Example Input: \"I have " + time + " minutes to make a meal.\"\n" +
+                "Expected Output: \"Spaghetti Aglio e Olio - " + time + " minutes\" (if a suitable meal is found).\n" +
+                "Expected Output: \"not suitable\" (if no meal can be prepared in the exact given time).";
     }
 
-    /***
-     *
-     * @param time
-     * @param restriction
-     * @param ingredient
-     * @return A prompt string requesting a single meal name based on the given restriction , available ingredient and time
+    /**
+     * Generates a prompt string based on time, restriction, and ingredient.
      */
-    String promrtAll(int time , String restriction , String ingredient) {
-        return "Given the following information:\n\n" +
-                "Time: " + time + "\n\n" +
-                "Dietary restriction: " + restriction + "\n\n" +
-                "Ingredient: " + ingredient + "\n\n" +
-                "Give me the name of just one meal. No ingredients or how to make it. Just give me the name. no other information no greadding just the name of the name no intoddaction\n" +
-                "if it was not possible to find a suitable meal, just say 'no suitable meal found'";
-
+    String promptAll(int time, String restriction, String ingredient) {
+        return   "You are an AI assistant that recommends meal names based on the following input:\n" +
+                "- Time available to cook (in minutes)\n" +
+                "- Dietary restrictions\n" +
+                "- Provided ingredients\n\n" +
+                "Rules:\n" +
+                "1. Only suggest a meal that fits ALL the given ingredients, time, and dietary restrictions.\n" +
+                "2. The meal must be vegan if 'vegan' is specified — no animal products.\n" +
+                "3. Use all provided ingredients in the recipe. Do not suggest meals that exclude any of them.\n" +
+                "4. If a matching meal is found, reply only with the meal name followed by the total time it takes (e.g., 'Tomato Basil Soup - 40 minutes').\n" +
+                "5. If no meal matches, reply with 'not suitable'.\n\n" +
+                "Input:\n" +
+                "Time: " + time + " minutes\n" +
+                "Dietary restriction: " + restriction + "\n" +
+                "Ingredients: " + ingredient;
     }
 
-    public String timeSugest(int time) {
-        String reply = null;
-        String prompt = promrtBestTime(time);
-        reply = sugestmeal(prompt);
+
+    /**
+     * Sends a request to the OpenAI API to get a meal suggestion.
+     */
+    String suggestMeal(String restriction) {
+        String response = "";
+        String prompt = promrtMaker(restriction);
+
 
         try {
-            try {
-                URL url = new URL("https://openrouter.ai/api/v1/chat/completions");
-                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            URL url = new URL("https://api.openai.com/v1/chat/completions");
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
-                connection.setRequestMethod("POST");
-                connection.setRequestProperty("Authorization", "Bearer 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"); // Keep this secure!
-                connection.setRequestProperty("Content-Type", "application/json");
-                connection.setDoOutput(true);
+            connection.setRequestMethod("POST");
+            connection.setRequestProperty("Authorization", this.getApiKey()); // Replace with your actual API key
+            connection.setRequestProperty("Content-Type", "application/json");
+            connection.setDoOutput(true);
 
-                JSONObject requestBody = new JSONObject();
-                requestBody.put("model", "deepseek/deepseek-prover-v2:free");
+            // Build JSON request
+            JSONObject jsonRequest = new JSONObject();
+            jsonRequest.put("model", "gpt-3.5-turbo");
 
-                JSONArray messages = new JSONArray();
-                JSONObject userMessage = new JSONObject();
-                userMessage.put("role", "user");
-                userMessage.put("content", prompt);
-                messages.put(userMessage);
+            JSONArray messages = new JSONArray();
+            JSONObject userMessage = new JSONObject();
+            userMessage.put("role", "user");
+            userMessage.put("content", prompt);
+            messages.put(userMessage);
 
-                requestBody.put("messages", messages);
+            jsonRequest.put("messages", messages);
 
-                try (OutputStream os = connection.getOutputStream()) {
-                    byte[] input = requestBody.toString().getBytes("utf-8");
-                    os.write(input, 0, input.length);
-                }
+            // Send request
+            try (OutputStream outputStream = connection.getOutputStream()) {
+                outputStream.write(jsonRequest.toString().getBytes("UTF-8"));
+                outputStream.flush();
 
-                int statusCode = connection.getResponseCode();
-                if (statusCode != HttpURLConnection.HTTP_OK) {
-                    System.out.println("Error: " + statusCode);
-                    try (BufferedReader errorReader = new BufferedReader(
-                            new InputStreamReader(connection.getErrorStream(), "utf-8"))) {
-                        StringBuilder errorResponse = new StringBuilder();
-                        String line;
-                        while ((line = errorReader.readLine()) != null) {
-                            errorResponse.append(line);
-                        }
-                        System.out.println("Error Response: " + errorResponse);
-                    }
+                int responseCode = connection.getResponseCode();
+                BufferedReader reader;
+                if (responseCode == HttpURLConnection.HTTP_OK) {
+                    reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
                 } else {
-                    StringBuilder response = new StringBuilder();
-                    try (BufferedReader br = new BufferedReader(
-                            new InputStreamReader(connection.getInputStream(), "utf-8"))) {
-                        String line;
-                        while ((line = br.readLine()) != null) {
-                            response.append(line.trim());
-                        }
-                    }
-
-                    JSONObject jsonResponse = new JSONObject(response.toString());
-                    reply = jsonResponse
-                            .getJSONArray("choices")
-                            .getJSONObject(0)
-                            .getJSONObject("message")
-                            .getString("content");
-
-                    return reply.trim();
+                    reader = new BufferedReader(new InputStreamReader(connection.getErrorStream()));
                 }
 
-            } catch (Exception e) {
-                System.out.println("Exception: " + e.getMessage());
-                e.printStackTrace();
+                StringBuilder responseBuilder = new StringBuilder();
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    responseBuilder.append(line);
+                }
+
+                reader.close();
+                response = responseBuilder.toString();
+
+                // Parse JSON
+                JSONObject jsonResponse = new JSONObject(response);
+                if (jsonResponse.has("choices")) {
+                    JSONArray choices = jsonResponse.getJSONArray("choices");
+                    String mealSuggestion = choices.getJSONObject(0).getJSONObject("message").getString("content").trim();
+                    return mealSuggestion;
+                } else {
+                    return "No suitable meal found or missing 'choices' in response.";
+                }
+
+            } catch (IOException e) {
+                return "Error during request: " + e.getMessage();
             }
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+
+        } catch (IOException e) {
+            return "Error: " + e.getMessage();
         }
-
-        return reply;
-
     }
-
-    /***
-     * Sends a dietary restriction prompt to the OpenRouter API and retrieves a suggested meal name.
-     * <p>
-     * The response will contain the name of a meal that fits the specified dietary restriction,
-     * or a message indicating that no suitable meal was found.
-     * @auther Mohammed Saeed Enab
-     * @date 2025-08-10
-     *
-     * @param restriction The user's dietary restriction (e.g., "vegan", "gluten-free").
-     * @return A string containing either the name of a suitable meal or a fallback message.
-
-     */
-
-    public String sugestmeal(String restriction ) {
-        String reply = null;
-
-            String prompt = promrtMaker(restriction);
-
+    public String sugestmealBasedONIngredients(int time, String restrictions, String ingredient) {
+    String prompt = promptAll(time, restrictions, ingredient);
+    String response = "";
         try {
-            try {
-                URL url = new URL("https://openrouter.ai/api/v1/chat/completions");
-                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            URL url = new URL("https://api.openai.com/v1/chat/completions");
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
-                connection.setRequestMethod("POST");
-                connection.setRequestProperty("Authorization", "Bearer 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"); // Keep this secure!
-                connection.setRequestProperty("Content-Type", "application/json");
-                connection.setDoOutput(true);
+            connection.setRequestMethod("POST");
+            connection.setRequestProperty("Authorization", this.getApiKey()); // Replace with your actual API key
+            connection.setRequestProperty("Content-Type", "application/json");
+            connection.setDoOutput(true);
 
-                JSONObject requestBody = new JSONObject();
-                requestBody.put("model", "deepseek/deepseek-prover-v2:free");
+            // Build JSON request
+            JSONObject jsonRequest = new JSONObject();
+            jsonRequest.put("model", "gpt-3.5-turbo");
 
-                JSONArray messages = new JSONArray();
-                JSONObject userMessage = new JSONObject();
-                userMessage.put("role", "user");
-                userMessage.put("content", prompt);
-                messages.put(userMessage);
+            JSONArray messages = new JSONArray();
+            JSONObject userMessage = new JSONObject();
+            userMessage.put("role", "user");
+            userMessage.put("content", prompt);
+            messages.put(userMessage);
 
-                requestBody.put("messages", messages);
+            jsonRequest.put("messages", messages);
 
-                try (OutputStream os = connection.getOutputStream()) {
-                    byte[] input = requestBody.toString().getBytes("utf-8");
-                    os.write(input, 0, input.length);
-                }
+            // Send request
+            try (OutputStream outputStream = connection.getOutputStream()) {
+                outputStream.write(jsonRequest.toString().getBytes("UTF-8"));
+                outputStream.flush();
 
-                int statusCode = connection.getResponseCode();
-                if (statusCode != HttpURLConnection.HTTP_OK) {
-                    System.out.println("Error: " + statusCode);
-                    try (BufferedReader errorReader = new BufferedReader(
-                            new InputStreamReader(connection.getErrorStream(), "utf-8"))) {
-                        StringBuilder errorResponse = new StringBuilder();
-                        String line;
-                        while ((line = errorReader.readLine()) != null) {
-                            errorResponse.append(line);
-                        }
-                        System.out.println("Error Response: " + errorResponse);
-                    }
+                int responseCode = connection.getResponseCode();
+                BufferedReader reader;
+                if (responseCode == HttpURLConnection.HTTP_OK) {
+                    reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
                 } else {
-                    StringBuilder response = new StringBuilder();
-                    try (BufferedReader br = new BufferedReader(
-                            new InputStreamReader(connection.getInputStream(), "utf-8"))) {
-                        String line;
-                        while ((line = br.readLine()) != null) {
-                            response.append(line.trim());
-                        }
-                    }
-
-                    JSONObject jsonResponse = new JSONObject(response.toString());
-                    reply = jsonResponse
-                            .getJSONArray("choices")
-                            .getJSONObject(0)
-                            .getJSONObject("message")
-                            .getString("content");
-
-                    return reply.trim();
+                    reader = new BufferedReader(new InputStreamReader(connection.getErrorStream()));
                 }
 
-            } catch (Exception e) {
-                System.out.println("Exception: " + e.getMessage());
-                e.printStackTrace();
+                StringBuilder responseBuilder = new StringBuilder();
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    responseBuilder.append(line);
+                }
+
+                reader.close();
+                response = responseBuilder.toString();
+
+                // Parse JSON
+                JSONObject jsonResponse = new JSONObject(response);
+                if (jsonResponse.has("choices")) {
+                    JSONArray choices = jsonResponse.getJSONArray("choices");
+                    String mealSuggestion = choices.getJSONObject(0).getJSONObject("message").getString("content").trim();
+                    return mealSuggestion;
+                } else {
+                    return "No suitable meal found or missing 'choices' in response.";
+                }
+
+            } catch (IOException e) {
+                return "Error during request: " + e.getMessage();
             }
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+
+        } catch (IOException e) {
+            return "Error: " + e.getMessage();
         }
 
-        return reply;
     }
 
-    /***
-     **
-     * Sends a prompt to the OpenRouter API to suggest a meal based on preparation time,
-     * dietary restriction, and a key ingredient.
-     * <p>
-     * The API is expected to return a detailed meal suggestion suitable for the input parameters.
-     *
-     * @param time        The maximum cooking time allowed (in minutes).
-     * @param restriction The dietary restriction to follow.
-     * @param ingredient  A key ingredient the user wants in the meal.
-     * @return A string containing the suggested meal description, or a fallback message.
-     */
+    private String getApiKey() {
+        return apiKey;
+    }
 
-    public String sugestmealBasedONIngredients(int time , String restriction , String ingredient) {
-        String reply = null;
-
-        String prompt = promrtAll(time , restriction , ingredient);
-
+    String suggetMealTime(int time ){
+        String prompt = promptExactMealTime(time);
+        String response = "";
         try {
-            try {
-                URL url = new URL("https://openrouter.ai/api/v1/chat/completions");
-                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            URL url = new URL("https://api.openai.com/v1/chat/completions");
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
-                connection.setRequestMethod("POST");
-                connection.setRequestProperty("Authorization", "Bearer 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"); // Keep this secure!
-                connection.setRequestProperty("Content-Type", "application/json");
-                connection.setDoOutput(true);
+            connection.setRequestMethod("POST");
+            connection.setRequestProperty("Authorization", this.getApiKey()); // Replace with your actual API key
+            connection.setRequestProperty("Content-Type", "application/json");
+            connection.setDoOutput(true);
 
-                JSONObject requestBody = new JSONObject();
-                requestBody.put("model", "deepseek/deepseek-prover-v2:free");
+            // Build JSON request
+            JSONObject jsonRequest = new JSONObject();
+            jsonRequest.put("model", "gpt-3.5-turbo");
 
-                JSONArray messages = new JSONArray();
-                JSONObject userMessage = new JSONObject();
-                userMessage.put("role", "user");
-                userMessage.put("content", prompt);
-                messages.put(userMessage);
+            JSONArray messages = new JSONArray();
+            JSONObject userMessage = new JSONObject();
+            userMessage.put("role", "user");
+            userMessage.put("content", prompt);
+            messages.put(userMessage);
 
-                requestBody.put("messages", messages);
+            jsonRequest.put("messages", messages);
 
-                try (OutputStream os = connection.getOutputStream()) {
-                    byte[] input = requestBody.toString().getBytes("utf-8");
-                    os.write(input, 0, input.length);
-                }
+            // Send request
+            try (OutputStream outputStream = connection.getOutputStream()) {
+                outputStream.write(jsonRequest.toString().getBytes("UTF-8"));
+                outputStream.flush();
 
-                int statusCode = connection.getResponseCode();
-                if (statusCode != HttpURLConnection.HTTP_OK) {
-                    System.out.println("Error: " + statusCode);
-                    try (BufferedReader errorReader = new BufferedReader(
-                            new InputStreamReader(connection.getErrorStream(), "utf-8"))) {
-                        StringBuilder errorResponse = new StringBuilder();
-                        String line;
-                        while ((line = errorReader.readLine()) != null) {
-                            errorResponse.append(line);
-                        }
-                        System.out.println("Error Response: " + errorResponse);
-                    }
+                int responseCode = connection.getResponseCode();
+                BufferedReader reader;
+                if (responseCode == HttpURLConnection.HTTP_OK) {
+                    reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
                 } else {
-                    StringBuilder response = new StringBuilder();
-                    try (BufferedReader br = new BufferedReader(
-                            new InputStreamReader(connection.getInputStream(), "utf-8"))) {
-                        String line;
-                        while ((line = br.readLine()) != null) {
-                            response.append(line.trim());
-                        }
-                    }
-
-                    JSONObject jsonResponse = new JSONObject(response.toString());
-                    reply = jsonResponse
-                            .getJSONArray("choices")
-                            .getJSONObject(0)
-                            .getJSONObject("message")
-                            .getString("content");
-
-                    return reply.trim();
+                    reader = new BufferedReader(new InputStreamReader(connection.getErrorStream()));
                 }
 
-            } catch (Exception e) {
-                System.out.println("Exception: " + e.getMessage());
-                e.printStackTrace();
+                StringBuilder responseBuilder = new StringBuilder();
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    responseBuilder.append(line);
+                }
+
+                reader.close();
+                response = responseBuilder.toString();
+
+                // Parse JSON
+                JSONObject jsonResponse = new JSONObject(response);
+                if (jsonResponse.has("choices")) {
+                    JSONArray choices = jsonResponse.getJSONArray("choices");
+                    String mealSuggestion = choices.getJSONObject(0).getJSONObject("message").getString("content").trim();
+                    return mealSuggestion;
+                } else {
+                    return "No suitable meal found or missing 'choices' in response.";
+                }
+
+            } catch (IOException e) {
+                return "Error during request: " + e.getMessage();
             }
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+
+        } catch (IOException e) {
+            return "Error: " + e.getMessage();
         }
-
-        return reply;
-
     }
+
 }
+
+

@@ -1,14 +1,10 @@
 package FeatureTest;
 
-import ProductionCode.Customer;
-import ProductionCode.Chef;
-import ProductionCode.Admin;
-import ProductionCode.Meal;
-import ProductionCode.MealPlan;
-import ProductionCode.TrendsReport;
+import ProductionCode.*;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
@@ -18,7 +14,6 @@ public class TrackOrders {
     Customer customer;
     Chef chef;
     Admin admin;
-    List<Meal> orderHistory;
     List<Meal> customerOrders;
     List<Meal> databaseOrders;
 
@@ -99,5 +94,18 @@ public class TrackOrders {
         String actualReportDetails = report.analyzeOrderTrends();
         assertEquals(expectedReportDetails, actualReportDetails);
     }
+
+    @Test
+    public void testWrongFile() {
+        // Temporarily set the file path to a non-existent file
+        TrendsReport report = new TrendsReport("Test Report");
+        report.setFilePath("nonexistent_file.txt");
+
+        // Here, we're expecting the RuntimeException when trying to load the orders from a non-existent file
+        assertThrows(RuntimeException.class, () -> {
+            report.loadOrdersFromFile(); // This should throw an exception because the file doesn't exist
+        });
+    }
+
 
 }
