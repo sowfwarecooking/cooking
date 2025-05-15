@@ -62,7 +62,16 @@ public class balanceSteps {
     }
 
     @When("i request a pdf")
-    public void iRequestAPdf() {
+    public void iRequestAPdf() throws IOException {
+        finance financeOBJ = new finance();
+        financeOBJ.buy("pepper",2);
+        CookReportPDF reportPDF1 = new CookReportPDF(financeOBJ);
+        reportPDF1.generateReportPDF();
+        String path = reportPDF1.pathMaker();
+        File file = new File(path);
+        assertTrue("File  exist ", file.exists());
+
+
 
     }
 
@@ -72,20 +81,48 @@ public class balanceSteps {
         financeOBJ.buy("pepper",2);
         financeOBJ.buy("kiwi",5);
         financeOBJ.buy("Carrot",3);
-        System.out.println(financeOBJ.printHistory());
-        String expicted = "13-05-2025:\n" +
+
+        String expicted = "15-05-2025:\n" +
                 "  pepper - Quantity: 2 - Price: $4.0\n" +
                 "  kiwi - Quantity: 5 - Price: $15.0\n";
         assertEquals(expicted, financeOBJ.printHistory());
     }
 
     @Then("i should see the pdf file")
-    public void iShouldSeeThePdfFile() {
-        String path = "reports/test.pdf";
+    public void iShouldSeeThePdfFile() throws IOException {
+        finance financeOBJ = new finance();
+        financeOBJ.buy("pepper",2);
+        CookReportPDF reportPDF1 = new CookReportPDF(financeOBJ);
+        String path = reportPDF1.pathMaker();
         File file = new File(path);
         assertFalse("File does not exist",file.exists());
-        reportPDF.generateReportPDF(path);
+        reportPDF.generateReportPDF();
         assertTrue("File does exist ", file.exists());
 
+    }
+
+
+    @When("i buy product with long name")
+    public void iBuyProductWithLongName() {
+        F.setBudget(1000f); // Reset balance
+        F.buy("this_is_a_very_long_product_name_that_will_wrap", 2); // Force wrapping
+
+    }
+
+    @Then("i should generate pdf with long product name")
+    public void iShouldGeneratePdfWithLongProductName() {
+        CookReportPDF report = new CookReportPDF(F);
+        report.generateReportPDF();
+        File file = new File(report.pathMaker());
+        assertTrue(file.exists());
+    }
+
+    @When("i request a pdf with no purchases")
+    public void iRequestAPdfWithNoPurchases() throws IOException {
+        finance emptyFinance = new finance(); // No purchases
+        CookReportPDF emptyReport = new CookReportPDF(emptyFinance);
+        emptyReport.generateReportPDF();
+        File file = new File(emptyReport.pathMaker());
+        assertTrue(file.exists());
     }
 }

@@ -17,7 +17,7 @@ public class Customer {
         this.username = username;
         this.dietaryPreferences = dietaryPreferences;
         this.allergies = allergies;
-        this.loggedIn = true; // Simulate login
+        this.loggedIn = true; // Simulate userLogin
         this.orderHistory = new ArrayList<>();  // Initialize to avoid null
     }
 

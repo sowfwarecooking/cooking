@@ -9,9 +9,9 @@ public class supplyTest {
 
     @Given("the kitchen manager is logged into the system")
     public void the_kitchen_manager_is_logged_into_the_system() {
-        // Simulate the login process for the kitchen manager.
+        // Simulate the userLogin process for the kitchen manager.
         Admin admin = new Admin("admin");
-        assertNotNull(admin);  // Ensure the admin object is not null, which means login is successful.
+        assertNotNull(admin);  // Ensure the admin object is not null, which means userLogin is successful.
     }
 
     @When("they update the stock level of an ingredient after usage")

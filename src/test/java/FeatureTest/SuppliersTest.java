@@ -48,17 +48,23 @@ public class SuppliersTest {
     public void theSystemShouldReloadTheStock() {
     }
     @Test
-    public void lessThan3Suppliers() throws IOException {
+
+    public void lessThan3Suppliers_shouldThrowException() throws IOException {
         Suppliers supplierObj = new Suppliers();
 
-        // Manually create a List using ArrayList
         List<String> filePaths = new ArrayList<>();
         filePaths.add("data/supplier1.txt");
         filePaths.add("data/supplier2.txt");
-        // No need to add a third file to trigger the exception
+        // Only 2 file paths provided to trigger exception
 
         Exception exception = assertThrows(IllegalArgumentException.class, () -> {
             supplierObj.readFromFiles(filePaths);
-        });}}
+        });
+
+        assertEquals("There should be exactly 3 file paths.", exception.getMessage());
+    }
+
+
+}
 
 

@@ -17,3 +17,11 @@ Scenario: as a admin i want to see balance after buying multiple times
             Given i am a admin
             When i buy product multiple times
             Then i should see the pdf file
+  Scenario: Generate PDF with long product name to test text wrapping
+    Given i am a admin
+    When i buy product with long name
+    Then i should generate pdf with long product name
+  Scenario: Generate PDF with no purchases
+    Given i am a admin
+    When i request a pdf with no purchases
+    Then i should see the pdf file

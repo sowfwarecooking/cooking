@@ -14,36 +14,22 @@ public class CookReportPDF {
     private static finance financeObj;
 
     public CookReportPDF(finance financeObj) {
-        CookReportPDF.financeObj = financeObj;
+        this.financeObj = financeObj;
+    }
+    public String pathMaker(){
+        String first = "reports/";
+        String second = LocalDate.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+        String third = ".pdf";
+        return first + second + third;
     }
 
-    public static void main(String[] args) throws IOException {
-        String date = LocalDate.now().toString();
-        String fileName = date + "cook_report.pdf";
-        String outputPath = "reports/" + fileName;
-
-        finance financeObj = new finance();
-        CookReportPDF reportPDF = new CookReportPDF(financeObj);
-
-        // Sample operations
-        financeObj.setBudget(972f);
-        financeObj.buy("pepper", 2);
-        financeObj.buy("kiwi", 5);
-        financeObj.buy("pepper", 2);
-        financeObj.buy("kiwi", 5);
-        financeObj.buy("Carrot", 3);
-        financeObj.buy("tomato", 2);
-
-        reportPDF.generateReportPDF(outputPath);
-    }
-
-    public void generateReportPDF(String outputPath) {
+    public void generateReportPDF() {
         try (PDDocument document = new PDDocument()) {
             PDPage page = new PDPage();
             document.addPage(page);
             addContentToPage(page, document);
-            document.save(outputPath);
-            System.out.println("PDF saved to: " + outputPath);
+            document.save(this.pathMaker());
+            System.out.println("PDF saved to: " + this.pathMaker());
         } catch (IOException e) {
             e.printStackTrace();
         }

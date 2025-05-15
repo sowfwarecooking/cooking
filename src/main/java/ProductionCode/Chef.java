@@ -11,7 +11,10 @@ public class Chef {
     String notificationMessage="";
     private boolean loggedIn;
 
-    public Chef(String chefUser){};
+    public Chef(String chefUser){
+        this.name = chefUser;
+        this.loggedIn=true;
+    };
     public Chef(String name, Expertise chefExpertise){
         this.name = name;
         this.myExpertise=chefExpertise;
