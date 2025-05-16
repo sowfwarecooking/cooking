@@ -1,0 +1,22 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="AccTest" type="JUnit" factoryName="JUnit" nameIsGenerated="true">
+    <module name="cooking" />
+    <extension name="coverage">
+      <pattern>
+        <option name="PATTERN" value="FeatureTest.loginSteps" />
+        <option name="ENABLED" value="true" />
+      </pattern>
+      <pattern>
+        <option name="PATTERN" value="ProductionCode.*" />
+        <option name="ENABLED" value="true" />
+      </pattern>
+    </extension>
+    <option name="PACKAGE_NAME" value="FeatureTest" />
+    <option name="MAIN_CLASS_NAME" value="FeatureTest.AccTest" />
+    <option name="METHOD_NAME" value="" />
+    <option name="TEST_OBJECT" value="class" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

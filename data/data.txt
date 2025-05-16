@@ -1,8 +1,0 @@
-john_doe,password123
-alice_smith,securePass1
-michael_jordan,hoopsGoat
-emma_watson
-mark_zucker
-admin,12345678
-newUserName,StrongPass123
-admin,asd24FD

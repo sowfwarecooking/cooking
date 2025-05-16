@@ -11,21 +11,19 @@ public class userLogin {
     private String username;
     private String password;
     public boolean accessGranted;
-    private String FileName ;
+    private String FileName;
     public static final Map<String, String> users = new HashMap<>();
 
     public userLogin() {
         loadUsers();
     }
+
     /**
      * Loads user credentials from a file and stores them in a HashMap for faster access.
-     * The file should be formatted as "username,password" per line.
-     * This method improves efficiency by storing data in memory instead of reading from the file every time.
+     * The file should be formatted as "username,password,allergy,diet" per line.
+     * Only the first two fields are used for login validation.
      *
-     * @author Mohammed Saeed
-     * @version 1.0
-     * @since 27/2/2025
-     * @throws IOException if an error occurs while reading the file
+     * @throws RuntimeException if an error occurs while reading the file
      */
     public void loadUsers() {
         try (BufferedReader br = new BufferedReader(new FileReader(getFileName()))) {
@@ -33,7 +31,11 @@ public class userLogin {
             users.clear(); // clear old users before loading
             while ((line = br.readLine()) != null) {
                 String[] parts = line.split(",");
-                users.put(parts[0], parts[1]);
+                if (parts.length >= 2) { // make sure there's at least username and password
+                    String username = parts[0].trim();
+                    String password = parts[1].trim();
+                    users.put(username, password);
+                }
             }
         } catch (IOException e) {
             System.err.println("Error while loading users from file: " + e.getMessage());
@@ -45,17 +47,6 @@ public class userLogin {
         return "data/users.txt";
     }
 
-    /**
-     * Attempts to log in a user by checking the provided username and password
-     * against stored credentials in the HashMap.
-     *
-     * @author Mohammed Saeed
-     * @version 1.0
-     * @since 27/2/2025
-     * @param username the username entered by the user
-     * @param password the password associated with the username
-     * @return "Access granted" if the credentials are correct, otherwise "Access denied"
-     */
     public String attemptLogin(String username, String password) {
         this.username = username;
         this.password = password;
@@ -74,29 +65,14 @@ public class userLogin {
         }
     }
 
+    // Getters and Setters
+    public String getUsername() { return username; }
 
-    public String getUsername() {
-        return username;
-    }
+    public void setUsername(String username) { this.username = username; }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
+    public String getPassword() { return password; }
 
-    public String getPassword() {
-        return password;
-    }
+    public void setPassword(String password) { this.password = password; }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-
-
-
-
-
-    public void setFileName(String fileName) {
-        this.FileName = fileName;
-    }
+    public void setFileName(String fileName) { this.FileName = fileName; }
 }
