@@ -117,6 +117,7 @@ public class Suppliers {
             }
         }
 
+
         return found ? bestPrice : 0.0f; // return 0.0f if no suitable supplier found
     }
 
