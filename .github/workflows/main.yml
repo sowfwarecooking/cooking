@@ -38,6 +38,4 @@ jobs:
           mvn -B jacoco:report
           mvn -B org.sonarsource.scanner.maven:sonar-maven-plugin:sonar \
             -Dsonar.projectKey=sowfwarecooking_cooking
-            -Dsonar.organization=sowfwarecooking \
-            -Dsonar.host.url=https://sonarcloud.io \
-            -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+           mvn -B jacoco:prepare-agent verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar jacoco:report  -Dsonar.projectKey=sowfwarecooking_cooking
