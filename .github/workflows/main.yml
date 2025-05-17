@@ -37,7 +37,7 @@ jobs:
           mvn -B clean verify
           mvn -B jacoco:report
           mvn -B org.sonarsource.scanner.maven:sonar-maven-plugin:sonar \
-            -Dsonar.projectKey=softwarecooking_cooking \
+            -Dsonar.projectKey=sowfwarecooking_cooking \
             -Dsonar.organization=softwarecooking \
             -Dsonar.host.url=https://sonarcloud.io \
             -Dsonar.login=${{ secrets.SONAR_TOKEN }}
