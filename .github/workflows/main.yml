@@ -40,7 +40,13 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-m2
 
-      - name: Build and analyze with SonarQube
+      - name: Build, test, generate coverage and analyze
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=sowfwarecooking_cooking
+        run: |
+          mvn clean verify jacoco:report \
+            org.sonarsource.scanner.maven:sonar-maven-plugin:sonar \
+            -Dsonar.projectKey=sowfwarecooking_cooking \
+            -Dsonar.organization=sowfwarecooking \
+            -Dsonar.host.url=https://sonarcloud.io \
+            -Dsonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml
