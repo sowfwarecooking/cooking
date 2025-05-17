@@ -16,7 +16,7 @@
         <maven.compiler.target>21</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <sonar.organization>sowfwarecooking</sonar.organization>
-       <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+        <sonar.host.url>https://sonarcloud.io</sonar.host.url>
     </properties>
 
     <dependencies>
@@ -46,7 +46,6 @@
             <groupId>com.typesafe</groupId>
             <artifactId>config</artifactId>
             <version>1.4.3</version>
-
         </dependency>
 
         <!-- JUnit 5 -->
@@ -76,6 +75,12 @@
             <version>7.3.4</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>messages</artifactId>
+            <version>22.0.0</version>
+            <scope>test</scope>
+        </dependency>
 
         <!-- Apache Ivy -->
         <dependency>
@@ -83,11 +88,8 @@
             <artifactId>ivy</artifactId>
             <version>2.5.2</version>
         </dependency>
-        <dependency>
-            <groupId>io</groupId>
-            <artifactId>cucumber</artifactId>
-            <version>messages</version>
-        </dependency>
+
+        <!-- Hamcrest for assertions -->
         <dependency>
             <groupId>org.hamcrest</groupId>
             <artifactId>hamcrest-core</artifactId>
