@@ -33,7 +33,7 @@ jobs:
       - name: Build and analyze
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-         run: |
+        run: |
           mvn -B clean verify
           mvn -B jacoco:report
           mvn -B org.sonarsource.scanner.maven:sonar-maven-plugin:sonar \
