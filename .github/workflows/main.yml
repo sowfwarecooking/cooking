@@ -1,20 +1,17 @@
-name: SonarQube
+name: SonarQube Analysis
 
 on:
   push:
-    branches:
-      - main
+    branches: [ main ]
   pull_request:
-    types: [opened, synchronize, reopened]
+    types: [ opened, synchronize, reopened ]
 
 jobs:
-  build:
-    name: Build and analyze
+  sonarcloud:
+    name: SonarCloud Analysis
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
@@ -22,31 +19,41 @@ jobs:
         uses: actions/setup-java@v4
         with:
           java-version: 21
-          distribution: 'zulu'  # or 'temurin'
+          distribution: 'zulu'
 
       - name: Cache SonarQube packages
         uses: actions/cache@v4
         with:
           path: ~/.sonar/cache
           key: ${{ runner.os }}-sonar
-          restore-keys: |
-            ${{ runner.os }}-sonar
+          restore-keys: ${{ runner.os }}-sonar
 
       - name: Cache Maven packages
         uses: actions/cache@v4
         with:
           path: ~/.m2
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
-          restore-keys: |
-            ${{ runner.os }}-m2
+          restore-keys: ${{ runner.os }}-m2
 
-      - name: Build, test, generate coverage and analyze
+      - name: Build and test with coverage
+        run: |
+          mvn clean verify
+          # Verify coverage file exists
+          ls -la target/site/jacoco/
+          [ -f target/site/jacoco/jacoco.xml ] && echo "Coverage file exists" || echo "Coverage file missing"
+
+      - name: SonarCloud Scan
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          mvn clean verify jacoco:report \
-            org.sonarsource.scanner.maven:sonar-maven-plugin:sonar \
+          mvn sonar:sonar \
             -Dsonar.projectKey=sowfwarecooking_cooking \
             -Dsonar.organization=sowfwarecooking \
             -Dsonar.host.url=https://sonarcloud.io \
-            -Dsonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml
+            -Dsonar.login=$SONAR_TOKEN \
+            -Dsonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml \
+            -Dsonar.java.binaries=target/classes \
+            -Dsonar.java.test.binaries=target/test-classes \
+            -Dsonar.tests=src/test/java \
+            -Dsonar.test.inclusions=**/*Test.java,**/*Tests.java
