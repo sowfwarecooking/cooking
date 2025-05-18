@@ -10,7 +10,8 @@ public class Customer {
     private boolean loggedIn;
     private String dietaryPreferences;
     private String allergies;
-    private List<String> orderHistory;  // Ensure this is initialized
+    private List<String> orderHistory;
+    private menuItems menuItems ;  // Ensure this is initialized
 
     // Constructor that sets all fields
     public Customer(String username, String dietaryPreferences, String allergies) {
@@ -18,14 +19,15 @@ public class Customer {
         this.dietaryPreferences = dietaryPreferences;
         this.allergies = allergies;
         this.loggedIn = true; // Simulate userLogin
-        this.orderHistory = new ArrayList<>();  // Initialize to avoid null
+        this.orderHistory = new ArrayList<>();
+        this.menuItems = new menuItems();  // Initialize to avoid null
     }
 
     public boolean isLoggedIn() {
         return loggedIn;
     }
 
-    public String getDietaryPreferences() {
+    public String getDietType() {
         return dietaryPreferences;
     }
 
@@ -81,6 +83,7 @@ public class Customer {
     public boolean canReorder(Meal meal) {
         return true;
     }
+
 
 
 }

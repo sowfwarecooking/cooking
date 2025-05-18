@@ -160,8 +160,6 @@ public class supplyVewing {
     }
 
 
-
-
     public int getStockLevel(String target) {
         return stockLevels.getOrDefault(target, 0);  // Return 0 if ingredient does not exist
     }

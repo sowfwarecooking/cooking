@@ -44,7 +44,7 @@ public class SignUper {
     }
 
     public boolean isWeakPassword(String password) {
-        if (password == null || password.length() < 6) {
+        if (password == null || password.length() < 8) {
             return true;
         }
         boolean hasUpper = false;
@@ -57,13 +57,15 @@ public class SignUper {
             else if (Character.isLowerCase(ch)) hasLower = true;
             else if (Character.isDigit(ch)) hasDigit = true;
             else hasSpecial = true;
+
+
         }
 
-        // You can adjust the conditions here as you like
+
         return !(hasUpper && hasLower && hasDigit && hasSpecial);
     }
 
-    // Add a user to the file with default allergy/diet values
+
     public void addUserToFile(String username, String password) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true))) {
             writer.write(username + "," + password + ",none,none");
@@ -79,10 +81,5 @@ public class SignUper {
         return takenUsernames.contains(username);
     }
 
-    public static void main(String[] args) {
-        SignUper signup = new SignUper();
-        String result = signup.signUp("mohammed", "strongPass123");
-        System.out.println(result);
-        System.out.println(signup.isAdded("mohammed")); // Should now return true
-    }
+
 }

@@ -12,5 +12,5 @@ Feature: Sign Up
 
   Scenario: Valid username and invalid password
     Given user at sign up page
-    When the user enters a valid username "notTakenUser" and invalid password "weak1234"
+    When the user enters a valid username "user_is_not_registered" and invalid password "weak1234"
     Then the system denies access with message "Weak password"

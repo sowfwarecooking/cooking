@@ -1,7 +1,6 @@
 package ProductionCode;
 
-public class Page {
-    public String getTitle() {
+public class Page { public String getTitle() {
         return title;
     }
 

@@ -1,0 +1,3 @@
+18-05-2025:
+  kiwi - Quantity: 10 - Price: $32.0
+  pepper - Quantity: 5 - Price: $10.0

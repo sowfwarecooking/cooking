@@ -6,10 +6,20 @@ import ProductionCode.finance;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.pdmodel.PDPage;
+import org.apache.pdfbox.pdmodel.PDPageContentStream;
+import org.junit.After;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
-import java.io.IOException;
+import static org.mockito.Mockito.*;
 
+import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
+import static javax.management.Query.times;
 import static org.junit.Assert.*;
 
 public class balanceSteps {
@@ -81,11 +91,11 @@ public class balanceSteps {
         financeOBJ.buy("pepper",2);
         financeOBJ.buy("kiwi",5);
         financeOBJ.buy("Carrot",3);
-
-        String expicted = "15-05-2025:\n" +
+        String today = LocalDate.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+        String expected = today + ":\n" +
                 "  pepper - Quantity: 2 - Price: $4.0\n" +
                 "  kiwi - Quantity: 5 - Price: $15.0\n";
-        assertEquals(expicted, financeOBJ.printHistory());
+        assertEquals(expected, financeOBJ.printHistory());
     }
 
     @Then("i should see the pdf file")
@@ -124,5 +134,13 @@ public class balanceSteps {
         emptyReport.generateReportPDF();
         File file = new File(emptyReport.pathMaker());
         assertTrue(file.exists());
+    }
+
+
+
+    @After
+    public void cleanUp() {
+        File file = new File(reportPDF.pathMaker());
+        if (file.exists()) file.delete();
     }
 }

@@ -1,5 +1,6 @@
 package ProductionCode;
 
+import java.io.BufferedWriter;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -13,9 +14,24 @@ public class finance {
     Suppliers suppliers;
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy"); // Fixed format
     HashMap<String, List<String>> history = new HashMap<>(); // Using List<String> to store multiple transactions for the same date
+    String path ;
+
+    void toHistoryTxt(String path) throws IOException {
+        try (BufferedWriter writer = new BufferedWriter(new java.io.FileWriter(path))) {
+            for (Map.Entry<String, List<String>> entry : history.entrySet()) {
+                writer.write(entry.getKey() + ":\n");
+                for (String transaction : entry.getValue()) {
+                    writer.write("  " + transaction + "\n");
+                }
+            }
+        }
+    }
+
 
     public finance(int budget) {
+
         this.budget = budget;
+        this.path= "data/history.txt";
     }
 
     public finance() throws IOException {
@@ -62,7 +78,13 @@ public class finance {
     }
 
 
-    public static void main(String[] args) throws IOException, InterruptedException {
+    public static void main(String[] args) throws IOException {
+        finance f = new finance();
+        f.buy("kiwi", 10);
+        f.buy("pepper", 5);
+        System.out.println(f.printHistory());
+        f.toHistoryTxt("data/history.txt");
 
+        System.out.println("History saved!");
     }
 }

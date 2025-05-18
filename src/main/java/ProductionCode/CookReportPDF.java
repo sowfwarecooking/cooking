@@ -5,6 +5,8 @@ import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -22,6 +24,8 @@ public class CookReportPDF {
         String third = ".pdf";
         return first + second + third;
     }
+
+
 
     public void generateReportPDF() {
         try (PDDocument document = new PDDocument()) {
@@ -83,7 +87,7 @@ public class CookReportPDF {
         cs.close();
     }
 
-    private static float printWrappedText(PDPageContentStream cs, String text, float x, float y, float pageWidth) throws IOException {
+    public static float printWrappedText(PDPageContentStream cs, String text, float x, float y, float pageWidth) throws IOException {
         final float fontSize = 12;
         final float leading = 1.5f * fontSize;
         float margin = 50;
@@ -124,4 +128,6 @@ public class CookReportPDF {
 
         return y;
     }
+
+
 }

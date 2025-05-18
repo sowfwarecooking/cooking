@@ -212,7 +212,7 @@ public class IngredientSubManager {
     public String suggestAlternativeIngredients(Order o){
         Random random = new Random();
         myOrderForSubRev = getOrderAsArray(o);
-//        if (myOrderForSubRev.isEmpty())return"No Order To Check";
+   //        if (myOrderForSubRev.isEmpty())return"No Order To Check";
         String suggestionMessage = "";
         String orderDietaryPreference = o.getDietaryPreference();
 
