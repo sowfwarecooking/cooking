@@ -36,6 +36,30 @@ public class IngredientSubstitutionSteps {
         initializeOrder();
         assertTrue(i.hasADiet());
 
+
+        IngredientSubManager m = new IngredientSubManager();
+        String s = "abc";
+        m.setRestrictedLowCarbIngredients(s);
+        m.setRestrictedKetoIngredients(s);
+        m.setRestrictedVeganIngredients(s);
+        m.setRestrictedGlutenFreeIngredients(s);
+        m.setRestrictedVegetarianIngredients(s);
+        assertTrue(m.restrictedLowCarbIngredients.contains(s));
+        assertTrue(m.restrictedKetoIngredients.contains(s));
+        assertTrue(m.restrictedVeganIngredients.contains(s));
+        assertTrue(m.restrictedGlutenFreeIngredients.contains(s));
+        assertTrue(m.restrictedVegetarianIngredients.contains(s));
+
+        m.setAlternativeVeganIngredients(s);
+        m.setAlternativeGlutenFreeIngredients(s);
+        m.setAlternativeVegetarianIngredients(s);
+        m.setAlternativeLowCarbIngredients(s);
+        assertTrue(m.alternativeVeganIngredients.contains(s));
+        assertTrue(m.alternativeGlutenFreeIngredients.contains(s));
+        assertTrue(m.alternativeVegetarianIngredients.contains(s));
+        assertTrue(m.alternativeLowCarbIngredients.contains(s));
+
+
     }
     @Given("the user inputs a recipe containing restricted ingredients")
     public void theUserInputsARecipeContainingRestrictedIngredients() {
