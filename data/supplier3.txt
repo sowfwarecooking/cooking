@@ -13,3 +13,67 @@ lemon,16,1.1
 pineapple,15,4.0
 potato,13,12.0
 carrot,5,1.5
+whole wheat burger bun,7,1.58
+veggie patty,3,2.18
+lettuce,9,1.02
+pickles,12,1.89
+cheese,6,3.45
+ketchup,15,0.78
+mustard,8,1.10
+grilled chicken breast,10,4.62
+mixed greens,2,2.53
+cherry tomatoes,13,3.08
+avocado,5,2.27
+almonds,11,3.75
+olive oil,4,4.38
+quinoa,14,3.20
+roasted sweet potatoes,6,1.91
+chickpeas,7,1.42
+spinach,15,2.81
+red cabbage,8,2.06
+tahini dressing,1,3.54
+multigrain bread,10,1.72
+mashed avocado,14,2.85
+feta cheese,9,3.37
+soy sauce,3,2.47
+black pepper,2,2.59
+scrambled eggs,12,1.54
+bacon,5,3.04
+sauteed spinach,11,2.18
+lentils,6,1.53
+celery,8,1.09
+garlic,10,0.91
+vegetable broth,7,1.87
+cumin,13,0.84
+cauliflower rice,2,3.02
+zucchini,15,2.15
+tofu,4,1.63
+cashews,1,3.88
+bell peppers,9,2.60
+coconut aminos,3,3.76
+green onions,14,1.21
+whole wheat wrap,6,1.53
+mushrooms,13,2.03
+onions,7,1.83
+hummus,5,2.31
+broccoli,2,2.54
+snow peas,11,3.13
+ginger,12,1.31
+peanuts,10,2.59
+rice,8,1.93
+steak,9,4.86
+asparagus,14,2.71
+garlic butter,6,2.42
+whole grain bread,15,3.61
+peanut butter,1,2.27
+chia seeds,7,3.31
+flour tortillas,11,1.61
+black beans,4,2.05
+corn,10,2.91
+salsa,2,1.50
+lime juice,15,0.89
+sweet potatoes,3,1.79
+greek yogurt,9,2.75
+scallions,6,1.04
+soy crumbles,8,2.04
+paprika,14,1.46

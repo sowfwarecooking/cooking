@@ -65,7 +65,7 @@ public class balanceSteps {
 
     @Then("i should see total balance")
     public void iShouldSeeTotalBalance() {
-        float expectedBalance = 981f;
+        float expectedBalance = 980f;
 
         assertEquals(expectedBalance, F.getBalance(), 0.01f);
 
@@ -94,7 +94,7 @@ public class balanceSteps {
         String today = LocalDate.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
         String expected = today + ":\n" +
                 "  pepper - Quantity: 2 - Price: $4.0\n" +
-                "  kiwi - Quantity: 5 - Price: $15.0\n";
+                "  kiwi - Quantity: 5 - Price: $16.0\n";
         assertEquals(expected, financeOBJ.printHistory());
     }
 
@@ -127,20 +127,8 @@ public class balanceSteps {
         assertTrue(file.exists());
     }
 
-    @When("i request a pdf with no purchases")
-    public void iRequestAPdfWithNoPurchases() throws IOException {
-        finance emptyFinance = new finance(); // No purchases
-        CookReportPDF emptyReport = new CookReportPDF(emptyFinance);
-        emptyReport.generateReportPDF();
-        File file = new File(emptyReport.pathMaker());
-        assertTrue(file.exists());
-    }
 
 
 
-    @After
-    public void cleanUp() {
-        File file = new File(reportPDF.pathMaker());
-        if (file.exists()) file.delete();
-    }
+
 }

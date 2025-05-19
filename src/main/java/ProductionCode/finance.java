@@ -16,31 +16,27 @@ public class finance {
     HashMap<String, List<String>> history = new HashMap<>(); // Using List<String> to store multiple transactions for the same date
     String path ;
 
-    void toHistoryTxt(String path) throws IOException {
-        try (BufferedWriter writer = new BufferedWriter(new java.io.FileWriter(path))) {
-            for (Map.Entry<String, List<String>> entry : history.entrySet()) {
-                writer.write(entry.getKey() + ":\n");
-                for (String transaction : entry.getValue()) {
-                    writer.write("  " + transaction + "\n");
-                }
-            }
-        }
-    }
 
 
-    public finance(int budget) {
 
+    public finance(int budget) throws IOException {
+        this.suppliers = new Suppliers();
         this.budget = budget;
         this.path= "data/history.txt";
+
     }
 
     public finance() throws IOException {
         this.budget = 1000f;
         this.suppliers = new Suppliers();
+        this.path= "data/history.txt";
     }
 
     public void setBudget(float budget) {
         this.budget = budget;
+    }
+    public void buyer(Float buy)   {
+        this.budget += buy;
     }
 
     public void buy(String ingredient, int quantity) {
@@ -78,13 +74,4 @@ public class finance {
     }
 
 
-    public static void main(String[] args) throws IOException {
-        finance f = new finance();
-        f.buy("kiwi", 10);
-        f.buy("pepper", 5);
-        System.out.println(f.printHistory());
-        f.toHistoryTxt("data/history.txt");
-
-        System.out.println("History saved!");
-    }
 }

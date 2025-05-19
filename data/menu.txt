@@ -1,13 +1,13 @@
-Veggie Burger,Vegetarian,nuts,8.99
-Grilled Chicken Salad,Keto,non,10.99
-Quinoa Bowl,Vegan,gluten,9.49
-Avocado Toast,Vegetarian,nuts,7.50
+Veggie Burger,Vegetarian,gluten,8.99
+Grilled Chicken Salad,Keto,nuts,10.99
+Quinoa Bowl,Vegan,non,9.49
+Avocado Toast,Vegetarian,soy,7.50
 Keto Bacon & Eggs,Keto,non,11.99
-Vegan Lentil Soup,Vegan,gluten,8.25
-Cauliflower Rice Bowl,Keto,non,9.75
-Mushroom Spinach Wrap,Vegetarian,nuts,7.95
-Tofu Stir Fry,Vegan,gluten,9.80
+Vegan Lentil Soup,Vegan,shellfish,8.25
+Cauliflower Rice Bowl,Keto,tree nuts,9.75
+Mushroom Spinach Wrap,Vegetarian,gluten,7.95
+Tofu Stir Fry,Vegan,peanuts,9.80
 Keto Steak Plate,Keto,non,14.50
-Avocado Toast with Peanut Butter,Vegetarian,nuts,8.75
+Avocado Toast with Peanut Butter,Vegetarian,tree nuts,8.75
 Vegan Tacos,Vegan,gluten,12.99
-Baked Sweet Potatoes,Vegetarian,nuts,8.50
+Baked Sweet Potatoes,Vegetarian,soy,8.50

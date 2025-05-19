@@ -3,6 +3,8 @@ package ProductionCode;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public class Customer {
@@ -11,7 +13,11 @@ public class Customer {
     private String dietaryPreferences;
     private String allergies;
     private List<String> orderHistory;
-    private menuItems menuItems ;  // Ensure this is initialized
+    private menuItems items;
+    private float charge = 0.0f;
+    private String order ;
+    private Order currentOrder;
+
 
     // Constructor that sets all fields
     public Customer(String username, String dietaryPreferences, String allergies) {
@@ -20,18 +26,25 @@ public class Customer {
         this.allergies = allergies;
         this.loggedIn = true; // Simulate userLogin
         this.orderHistory = new ArrayList<>();
-        this.menuItems = new menuItems();  // Initialize to avoid null
+        this.items = new menuItems();  // Initialize to avoid null
+        this.charge = 0.0f;
+
+        this.currentOrder = new Order();
     }
+
+
 
     public boolean isLoggedIn() {
         return loggedIn;
     }
 
-    public String getDietType() {
+    public String getDietaryPreferences() {
+
         return dietaryPreferences;
     }
 
-    public void setDietaryPreferences(String dietaryPreferences) {
+    public void setDietaryPreferences(
+            String dietaryPreferences) {
         this.dietaryPreferences = dietaryPreferences;
     }
 
@@ -83,7 +96,31 @@ public class Customer {
     public boolean canReorder(Meal meal) {
         return true;
     }
+    public void placeOrder(String order) throws IOException {
+        this.charge += currentOrder.getCost(order);
+        this.orderHistory.add(order);
+        currentOrder.updateQuantities(currentOrder.getIngredientsFromFile(order));
+        currentOrder.submitOrderWithDietaryPreferences();
 
+    }
+
+
+    public void selectOrder(String selected) {
+        this.order= selected;
+    }
+
+    public String getSected() {
+        return this.order;
+    }
+    public String invoice() {
+        String date = LocalDate.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+
+        return  date + "Invoice: " + this.charge;
+    }
+
+    public float getCharge() {
+        return charge;
+    }
 
 
 }

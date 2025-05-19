@@ -1,15 +1,80 @@
-pepper,70
-banana,5
 kiwi,-1
+spinach,15
+Red cabbage slaw,0
 onion,1
 cucumber,8
-tomato,10
+feta cheese,12
+soy sauce,0
+cumin,2
+peanuts,4
+sauteed spinach,14
+coconut aminos,8
+cheese,0
+greek yogurt,5
+mustard,9
+whole wheat wrap,3
+chickpeas,6
+chia seeds,7
+garlic butter,12
+cherry tomatoes,13
+olive oil,3
+Black beans,7
+banana,5
+scrambled eggs,13
+roasted sweet potatoes,4
 grape,8
+lettuce,0
+quinoa,12
+Salsa,4
+vegetable broth,6
+ginger,3
+Avocado,3
+asparagus,4
+tofu,6
+snow peas,0
+whole wheat burger bun,0
+ketchup,2
+cauliflower rice,10
+pepper,70
+scallions,4
+sweet potatoes,8
+steak,15
+grilled chicken breast,11
+mixed greens,4
+red cabbage,10
+broccoli,0
+Lime juice,1
+soy crumbles,11
+tomato,0
+zucchini,3
 sun,10
-mango,6
-orange,4
+hummus,10
 apple,10
 lemon,7
-pineapple,6
+celery,5
+pickles,0
 potato,10
+bell peppers,0
+whole grain bread,12
+garlic,7
+onions,1
+veggie patty,14
+peanut butter,6
+Corn,8
+Flour tortillas,2
+almonds,7
+mashed avocado,7
+black pepper,70
+rice,0
+multigrain bread,8
+mango,6
+lentils,3
+orange,4
+mushrooms,9
+bacon,2
+paprika,9
+pineapple,6
+cashews,11
+green onions,4
+tahini dressing,9
 carrot,15

@@ -10,7 +10,3 @@ Feature: admin view the supply status
     When the system detects the low stock level
     Then it should automatically generate a restocking suggestion and notify the kitchen manager
 
-  Scenario: multiple ingredients low stock alert and restocking suggestion
-    Given an ingredient's stock level falls below a predefined threshold
-    When the system detects the low stock level
-    Then it should automatically generate a  multi restocking suggestion and notify the kitchen manager

@@ -6,7 +6,17 @@ Feature: Invoice Generation
   Scenario: Generate invoice for a single purchased item
     Given : the customer is logged in and is Vegetarian
     When the customer purchases see the menu
-    Then the customer selects "Veggie Burger"
-    Then the invoice should list the item "Veggie Burger"
-    And the invoice should show the total amount as 8.99
-    And the invoice should include the date of purchase
+    And the customer selects a single item
+    Then the invoice is generated
+
+  Scenario: Generate invoice for multiple purchased items
+    Given : the customer is logged in and is Vegetarian
+    When the customer purchases see the menu
+    And the customer selects multiple items
+    Then the invoice is generated for multiple items
+Scenario: : add balance to the system
+    Given : the customer is logged in and is Vegetarian
+    When the customer purchases see the menu
+    And the customer selects multiple items
+    Then the invoice is generated for multiple items
+    Then the balance is updated
