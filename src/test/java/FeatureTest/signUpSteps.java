@@ -70,7 +70,7 @@ public class signUpSteps {
     @Test
     public void testWrongFileCatchBlock() {
         SignUper signUper = new SignUper();
-        signUper.setFilePath("data/nonexistent_file.txt");
+        signUper.setFilePath("data/noneexistent_file.txt");
 
         // Capture System.err
         ByteArrayOutputStream errContent = new ByteArrayOutputStream();
@@ -99,7 +99,7 @@ public class signUpSteps {
     @Test
     public void testAddWrongFile() {
         SignUper signUper = new SignUper();
-        signUper.setFilePath("data/nonexistent_file.txt");
+        signUper.setFilePath("data/nonexistentt_file.txt");
 
         // Capture System.err
         ByteArrayOutputStream errContent = new ByteArrayOutputStream();

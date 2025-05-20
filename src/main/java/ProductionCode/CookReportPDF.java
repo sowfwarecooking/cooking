@@ -25,7 +25,7 @@ public class CookReportPDF {
         return first + second + third;
     }
 
-
+    // Todo: Add a method to generate the PDF from the customer buy
 
     public void generateReportPDF() {
         try (PDDocument document = new PDDocument()) {

@@ -1,8 +1,6 @@
 package ProductionCode;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -101,7 +99,36 @@ public class Customer {
         this.orderHistory.add(order);
         currentOrder.updateQuantities(currentOrder.getIngredientsFromFile(order));
         currentOrder.submitOrderWithDietaryPreferences();
+        addOrderToHistory(order, this.username);
 
+    }
+    //Todo : Add the order to the order history
+    public void addOrderToHistory(String order, String username) {
+        File file = new File("data/order.txt");
+        List<String> lines = new ArrayList<>();
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                // Check if the line belongs to the user
+                if (line.startsWith(username + ",")) {
+                    line = line + "," + order; // Append new order to this line
+                }
+                lines.add(line);
+            }
+        } catch (IOException e) {
+            throw new RuntimeException("Error reading the order file", e);
+        }
+
+        // Write the updated lines back to the file
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
+            for (String l : lines) {
+                writer.write(l);
+                writer.newLine();
+            }
+        } catch (IOException e) {
+            throw new RuntimeException("Error writing the order file", e);
+        }
     }
 
 
@@ -121,6 +148,5 @@ public class Customer {
     public float getCharge() {
         return charge;
     }
-
 
 }
