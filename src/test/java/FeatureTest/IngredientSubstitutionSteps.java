@@ -54,12 +54,26 @@ public class IngredientSubstitutionSteps {
         m.setAlternativeGlutenFreeIngredients(s);
         m.setAlternativeVegetarianIngredients(s);
         m.setAlternativeLowCarbIngredients(s);
+        m.setAlternativeKetoIngredients(s);
         assertTrue(m.alternativeVeganIngredients.contains(s));
         assertTrue(m.alternativeGlutenFreeIngredients.contains(s));
         assertTrue(m.alternativeVegetarianIngredients.contains(s));
         assertTrue(m.alternativeLowCarbIngredients.contains(s));
+        assertTrue(m.alternativeKetoIngredients.contains(s));
+        assertTrue(m.isRestrictedIngredient(s));
+        ArrayList<String>arr = new ArrayList<>();
+        arr.add(s);
+        assertTrue(m.arrContainsGluten(arr));
+        assertTrue(m.arrContainsNonKeto(arr));
+        assertTrue(m.arrContainsNonLowCarb(arr));
+        assertTrue(m.arrContainsNonVegetarian(arr));
+        assertTrue(m.arrContainsNonVegan(arr));
 
-
+        assertEquals(s, m.containsGlutenAsString(arr));
+        assertEquals(s, m.containsNonLowCarbAsString(arr));
+        assertEquals(s, m.containsNonKetoAsString(arr));
+        assertEquals(s, m.containsNonVeganAsString(arr));
+        assertEquals(s, m.containsNonVegetarianAsString(arr));
     }
     @Given("the user inputs a recipe containing restricted ingredients")
     public void theUserInputsARecipeContainingRestrictedIngredients() {
@@ -85,8 +99,49 @@ public class IngredientSubstitutionSteps {
     public void theSystemSuggestsSuitableAlternativesThatAdhereToTheUserSDietaryRestrictions() {
         // Write code here that turns the phrase above into concrete actions
         IngredientSubManager z = i;
+
         System.out.println(z.suggestAlternativeIngredients(myOrder));
         assertNotNull(z.suggestAlternativeIngredients(myOrder));
+        //
+        myOrder = new Order();
+        z.setAlternativeVegetarianIngredients("Vegetarian Meat");
+        z.setRestrictedVegetarianIngredients("Beef");
+        myOrder.setDietaryPreference("Vegetarian");
+        myOrder.setIngredients("Beef","RICE","milk");
+        z.setOrder(myOrder);
+        String expected = "beef isn't vegetarian, you can try vegetarian meat instead.\n";
+        String actual =z.suggestAlternativeIngredients(myOrder);
+        assertEquals(expected, actual);
+        //
+        myOrder = new Order();
+        z.setAlternativeKetoIngredients("Keto x");
+        z.setRestrictedKetoIngredients("Rice");
+        myOrder.setDietaryPreference("Keto");
+        myOrder.setIngredients("Beef","RICE","milk");
+        z.setOrder(myOrder);
+        expected = "rice isn't keto, you can try keto x instead.\n";
+        actual =z.suggestAlternativeIngredients(myOrder);
+        assertEquals(expected, actual);
+        //
+        myOrder = new Order();
+        z.setAlternativeLowCarbIngredients("LowCarb x");
+        z.setRestrictedLowCarbIngredients("Rice");
+        myOrder.setDietaryPreference("low carb");
+        myOrder.setIngredients("Beef","RICE","milk");
+        z.setOrder(myOrder);
+        expected = "rice isn't low_carb, you can try lowcarb x instead.\n";
+        actual =z.suggestAlternativeIngredients(myOrder);
+        assertEquals(expected, actual);
+        //
+        myOrder = new Order();
+        z.setAlternativeGlutenFreeIngredients("Gluten Free x");
+        z.setRestrictedGlutenFreeIngredients("milk");
+        myOrder.setDietaryPreference("gluten free");
+        myOrder.setIngredients("Beef","RICE","milk");
+        z.setOrder(myOrder);
+          expected = "milk isn't gluten_free, you can try gluten free x instead.\n";
+        actual =z.suggestAlternativeIngredients(myOrder);
+        assertEquals(expected, actual);
 
     }
 

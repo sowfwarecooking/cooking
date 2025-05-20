@@ -8,7 +8,7 @@ public class Ingredients {
     public ArrayList<String> availableIngredientsB = new ArrayList<>();
     public ArrayList<String> selectedIngredients = new ArrayList<>();
     public ArrayList<String> selectedIngredientsOld = new ArrayList<>();
-
+    Random random = new Random();
     public boolean isAvailableIngredient(String s){
         for(String i:this.availableIngredientsA){
             if(i.equalsIgnoreCase(s)){
@@ -49,7 +49,6 @@ public class Ingredients {
 
         addAvailableIngredients(2,"def B");
         addAvailableIngredients("def A");
-        Random random = new Random();
         String status = "";
         ArrayList<String> selectedIngredientsTemp = new ArrayList<>();
         boolean inIngredientGrpA = false;
@@ -59,8 +58,8 @@ public class Ingredients {
         int cnt = 0;
         String unavailableMsg="For the Unavailable Ingredients You Can Try These Instead:\n";
        for(String temp:s){
-            if(this.isAvailableIngredient(temp))
-          this.selectedIngredients.add(temp);
+            if(this.isAvailableIngredient(temp)){
+          this.selectedIngredients.add(temp);}
             else{
                 status += temp+" IS UNAVAILABLE\n";
                 cnt++;
@@ -77,8 +76,7 @@ public class Ingredients {
             return status;
         }
 
-      /*  if(this.availableIngredientsA.contains(this.selectedIngredients.getFirst())){grpABias = true;}
-        else {grpBBias=true;}*/
+
         if(containsIgnoreCase(availableIngredientsA, this.selectedIngredients.getFirst())){grpABias = true;}
         else {grpBBias=true;}
        for(String temp :this.selectedIngredients){

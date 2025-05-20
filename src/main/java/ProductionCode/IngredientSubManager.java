@@ -6,7 +6,7 @@ import java.util.Random;
 
 public class IngredientSubManager {
     Order myOrder = new Order();
-
+    Random random = new Random();
     public ArrayList<String>restrictedVeganIngredients=new ArrayList<>();
     public ArrayList<String>restrictedLowCarbIngredients=new ArrayList<>();
     public ArrayList<String>restrictedVegetarianIngredients=new ArrayList<>();
@@ -85,42 +85,42 @@ public class IngredientSubManager {
 
     }
 
-    private boolean containsGluten(String s) {
+    public boolean containsGluten(String s) {
         if (this.restrictedGlutenFreeIngredients.stream().anyMatch(a -> a.equalsIgnoreCase(s))) {
             return true;
         }
         return false;
     }
 
-    private boolean containsNonKeto(String s) {
+    public boolean containsNonKeto(String s) {
         if (this.restrictedKetoIngredients.stream().anyMatch(a -> a.equalsIgnoreCase(s))) {
             return true;
         }
         return false;
     }
 
-    private boolean containsNonVegetarian(String s) {
+    public boolean containsNonVegetarian(String s) {
         if (this.restrictedVegetarianIngredients.stream().anyMatch(a -> a.equalsIgnoreCase(s))) {
             return true;
         }
         return false;
     }
 
-    private boolean containsNonLowCarb(String s) {
+    public boolean containsNonLowCarb(String s) {
         if (this.restrictedLowCarbIngredients.stream().anyMatch(a -> a.equalsIgnoreCase(s))) {
             return true;
         }
         return false;
     }
 
-    private boolean containsNonVegan(String s) {
+    public boolean containsNonVegan(String s) {
         if (this.restrictedVeganIngredients.stream().anyMatch(a -> a.equalsIgnoreCase(s))) {
             return true;
         }
         return false;
     }
 
-    private boolean arrContainsGluten(ArrayList<String> myArr) {
+    public boolean arrContainsGluten(ArrayList<String> myArr) {
 
       for(String s:myArr){
           if(containsGluten(s)){return true;}
@@ -128,32 +128,32 @@ public class IngredientSubManager {
       return false;
     }
 
-    private boolean arrContainsNonVegetarian(ArrayList<String> myArr) {
+    public boolean arrContainsNonVegetarian(ArrayList<String> myArr) {
         for(String s:myArr){
             if(containsNonVegetarian(s)){return true;}
         }
         return false;
     }
-    private boolean arrContainsNonLowCarb(ArrayList<String> myArr) {
+    public boolean arrContainsNonLowCarb(ArrayList<String> myArr) {
         for(String s:myArr){
             if(containsNonLowCarb(s)){return true;}
         }
         return false;
     }
-    private boolean arrContainsNonKeto(ArrayList<String> myArr) {
+    public boolean arrContainsNonKeto(ArrayList<String> myArr) {
         for(String s:myArr){
             if(containsNonKeto(s)){return true;}
         }
         return false;
     }
-    private boolean arrContainsNonVegan(ArrayList<String> myArr) {
+    public boolean arrContainsNonVegan(ArrayList<String> myArr) {
         for(String s:myArr){
             if(containsNonVegan(s)){return true;}
         }
         return false;
     }
     //
-    private String containsGlutenAsString(ArrayList<String> myArr) {
+    public String containsGlutenAsString(ArrayList<String> myArr) {
         ArrayList<String> contGluten = new ArrayList<>();
 
         for(String s:myArr){
@@ -161,7 +161,7 @@ public class IngredientSubManager {
         }
         return String.join(", ", contGluten);
     }
-    private String containsNonVeganAsString(ArrayList<String> myArr) {
+    public String containsNonVeganAsString(ArrayList<String> myArr) {
         ArrayList<String> contNonVegan = new ArrayList<>();
 
         for(String s:myArr){
@@ -169,7 +169,7 @@ public class IngredientSubManager {
         }
         return String.join(", ", contNonVegan);
     }
-    private String containsNonVegetarianAsString(ArrayList<String> myArr) {
+    public String containsNonVegetarianAsString(ArrayList<String> myArr) {
         ArrayList<String> contNonVegetarian = new ArrayList<>();
 
         for(String s:myArr){
@@ -177,7 +177,7 @@ public class IngredientSubManager {
         }
         return String.join(", ", contNonVegetarian);
     }
-    private String containsNonKetoAsString(ArrayList<String> myArr) {
+    public String containsNonKetoAsString(ArrayList<String> myArr) {
         ArrayList<String> contNonKeto = new ArrayList<>();
 
         for(String s:myArr){
@@ -185,7 +185,7 @@ public class IngredientSubManager {
         }
         return String.join(", ", contNonKeto);
     }
-    private String containsNonLowCarbAsString(ArrayList<String> myArr) {
+    public String containsNonLowCarbAsString(ArrayList<String> myArr) {
         ArrayList<String> contNonLowCarb = new ArrayList<>();
 
         for(String s:myArr){
@@ -210,9 +210,8 @@ public class IngredientSubManager {
     }
     //---------->Start From here
     public String suggestAlternativeIngredients(Order o){
-        Random random = new Random();
+
         myOrderForSubRev = getOrderAsArray(o);
-   //        if (myOrderForSubRev.isEmpty())return"No Order To Check";
         String suggestionMessage = "";
         String orderDietaryPreference = o.getDietaryPreference();
 
@@ -226,8 +225,7 @@ public class IngredientSubManager {
                 int undesiredIngredientsNumber = undesiredIngredientsArr.length;
                 for(int i = 0 ; i< undesiredIngredientsNumber; i++){
                     randomElement = alternativeVeganIngredients.get(random.nextInt(alternativeVeganIngredients.size()));
-                    suggestionMessage += (undesiredIngredientsArr[i].toLowerCase()+ " isn't "+ orderDietaryPreference+ ", you can try "+randomElement.toLowerCase()+" instead.\n");
-
+                    suggestionMessage +=displayMessage(undesiredIngredientsArr[i].toLowerCase(),randomElement.toLowerCase(),orderDietaryPreference);
                 }
             }break;
 
@@ -238,8 +236,7 @@ public class IngredientSubManager {
                 int undesiredIngredientsNumber = undesiredIngredientsArr.length;
                 for(int i = 0 ; i< undesiredIngredientsNumber; i++){
                     randomElement = alternativeVegetarianIngredients.get(random.nextInt(alternativeVegetarianIngredients.size()));
-                    suggestionMessage += (undesiredIngredientsArr[i].toLowerCase()+ " isn't "+ orderDietaryPreference+ ", you can try "+randomElement.toLowerCase()+" instead.\n");
-
+                    suggestionMessage +=displayMessage(undesiredIngredientsArr[i].toLowerCase(),randomElement.toLowerCase(),orderDietaryPreference);
                 }
             }break;
 
@@ -250,8 +247,7 @@ public class IngredientSubManager {
                 int undesiredIngredientsNumber = undesiredIngredientsArr.length;
                 for(int i = 0 ; i< undesiredIngredientsNumber; i++){
                     randomElement = alternativeKetoIngredients.get(random.nextInt(alternativeKetoIngredients.size()));
-                    suggestionMessage += (undesiredIngredientsArr[i].toLowerCase()+ " isn't "+ orderDietaryPreference+ ", you can try "+randomElement.toLowerCase()+" instead.\n");
-
+                    suggestionMessage +=displayMessage(undesiredIngredientsArr[i].toLowerCase(),randomElement.toLowerCase(),orderDietaryPreference);
                 }
             }break;
 
@@ -262,8 +258,7 @@ public class IngredientSubManager {
                 int undesiredIngredientsNumber = undesiredIngredientsArr.length;
                 for(int i = 0 ; i< undesiredIngredientsNumber; i++){
                     randomElement = alternativeLowCarbIngredients.get(random.nextInt(alternativeLowCarbIngredients.size()));
-                    suggestionMessage += (undesiredIngredientsArr[i].toLowerCase()+ " isn't "+ orderDietaryPreference+ ", you can try "+randomElement.toLowerCase()+" instead.\n");
-
+                    suggestionMessage +=displayMessage(undesiredIngredientsArr[i].toLowerCase(),randomElement.toLowerCase(),orderDietaryPreference);
                 }
             }break;
 
@@ -274,8 +269,7 @@ public class IngredientSubManager {
                 int undesiredIngredientsNumber = undesiredIngredientsArr.length;
                 for(int i = 0 ; i< undesiredIngredientsNumber; i++){
                     randomElement = alternativeGlutenFreeIngredients.get(random.nextInt(alternativeGlutenFreeIngredients.size()));
-                    suggestionMessage += (undesiredIngredientsArr[i].toLowerCase()+ " isn't "+ orderDietaryPreference+ ", you can try "+randomElement.toLowerCase()+" instead.\n");
-
+                    suggestionMessage +=displayMessage(undesiredIngredientsArr[i].toLowerCase(),randomElement.toLowerCase(),orderDietaryPreference);
                 }
             }break;
 
@@ -287,5 +281,11 @@ public class IngredientSubManager {
     }
 public void reset(){
         myOrderForSubRev.clear();
+}
+
+public String displayMessage(String undesiredI,String subI, String orderDP){
+
+    return(undesiredI+ " isn't "+ orderDP+ ", you can try "+subI+" instead.\n");
+
 }
 }
