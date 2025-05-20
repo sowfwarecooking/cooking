@@ -1,0 +1,407 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > IngredientSubManager</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">ProductionCode</a>
+</div>
+
+<h1>Coverage Summary for Class: IngredientSubManager (ProductionCode)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">IngredientSubManager</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    48.6%
+  </span>
+  <span class="absValue">
+    (17/35)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    24.7%
+  </span>
+  <span class="absValue">
+    (23/93)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    41.8%
+  </span>
+  <span class="absValue">
+    (59/141)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package ProductionCode;
+&nbsp;
+&nbsp;import java.util.ArrayList;
+&nbsp;import java.util.Arrays;
+&nbsp;import java.util.Random;
+&nbsp;
+<b class="fc">&nbsp;public class IngredientSubManager {</b>
+<b class="fc">&nbsp;    Order myOrder = new Order();</b>
+&nbsp;
+<b class="fc">&nbsp;    public ArrayList&lt;String&gt;restrictedVeganIngredients=new ArrayList&lt;&gt;();</b>
+<b class="fc">&nbsp;    public ArrayList&lt;String&gt;restrictedLowCarbIngredients=new ArrayList&lt;&gt;();</b>
+<b class="fc">&nbsp;    public ArrayList&lt;String&gt;restrictedVegetarianIngredients=new ArrayList&lt;&gt;();</b>
+<b class="fc">&nbsp;    public ArrayList&lt;String&gt;restrictedKetoIngredients=new ArrayList&lt;&gt;();</b>
+<b class="fc">&nbsp;    public ArrayList&lt;String&gt;restrictedGlutenFreeIngredients=new ArrayList&lt;&gt;();</b>
+&nbsp;
+&nbsp;    public void setRestrictedVeganIngredients(String...s){
+<b class="fc">&nbsp;        this.restrictedVeganIngredients.addAll(Arrays.asList(s));</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setRestrictedLowCarbIngredients(String...s){
+<b class="nc">&nbsp;        this.restrictedLowCarbIngredients.addAll(Arrays.asList(s));</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setRestrictedVegetarianIngredients(String...s){
+<b class="nc">&nbsp;        this.restrictedVegetarianIngredients.addAll(Arrays.asList(s));</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setRestrictedKetoIngredients(String...s){
+<b class="nc">&nbsp;        this.restrictedKetoIngredients.addAll(Arrays.asList(s));</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setRestrictedGlutenFreeIngredients(String...s){
+<b class="nc">&nbsp;        this.restrictedGlutenFreeIngredients.addAll(Arrays.asList(s));</b>
+&nbsp;    }
+&nbsp;
+<b class="fc">&nbsp;    public ArrayList&lt;String&gt;alternativeVeganIngredients=new ArrayList&lt;&gt;();</b>
+<b class="fc">&nbsp;    public ArrayList&lt;String&gt;alternativeLowCarbIngredients=new ArrayList&lt;&gt;();</b>
+<b class="fc">&nbsp;    public ArrayList&lt;String&gt;alternativeVegetarianIngredients=new ArrayList&lt;&gt;();</b>
+<b class="fc">&nbsp;    public ArrayList&lt;String&gt;alternativeKetoIngredients=new ArrayList&lt;&gt;();</b>
+<b class="fc">&nbsp;    public ArrayList&lt;String&gt;alternativeGlutenFreeIngredients=new ArrayList&lt;&gt;();</b>
+&nbsp;
+<b class="fc">&nbsp;    public ArrayList&lt;String&gt; myOrderForSubRev =new ArrayList&lt;&gt;();</b>
+&nbsp;
+&nbsp;    public void setAlternativeVeganIngredients(String...s){
+<b class="fc">&nbsp;       this.alternativeVeganIngredients.addAll(Arrays.asList(s));</b>
+&nbsp;    }
+&nbsp;    public void setAlternativeLowCarbIngredients(String...s){
+<b class="nc">&nbsp;        this.alternativeLowCarbIngredients.addAll(Arrays.asList(s));</b>
+&nbsp;    }
+&nbsp;    public void setAlternativeVegetarianIngredients(String...s){
+<b class="nc">&nbsp;        this.alternativeVegetarianIngredients.addAll(Arrays.asList(s));</b>
+&nbsp;    }
+&nbsp;    public void setAlternativeKetoIngredients(String...s){
+<b class="nc">&nbsp;        this.alternativeKetoIngredients.addAll(Arrays.asList(s));</b>
+&nbsp;    }
+&nbsp;    public void setAlternativeGlutenFreeIngredients(String...s){
+<b class="nc">&nbsp;        this.alternativeGlutenFreeIngredients.addAll(Arrays.asList(s));</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void submitOrderForSubReview(String... s){
+<b class="fc">&nbsp;        this.myOrderForSubRev.addAll(Arrays.asList(s));</b>
+&nbsp;    }
+&nbsp;
+<b class="fc">&nbsp;    public void setOrder(Order o){this.myOrder=o;}</b>
+&nbsp;
+&nbsp;    public String getOrderDietaryPreference(){
+<b class="fc">&nbsp;        return (this.myOrder.getDietaryPreference());</b>
+&nbsp;    }
+&nbsp;    public boolean hasADiet(){
+<b class="fc">&nbsp;        String s = getOrderDietaryPreference();</b>
+<b class="pc">&nbsp;        if(getOrderDietaryPreference().equalsIgnoreCase(&quot;none&quot;)){</b>
+<b class="nc">&nbsp;            return false;</b>
+&nbsp;
+<b class="fc">&nbsp;        }else{return true;}</b>
+&nbsp;
+&nbsp;    }
+&nbsp;    public boolean isRestrictedIngredient(String s){
+<b class="pc">&nbsp;        if (containsNonVegan(s)) return true;</b>
+<b class="pc">&nbsp;        if (containsNonLowCarb(s)) return true;</b>
+<b class="pc">&nbsp;        if (containsNonVegetarian(s)) return true;</b>
+<b class="pc">&nbsp;        if (containsNonKeto(s)) return true;</b>
+<b class="nc">&nbsp;        if (containsGluten(s)) return true;</b>
+<b class="nc">&nbsp;        return false;</b>
+&nbsp;
+&nbsp;
+&nbsp;    }
+&nbsp;
+&nbsp;    private boolean containsGluten(String s) {
+<b class="nc">&nbsp;        if (this.restrictedGlutenFreeIngredients.stream().anyMatch(a -&gt; a.equalsIgnoreCase(s))) {</b>
+<b class="nc">&nbsp;            return true;</b>
+&nbsp;        }
+<b class="nc">&nbsp;        return false;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private boolean containsNonKeto(String s) {
+<b class="pc">&nbsp;        if (this.restrictedKetoIngredients.stream().anyMatch(a -&gt; a.equalsIgnoreCase(s))) {</b>
+<b class="fc">&nbsp;            return true;</b>
+&nbsp;        }
+<b class="nc">&nbsp;        return false;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private boolean containsNonVegetarian(String s) {
+<b class="pc">&nbsp;        if (this.restrictedVegetarianIngredients.stream().anyMatch(a -&gt; a.equalsIgnoreCase(s))) {</b>
+<b class="nc">&nbsp;            return true;</b>
+&nbsp;        }
+<b class="fc">&nbsp;        return false;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private boolean containsNonLowCarb(String s) {
+<b class="pc">&nbsp;        if (this.restrictedLowCarbIngredients.stream().anyMatch(a -&gt; a.equalsIgnoreCase(s))) {</b>
+<b class="nc">&nbsp;            return true;</b>
+&nbsp;        }
+<b class="fc">&nbsp;        return false;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private boolean containsNonVegan(String s) {
+<b class="fc">&nbsp;        if (this.restrictedVeganIngredients.stream().anyMatch(a -&gt; a.equalsIgnoreCase(s))) {</b>
+<b class="fc">&nbsp;            return true;</b>
+&nbsp;        }
+<b class="fc">&nbsp;        return false;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private boolean arrContainsGluten(ArrayList&lt;String&gt; myArr) {
+&nbsp;
+<b class="nc">&nbsp;      for(String s:myArr){</b>
+<b class="nc">&nbsp;          if(containsGluten(s)){return true;}</b>
+&nbsp;      }
+<b class="nc">&nbsp;      return false;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private boolean arrContainsNonVegetarian(ArrayList&lt;String&gt; myArr) {
+<b class="nc">&nbsp;        for(String s:myArr){</b>
+<b class="nc">&nbsp;            if(containsNonVegetarian(s)){return true;}</b>
+&nbsp;        }
+<b class="nc">&nbsp;        return false;</b>
+&nbsp;    }
+&nbsp;    private boolean arrContainsNonLowCarb(ArrayList&lt;String&gt; myArr) {
+<b class="nc">&nbsp;        for(String s:myArr){</b>
+<b class="nc">&nbsp;            if(containsNonLowCarb(s)){return true;}</b>
+&nbsp;        }
+<b class="nc">&nbsp;        return false;</b>
+&nbsp;    }
+&nbsp;    private boolean arrContainsNonKeto(ArrayList&lt;String&gt; myArr) {
+<b class="nc">&nbsp;        for(String s:myArr){</b>
+<b class="nc">&nbsp;            if(containsNonKeto(s)){return true;}</b>
+&nbsp;        }
+<b class="nc">&nbsp;        return false;</b>
+&nbsp;    }
+&nbsp;    private boolean arrContainsNonVegan(ArrayList&lt;String&gt; myArr) {
+<b class="pc">&nbsp;        for(String s:myArr){</b>
+<b class="pc">&nbsp;            if(containsNonVegan(s)){return true;}</b>
+&nbsp;        }
+<b class="nc">&nbsp;        return false;</b>
+&nbsp;    }
+&nbsp;    //
+&nbsp;    private String containsGlutenAsString(ArrayList&lt;String&gt; myArr) {
+<b class="nc">&nbsp;        ArrayList&lt;String&gt; contGluten = new ArrayList&lt;&gt;();</b>
+&nbsp;
+<b class="nc">&nbsp;        for(String s:myArr){</b>
+<b class="nc">&nbsp;            if(containsGluten(s)){contGluten.add(s);}</b>
+&nbsp;        }
+<b class="nc">&nbsp;        return String.join(&quot;, &quot;, contGluten);</b>
+&nbsp;    }
+&nbsp;    private String containsNonVeganAsString(ArrayList&lt;String&gt; myArr) {
+<b class="fc">&nbsp;        ArrayList&lt;String&gt; contNonVegan = new ArrayList&lt;&gt;();</b>
+&nbsp;
+<b class="fc">&nbsp;        for(String s:myArr){</b>
+<b class="fc">&nbsp;            if(containsNonVegan(s)){contNonVegan.add(s);}</b>
+&nbsp;        }
+<b class="fc">&nbsp;        return String.join(&quot;, &quot;, contNonVegan);</b>
+&nbsp;    }
+&nbsp;    private String containsNonVegetarianAsString(ArrayList&lt;String&gt; myArr) {
+<b class="nc">&nbsp;        ArrayList&lt;String&gt; contNonVegetarian = new ArrayList&lt;&gt;();</b>
+&nbsp;
+<b class="nc">&nbsp;        for(String s:myArr){</b>
+<b class="nc">&nbsp;            if(containsNonVegetarian(s)){contNonVegetarian.add(s);}</b>
+&nbsp;        }
+<b class="nc">&nbsp;        return String.join(&quot;, &quot;, contNonVegetarian);</b>
+&nbsp;    }
+&nbsp;    private String containsNonKetoAsString(ArrayList&lt;String&gt; myArr) {
+<b class="nc">&nbsp;        ArrayList&lt;String&gt; contNonKeto = new ArrayList&lt;&gt;();</b>
+&nbsp;
+<b class="nc">&nbsp;        for(String s:myArr){</b>
+<b class="nc">&nbsp;            if(containsNonKeto(s)){contNonKeto.add(s);}</b>
+&nbsp;        }
+<b class="nc">&nbsp;        return String.join(&quot;, &quot;, contNonKeto);</b>
+&nbsp;    }
+&nbsp;    private String containsNonLowCarbAsString(ArrayList&lt;String&gt; myArr) {
+<b class="nc">&nbsp;        ArrayList&lt;String&gt; contNonLowCarb = new ArrayList&lt;&gt;();</b>
+&nbsp;
+<b class="nc">&nbsp;        for(String s:myArr){</b>
+<b class="nc">&nbsp;            if(containsNonLowCarb(s)){contNonLowCarb.add(s);}</b>
+&nbsp;        }
+<b class="nc">&nbsp;        return String.join(&quot;, &quot;, contNonLowCarb);</b>
+&nbsp;    }
+&nbsp;    //
+&nbsp;
+&nbsp;    public ArrayList&lt;String&gt; getOrderAsArray(Order o){
+<b class="fc">&nbsp;        return o.getOrderAsArray();</b>
+&nbsp;    }
+&nbsp;    public boolean selectionContainsRestrictions (ArrayList&lt;String&gt; arr){
+<b class="pc">&nbsp;        if(arr.isEmpty()){</b>
+<b class="nc">&nbsp;            return false;</b>
+&nbsp;        }
+<b class="pc">&nbsp;        for(String s: arr){</b>
+<b class="pc">&nbsp;            if (isRestrictedIngredient(s));</b>
+<b class="fc">&nbsp;            return true;</b>
+&nbsp;        }
+<b class="nc">&nbsp;        return false;</b>
+&nbsp;    }
+&nbsp;    //----------&gt;Start From here
+&nbsp;    public String suggestAlternativeIngredients(Order o){
+<b class="fc">&nbsp;        Random random = new Random();</b>
+<b class="fc">&nbsp;        myOrderForSubRev = getOrderAsArray(o);</b>
+&nbsp;   //        if (myOrderForSubRev.isEmpty())return&quot;No Order To Check&quot;;
+<b class="fc">&nbsp;        String suggestionMessage = &quot;&quot;;</b>
+<b class="fc">&nbsp;        String orderDietaryPreference = o.getDietaryPreference();</b>
+&nbsp;
+&nbsp;        
+<b class="pc">&nbsp;        switch (orderDietaryPreference.toLowerCase()) {</b>
+&nbsp;
+<b class="pc">&nbsp;            case &quot;vegan&quot;: if(arrContainsNonVegan(this.myOrderForSubRev)){</b>
+<b class="fc">&nbsp;                String randomElement =&quot;&quot;;</b>
+<b class="fc">&nbsp;                String s = containsNonVeganAsString(myOrderForSubRev);</b>
+<b class="fc">&nbsp;                String[] undesiredIngredientsArr= s.split(&quot;, &quot;);</b>
+<b class="fc">&nbsp;                int undesiredIngredientsNumber = undesiredIngredientsArr.length;</b>
+<b class="fc">&nbsp;                for(int i = 0 ; i&lt; undesiredIngredientsNumber; i++){</b>
+<b class="fc">&nbsp;                    randomElement = alternativeVeganIngredients.get(random.nextInt(alternativeVeganIngredients.size()));</b>
+<b class="fc">&nbsp;                    suggestionMessage += (undesiredIngredientsArr[i].toLowerCase()+ &quot; isn&#39;t &quot;+ orderDietaryPreference+ &quot;, you can try &quot;+randomElement.toLowerCase()+&quot; instead.\n&quot;);</b>
+&nbsp;
+&nbsp;                }
+&nbsp;            }break;
+&nbsp;
+<b class="nc">&nbsp;            case &quot;vegetarian&quot;: if(arrContainsNonVegetarian(this.myOrderForSubRev)){</b>
+<b class="nc">&nbsp;                String randomElement =&quot;&quot;;</b>
+<b class="nc">&nbsp;                String s = containsNonVegetarianAsString(myOrderForSubRev);</b>
+<b class="nc">&nbsp;                String[] undesiredIngredientsArr= s.split(&quot;, &quot;);</b>
+<b class="nc">&nbsp;                int undesiredIngredientsNumber = undesiredIngredientsArr.length;</b>
+<b class="nc">&nbsp;                for(int i = 0 ; i&lt; undesiredIngredientsNumber; i++){</b>
+<b class="nc">&nbsp;                    randomElement = alternativeVegetarianIngredients.get(random.nextInt(alternativeVegetarianIngredients.size()));</b>
+<b class="nc">&nbsp;                    suggestionMessage += (undesiredIngredientsArr[i].toLowerCase()+ &quot; isn&#39;t &quot;+ orderDietaryPreference+ &quot;, you can try &quot;+randomElement.toLowerCase()+&quot; instead.\n&quot;);</b>
+&nbsp;
+&nbsp;                }
+&nbsp;            }break;
+&nbsp;
+<b class="nc">&nbsp;            case &quot;keto&quot;: if(arrContainsNonKeto(this.myOrderForSubRev)){</b>
+<b class="nc">&nbsp;                String randomElement =&quot;&quot;;</b>
+<b class="nc">&nbsp;                String s = containsNonKetoAsString(myOrderForSubRev);</b>
+<b class="nc">&nbsp;                String[] undesiredIngredientsArr= s.split(&quot;, &quot;);</b>
+<b class="nc">&nbsp;                int undesiredIngredientsNumber = undesiredIngredientsArr.length;</b>
+<b class="nc">&nbsp;                for(int i = 0 ; i&lt; undesiredIngredientsNumber; i++){</b>
+<b class="nc">&nbsp;                    randomElement = alternativeKetoIngredients.get(random.nextInt(alternativeKetoIngredients.size()));</b>
+<b class="nc">&nbsp;                    suggestionMessage += (undesiredIngredientsArr[i].toLowerCase()+ &quot; isn&#39;t &quot;+ orderDietaryPreference+ &quot;, you can try &quot;+randomElement.toLowerCase()+&quot; instead.\n&quot;);</b>
+&nbsp;
+&nbsp;                }
+&nbsp;            }break;
+&nbsp;
+<b class="nc">&nbsp;            case &quot;low_carb&quot;: if(arrContainsNonLowCarb(this.myOrderForSubRev)){</b>
+<b class="nc">&nbsp;                String randomElement =&quot;&quot;;</b>
+<b class="nc">&nbsp;                String s = containsNonLowCarbAsString(myOrderForSubRev);</b>
+<b class="nc">&nbsp;                String[] undesiredIngredientsArr= s.split(&quot;, &quot;);</b>
+<b class="nc">&nbsp;                int undesiredIngredientsNumber = undesiredIngredientsArr.length;</b>
+<b class="nc">&nbsp;                for(int i = 0 ; i&lt; undesiredIngredientsNumber; i++){</b>
+<b class="nc">&nbsp;                    randomElement = alternativeLowCarbIngredients.get(random.nextInt(alternativeLowCarbIngredients.size()));</b>
+<b class="nc">&nbsp;                    suggestionMessage += (undesiredIngredientsArr[i].toLowerCase()+ &quot; isn&#39;t &quot;+ orderDietaryPreference+ &quot;, you can try &quot;+randomElement.toLowerCase()+&quot; instead.\n&quot;);</b>
+&nbsp;
+&nbsp;                }
+&nbsp;            }break;
+&nbsp;
+<b class="nc">&nbsp;            case &quot;gluten_free&quot;: if(arrContainsGluten(this.myOrderForSubRev)){</b>
+<b class="nc">&nbsp;                String randomElement =&quot;&quot;;</b>
+<b class="nc">&nbsp;                String s = containsGlutenAsString(myOrderForSubRev);</b>
+<b class="nc">&nbsp;                String[] undesiredIngredientsArr= s.split(&quot;, &quot;);</b>
+<b class="nc">&nbsp;                int undesiredIngredientsNumber = undesiredIngredientsArr.length;</b>
+<b class="nc">&nbsp;                for(int i = 0 ; i&lt; undesiredIngredientsNumber; i++){</b>
+<b class="nc">&nbsp;                    randomElement = alternativeGlutenFreeIngredients.get(random.nextInt(alternativeGlutenFreeIngredients.size()));</b>
+<b class="nc">&nbsp;                    suggestionMessage += (undesiredIngredientsArr[i].toLowerCase()+ &quot; isn&#39;t &quot;+ orderDietaryPreference+ &quot;, you can try &quot;+randomElement.toLowerCase()+&quot; instead.\n&quot;);</b>
+&nbsp;
+&nbsp;                }
+&nbsp;            }break;
+&nbsp;
+<b class="nc">&nbsp;            default: suggestionMessage = &quot;All Your Ingredients Comply With Your Dietary Preference!&quot;;</b>
+&nbsp;            break;
+&nbsp;        }
+&nbsp;
+<b class="fc">&nbsp;        return suggestionMessage;</b>
+&nbsp;    }
+&nbsp;public void reset(){
+<b class="nc">&nbsp;        myOrderForSubRev.clear();</b>
+&nbsp;}
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2025-05-20 00:35</div>
+</div>
+</body>
+</html>

@@ -6,7 +6,11 @@ import java.util.Set;
 
 public class SignUper {
     private final Set<String> takenUsernames = new HashSet<>();
-    private final String filePath = "data/users.txt";
+    private  String filePath = "data/users.txt";
+
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
+    }
 
     // Load taken usernames from the file
     public void loadTakenUsernames() {

@@ -1,0 +1,242 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > Customer</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">ProductionCode</a>
+</div>
+
+<h1>Coverage Summary for Class: Customer (ProductionCode)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Customer</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    85.7%
+  </span>
+  <span class="absValue">
+    (12/14)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    50%
+  </span>
+  <span class="absValue">
+    (4/8)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    89.5%
+  </span>
+  <span class="absValue">
+    (34/38)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package ProductionCode;
+&nbsp;
+&nbsp;import java.io.BufferedReader;
+&nbsp;import java.io.FileReader;
+&nbsp;import java.io.IOException;
+&nbsp;import java.time.LocalDate;
+&nbsp;import java.time.format.DateTimeFormatter;
+&nbsp;import java.util.*;
+&nbsp;
+&nbsp;public class Customer {
+&nbsp;    private String username;
+&nbsp;    private boolean loggedIn;
+&nbsp;    private String dietaryPreferences;
+&nbsp;    private String allergies;
+&nbsp;    private List&lt;String&gt; orderHistory;
+&nbsp;    private menuItems items;
+<b class="fc">&nbsp;    private float charge = 0.0f;</b>
+&nbsp;    private String order ;
+&nbsp;    private Order currentOrder;
+&nbsp;
+&nbsp;
+&nbsp;    // Constructor that sets all fields
+<b class="fc">&nbsp;    public Customer(String username, String dietaryPreferences, String allergies) {</b>
+<b class="fc">&nbsp;        this.username = username;</b>
+<b class="fc">&nbsp;        this.dietaryPreferences = dietaryPreferences;</b>
+<b class="fc">&nbsp;        this.allergies = allergies;</b>
+<b class="fc">&nbsp;        this.loggedIn = true; // Simulate userLogin</b>
+<b class="fc">&nbsp;        this.orderHistory = new ArrayList&lt;&gt;();</b>
+<b class="fc">&nbsp;        this.items = new menuItems();  // Initialize to avoid null</b>
+<b class="fc">&nbsp;        this.charge = 0.0f;</b>
+&nbsp;
+<b class="fc">&nbsp;        this.currentOrder = new Order();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;    public boolean isLoggedIn() {
+<b class="fc">&nbsp;        return loggedIn;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public String getDietaryPreferences() {
+&nbsp;
+<b class="fc">&nbsp;        return dietaryPreferences;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setDietaryPreferences(
+&nbsp;            String dietaryPreferences) {
+<b class="nc">&nbsp;        this.dietaryPreferences = dietaryPreferences;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public String getAllergies() {
+<b class="fc">&nbsp;        return allergies;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setAllergies(String allergies) {
+<b class="nc">&nbsp;        this.allergies = allergies;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * This method searches for a customer&#39;s order history based on the provided name.
+&nbsp;     * It reads a file containing customer data in the format: name, order1, order2, ..., orderN,
+&nbsp;     * and returns the customer&#39;s order history as a comma-separated string.
+&nbsp;     *
+&nbsp;     * @author Mohammed Saeed
+&nbsp;     * @date 3/4/2025
+&nbsp;     * @version 2.0
+&nbsp;     * @param name the name of the targeted customer whose history is to be viewed
+&nbsp;     * @return a string representing the customer&#39;s order history, or an empty string if no history is found
+&nbsp;     */
+&nbsp;    public String viewOrderHistory(String name) {
+<b class="fc">&nbsp;        orderHistory.clear();</b>
+<b class="fc">&nbsp;        StringBuilder result = new StringBuilder();</b>
+<b class="fc">&nbsp;        try (BufferedReader br = new BufferedReader(new FileReader(&quot;data/order.txt&quot;))) {</b>
+&nbsp;            String line;
+<b class="pc">&nbsp;            while ((line = br.readLine()) != null) {</b>
+<b class="fc">&nbsp;                String[] terms = line.split(&quot;,&quot;);</b>
+<b class="pc">&nbsp;                if (terms.length &gt; 1 &amp;&amp; terms[0].equalsIgnoreCase(name)) {</b>
+<b class="fc">&nbsp;                    orderHistory = Arrays.asList(Arrays.copyOfRange(terms, 1, terms.length));</b>
+<b class="fc">&nbsp;                    result.append(String.join(&quot;,&quot;, orderHistory));</b>
+&nbsp;                    break;
+&nbsp;                }
+&nbsp;            }
+&nbsp;        } catch (IOException e) {
+<b class="nc">&nbsp;            System.err.println(&quot;Error reading order file: &quot; + e.getMessage());</b>
+&nbsp;        }
+<b class="fc">&nbsp;        return result.toString().trim();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public List&lt;String&gt; getOrderHistory() {
+<b class="pc">&nbsp;        if (orderHistory == null) {</b>
+<b class="nc">&nbsp;            orderHistory = new ArrayList&lt;&gt;();  // Ensure it&#39;s initialized</b>
+&nbsp;        }
+<b class="fc">&nbsp;        return new ArrayList&lt;&gt;(orderHistory);  // Return a copy to prevent modification</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public boolean canReorder(Meal meal) {
+<b class="fc">&nbsp;        return true;</b>
+&nbsp;    }
+&nbsp;    public void placeOrder(String order) throws IOException {
+<b class="fc">&nbsp;        this.charge += currentOrder.getCost(order);</b>
+<b class="fc">&nbsp;        this.orderHistory.add(order);</b>
+<b class="fc">&nbsp;        currentOrder.updateQuantities(currentOrder.getIngredientsFromFile(order));</b>
+<b class="fc">&nbsp;        currentOrder.submitOrderWithDietaryPreferences();</b>
+&nbsp;
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;    public void selectOrder(String selected) {
+<b class="fc">&nbsp;        this.order= selected;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public String getSected() {
+<b class="fc">&nbsp;        return this.order;</b>
+&nbsp;    }
+&nbsp;    public String invoice() {
+<b class="fc">&nbsp;        String date = LocalDate.now().format(DateTimeFormatter.ofPattern(&quot;dd-MM-yyyy&quot;));</b>
+&nbsp;
+<b class="fc">&nbsp;        return  date + &quot;Invoice: &quot; + this.charge;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public float getCharge() {
+<b class="fc">&nbsp;        return charge;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2025-05-20 00:35</div>
+</div>
+</body>
+</html>

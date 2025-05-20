@@ -1,0 +1,162 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > KitchenManager</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">ProductionCode</a>
+</div>
+
+<h1>Coverage Summary for Class: KitchenManager (ProductionCode)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">KitchenManager</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    85.7%
+  </span>
+  <span class="absValue">
+    (6/7)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    75%
+  </span>
+  <span class="absValue">
+    (6/8)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    77.8%
+  </span>
+  <span class="absValue">
+    (14/18)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package ProductionCode;
+&nbsp;
+&nbsp;import java.util.ArrayList;
+&nbsp;import java.util.Collections;
+&nbsp;
+<b class="fc">&nbsp;public class KitchenManager {</b>
+<b class="fc">&nbsp;    ArrayList&lt;Chef&gt; availableChefs = new ArrayList&lt;&gt;();</b>
+&nbsp;
+<b class="fc">&nbsp;    Task currentTask = new Task();</b>
+&nbsp;
+&nbsp;    public Task getCurrentTask() {
+<b class="fc">&nbsp;        return currentTask;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setCurrentTask(String name, Expertise expertise){
+<b class="fc">&nbsp;        currentTask.setTaskName(name);</b>
+<b class="fc">&nbsp;        currentTask.setTaskExpertise(expertise);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void addAvailableChefs(Chef ... chefs) {
+<b class="fc">&nbsp;        Collections.addAll(availableChefs, chefs);</b>
+&nbsp;    }
+&nbsp;    public ArrayList&lt;Chef&gt; getAvailableChefs(){
+<b class="fc">&nbsp;        return availableChefs;</b>
+&nbsp;    }
+&nbsp;    public String availableChefsToString(){
+<b class="nc">&nbsp;        String s=&quot;&quot;;</b>
+<b class="nc">&nbsp;        for (Chef temp: availableChefs){</b>
+<b class="nc">&nbsp;            s+= temp.getName()+&quot;\n&quot;;</b>
+&nbsp;        }
+<b class="nc">&nbsp;        return s;</b>
+&nbsp;
+&nbsp;    }
+&nbsp;
+&nbsp;    public String assignTask() {
+<b class="fc">&nbsp;        for(Chef chef: availableChefs){</b>
+<b class="fc">&nbsp;            if(chef.getMyExpertise()==currentTask.taskExpertise &amp;&amp; chef.getWorkLoad()&lt;5){</b>
+<b class="fc">&nbsp;                chef.addTask(currentTask);</b>
+<b class="fc">&nbsp;                currentTask = new Task();</b>
+<b class="fc">&nbsp;                return &quot;\nTask Assigned To: &quot;+chef.getName()+&quot;\n&quot;;</b>
+&nbsp;            }
+&nbsp;        }
+<b class="fc">&nbsp;        return &quot;\nNo Available Chefs At The Moment!\n&quot;;</b>
+&nbsp;
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2025-05-20 00:35</div>
+</div>
+</body>
+</html>

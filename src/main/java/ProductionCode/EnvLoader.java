@@ -7,6 +7,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class EnvLoader {
+
+    private EnvLoader() {
+        throw new UnsupportedOperationException("Utility class");
+    }
+
     public static Map<String, String> loadEnv(String path) {
         Map<String, String> env = new HashMap<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(path))) {

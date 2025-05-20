@@ -1,0 +1,201 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > SignUper</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">ProductionCode</a>
+</div>
+
+<h1>Coverage Summary for Class: SignUper (ProductionCode)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">SignUper</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    83.3%
+  </span>
+  <span class="absValue">
+    (5/6)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    57.7%
+  </span>
+  <span class="absValue">
+    (15/26)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    74.3%
+  </span>
+  <span class="absValue">
+    (26/35)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package ProductionCode;
+&nbsp;
+&nbsp;import java.io.*;
+&nbsp;import java.util.HashSet;
+&nbsp;import java.util.Set;
+&nbsp;
+<b class="fc">&nbsp;public class SignUper {</b>
+<b class="fc">&nbsp;    private final Set&lt;String&gt; takenUsernames = new HashSet&lt;&gt;();</b>
+<b class="fc">&nbsp;    private final String filePath = &quot;data/users.txt&quot;;</b>
+&nbsp;
+&nbsp;    // Load taken usernames from the file
+&nbsp;    public void loadTakenUsernames() {
+<b class="fc">&nbsp;        takenUsernames.clear();  // Ensure you&#39;re not accumulating duplicates</b>
+<b class="fc">&nbsp;        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {</b>
+&nbsp;            String line;
+<b class="fc">&nbsp;            while ((line = br.readLine()) != null) {</b>
+<b class="fc">&nbsp;                String[] parts = line.split(&quot;,&quot;);</b>
+<b class="pc">&nbsp;                if (parts.length &gt;= 2) {</b>
+<b class="fc">&nbsp;                    takenUsernames.add(parts[0].trim());</b>
+&nbsp;                }
+&nbsp;            }
+&nbsp;        } catch (IOException e) {
+<b class="nc">&nbsp;            System.err.println(&quot;Error loading taken usernames: &quot; + e.getMessage());</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    // Sign up logic
+&nbsp;    public String signUp(String username, String password) {
+<b class="fc">&nbsp;        loadTakenUsernames();  // Reload each time</b>
+&nbsp;
+<b class="fc">&nbsp;        if (takenUsernames.contains(username)) {</b>
+<b class="fc">&nbsp;            return &quot;Username already taken&quot;;</b>
+&nbsp;        }
+&nbsp;
+&nbsp;
+&nbsp;
+<b class="pc">&nbsp;        if (isWeakPassword(password)){</b>
+<b class="fc">&nbsp;            return &quot;Weak password&quot;;</b>
+&nbsp;        }
+&nbsp;
+&nbsp;        // Save new user to file
+<b class="nc">&nbsp;        addUserToFile(username, password);</b>
+<b class="nc">&nbsp;        return &quot;Account created successfully&quot;;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public boolean isWeakPassword(String password) {
+<b class="pc">&nbsp;        if (password == null || password.length() &lt; 8) {</b>
+<b class="nc">&nbsp;            return true;</b>
+&nbsp;        }
+<b class="fc">&nbsp;        boolean hasUpper = false;</b>
+<b class="fc">&nbsp;        boolean hasLower = false;</b>
+<b class="fc">&nbsp;        boolean hasDigit = false;</b>
+<b class="fc">&nbsp;        boolean hasSpecial = false;</b>
+&nbsp;
+<b class="fc">&nbsp;        for (char ch : password.toCharArray()) {</b>
+<b class="pc">&nbsp;            if (Character.isUpperCase(ch)) hasUpper = true;</b>
+<b class="fc">&nbsp;            else if (Character.isLowerCase(ch)) hasLower = true;</b>
+<b class="pc">&nbsp;            else if (Character.isDigit(ch)) hasDigit = true;</b>
+<b class="nc">&nbsp;            else hasSpecial = true;</b>
+&nbsp;
+&nbsp;
+&nbsp;        }
+&nbsp;
+&nbsp;
+<b class="pc">&nbsp;        return !(hasUpper &amp;&amp; hasLower &amp;&amp; hasDigit &amp;&amp; hasSpecial);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;    public void addUserToFile(String username, String password) {
+<b class="nc">&nbsp;        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true))) {</b>
+<b class="nc">&nbsp;            writer.write(username + &quot;,&quot; + password + &quot;,none,none&quot;);</b>
+<b class="nc">&nbsp;            writer.newLine();</b>
+&nbsp;        } catch (IOException e) {
+<b class="nc">&nbsp;            System.err.println(&quot;Error saving user: &quot; + e.getMessage());</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    // Check if a user exists in the file
+&nbsp;    public boolean isAdded(String username) {
+<b class="fc">&nbsp;        loadTakenUsernames();  // Reload to get the latest data</b>
+<b class="fc">&nbsp;        return takenUsernames.contains(username);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2025-05-20 00:35</div>
+</div>
+</body>
+</html>

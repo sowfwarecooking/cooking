@@ -1,0 +1,194 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > userLogin</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">ProductionCode</a>
+</div>
+
+<h1>Coverage Summary for Class: userLogin (ProductionCode)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">userLogin</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    90%
+  </span>
+  <span class="absValue">
+    (9/10)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    87.5%
+  </span>
+  <span class="absValue">
+    (7/8)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    89.7%
+  </span>
+  <span class="absValue">
+    (26/29)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package ProductionCode;
+&nbsp;
+&nbsp;import java.io.BufferedReader;
+&nbsp;import java.io.FileReader;
+&nbsp;import java.io.IOException;
+&nbsp;import java.util.HashMap;
+&nbsp;import java.util.Map;
+&nbsp;
+&nbsp;public class userLogin {
+&nbsp;
+&nbsp;    private String username;
+&nbsp;    private String password;
+&nbsp;    public boolean accessGranted;
+&nbsp;    private String FileName;
+<b class="fc">&nbsp;    public static final Map&lt;String, String&gt; users = new HashMap&lt;&gt;();</b>
+&nbsp;
+<b class="fc">&nbsp;    public userLogin() {</b>
+<b class="fc">&nbsp;        loadUsers();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Loads user credentials from a file and stores them in a HashMap for faster access.
+&nbsp;     * The file should be formatted as &quot;username,password,allergy,diet&quot; per line.
+&nbsp;     * Only the first two fields are used for login validation.
+&nbsp;     *
+&nbsp;     * @throws RuntimeException if an error occurs while reading the file
+&nbsp;     */
+&nbsp;    public void loadUsers() {
+<b class="fc">&nbsp;        try (BufferedReader br = new BufferedReader(new FileReader(getFileName()))) {</b>
+&nbsp;            String line;
+<b class="fc">&nbsp;            users.clear(); // clear old users before loading</b>
+<b class="fc">&nbsp;            while ((line = br.readLine()) != null) {</b>
+<b class="fc">&nbsp;                String[] parts = line.split(&quot;,&quot;);</b>
+<b class="pc">&nbsp;                if (parts.length &gt;= 2) { // make sure there&#39;s at least username and password</b>
+<b class="fc">&nbsp;                    String username = parts[0].trim();</b>
+<b class="fc">&nbsp;                    String password = parts[1].trim();</b>
+<b class="fc">&nbsp;                    users.put(username, password);</b>
+&nbsp;                }
+&nbsp;            }
+&nbsp;        } catch (IOException e) {
+<b class="nc">&nbsp;            System.err.println(&quot;Error while loading users from file: &quot; + e.getMessage());</b>
+<b class="nc">&nbsp;            throw new RuntimeException(&quot;Failed to load users from file&quot;, e);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    private static String getFileName() {
+<b class="fc">&nbsp;        return &quot;data/users.txt&quot;;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public String attemptLogin(String username, String password) {
+<b class="fc">&nbsp;        this.username = username;</b>
+<b class="fc">&nbsp;        this.password = password;</b>
+&nbsp;
+<b class="fc">&nbsp;        if (!users.containsKey(username)) {</b>
+<b class="fc">&nbsp;            accessGranted = false;</b>
+<b class="fc">&nbsp;            return &quot;User not registered&quot;;</b>
+&nbsp;        }
+&nbsp;
+<b class="fc">&nbsp;        if (users.get(username).equals(password)) {</b>
+<b class="fc">&nbsp;            accessGranted = true;</b>
+<b class="fc">&nbsp;            return &quot;Access granted&quot;;</b>
+&nbsp;        } else {
+<b class="fc">&nbsp;            accessGranted = false;</b>
+<b class="fc">&nbsp;            return &quot;Incorrect password&quot;;</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    // Getters and Setters
+<b class="fc">&nbsp;    public String getUsername() { return username; }</b>
+&nbsp;
+<b class="fc">&nbsp;    public void setUsername(String username) { this.username = username; }</b>
+&nbsp;
+<b class="fc">&nbsp;    public String getPassword() { return password; }</b>
+&nbsp;
+<b class="fc">&nbsp;    public void setPassword(String password) { this.password = password; }</b>
+&nbsp;
+<b class="nc">&nbsp;    public void setFileName(String fileName) { this.FileName = fileName; }</b>
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2025-05-20 00:35</div>
+</div>
+</body>
+</html>

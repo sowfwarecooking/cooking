@@ -1,0 +1,193 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > finance</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">ProductionCode</a>
+</div>
+
+<h1>Coverage Summary for Class: finance (ProductionCode)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">finance</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (7/7)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (6/6)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (26/26)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package ProductionCode;
+&nbsp;
+&nbsp;import java.io.BufferedWriter;
+&nbsp;import java.io.IOException;
+&nbsp;import java.time.LocalDate;
+&nbsp;import java.time.format.DateTimeFormatter;
+&nbsp;import java.util.HashMap;
+&nbsp;import java.util.List;
+&nbsp;import java.util.ArrayList;
+&nbsp;import java.util.Map;
+&nbsp;
+&nbsp;public class finance {
+&nbsp;    private static float budget;
+&nbsp;    Suppliers suppliers;
+<b class="fc">&nbsp;    DateTimeFormatter formatter = DateTimeFormatter.ofPattern(&quot;dd-MM-yyyy&quot;); // Fixed format</b>
+<b class="fc">&nbsp;    HashMap&lt;String, List&lt;String&gt;&gt; history = new HashMap&lt;&gt;(); // Using List&lt;String&gt; to store multiple transactions for the same date</b>
+&nbsp;    String path ;
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;
+<b class="fc">&nbsp;    public finance(int budget) throws IOException {</b>
+<b class="fc">&nbsp;        this.suppliers = new Suppliers();</b>
+<b class="fc">&nbsp;        this.budget = budget;</b>
+<b class="fc">&nbsp;        this.path= &quot;data/history.txt&quot;;</b>
+&nbsp;
+&nbsp;    }
+&nbsp;
+<b class="fc">&nbsp;    public finance() throws IOException {</b>
+<b class="fc">&nbsp;        this.budget = 1000f;</b>
+<b class="fc">&nbsp;        this.suppliers = new Suppliers();</b>
+<b class="fc">&nbsp;        this.path= &quot;data/history.txt&quot;;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setBudget(float budget) {
+<b class="fc">&nbsp;        this.budget = budget;</b>
+&nbsp;    }
+&nbsp;    public void buyer(Float buy)   {
+<b class="fc">&nbsp;        this.budget += buy;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void buy(String ingredient, int quantity) {
+&nbsp;        // Assuming this method gets the price for the ingredient
+<b class="fc">&nbsp;        float price = suppliers.getBest(ingredient, quantity);</b>
+&nbsp;
+<b class="fc">&nbsp;        if (price != 0) {</b>
+<b class="fc">&nbsp;            this.budget -= price * quantity;</b>
+&nbsp;
+&nbsp;            // Use current date for each transaction
+<b class="fc">&nbsp;            LocalDate currentDate = LocalDate.now(); // Get the current date each time</b>
+<b class="fc">&nbsp;            String formattedDate = currentDate.format(formatter);</b>
+&nbsp;
+&nbsp;            // Create the transaction description
+<b class="fc">&nbsp;            String transactionDetails = ingredient + &quot; - Quantity: &quot; + quantity + &quot; - Price: $&quot; + price * quantity;</b>
+&nbsp;
+&nbsp;            // If the date is already in history, add the transaction to the list
+<b class="fc">&nbsp;            history.computeIfAbsent(formattedDate, k -&gt; new ArrayList&lt;&gt;()).add(transactionDetails);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    public static float getBalance() {
+<b class="fc">&nbsp;        return budget;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public String printHistory() {
+<b class="fc">&nbsp;        StringBuilder build = new StringBuilder();</b>
+<b class="fc">&nbsp;        for (Map.Entry&lt;String, List&lt;String&gt;&gt; entry : history.entrySet()) {</b>
+<b class="fc">&nbsp;            build.append(entry.getKey()).append(&quot;:\n&quot;);</b>
+<b class="fc">&nbsp;            for (String transaction : entry.getValue()) {</b>
+<b class="fc">&nbsp;                build.append(&quot;  &quot;).append(transaction).append(&quot;\n&quot;);</b>
+&nbsp;            }
+&nbsp;        }
+<b class="fc">&nbsp;        return build.toString();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2025-05-20 00:35</div>
+</div>
+</body>
+</html>

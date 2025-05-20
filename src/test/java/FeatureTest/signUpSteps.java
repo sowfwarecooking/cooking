@@ -6,9 +6,13 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
+import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.PrintStream;
+
+import static org.junit.Assert.*;
 
 public class signUpSteps {
     private String username;
@@ -63,4 +67,54 @@ public class signUpSteps {
     }
 
 
+    @Test
+    public void testWrongFileCatchBlock() {
+        SignUper signUper = new SignUper();
+        signUper.setFilePath("data/nonexistent_file.txt");
+
+        // Capture System.err
+        ByteArrayOutputStream errContent = new ByteArrayOutputStream();
+        PrintStream originalErr = System.err;
+        System.setErr(new PrintStream(errContent));
+
+        // Call method
+        signUper.loadTakenUsernames();
+
+        // Restore System.err
+        System.setErr(originalErr);
+
+        // Assert error message was printed
+        String output = errContent.toString();
+        assertTrue(output.contains("Error loading taken usernames"));}
+
+    @Test
+    public void testWeakPassword() {
+        SignUper signUper = new SignUper();
+        String weakPassword = null;
+        boolean result = signUper.isWeakPassword(weakPassword);
+        assertTrue(result);
+    }
+
+
+    @Test
+    public void testAddWrongFile() {
+        SignUper signUper = new SignUper();
+        signUper.setFilePath("data/nonexistent_file.txt");
+
+        // Capture System.err
+        ByteArrayOutputStream errContent = new ByteArrayOutputStream();
+        PrintStream originalErr = System.err;
+        System.setErr(new PrintStream(errContent));
+
+        // Call method
+        signUper.addUserToFile("username", "password");
+
+        // Restore System.err
+        System.setErr(originalErr);
+
+        // Assert error message was printed
+        String output = errContent.toString();
+        assertTrue(output.contains("Error saving user"));
+    }
 }
+

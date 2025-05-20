@@ -16,7 +16,6 @@ public class llmConnction {
   private EnvLoader env ;
 
     llmConnction() {
-        env = new EnvLoader();
         apiKey = env.loadEnv("key.env").get("API_KEY");
     }
     /**
@@ -94,7 +93,7 @@ public class llmConnction {
 
             // Send request
             try (OutputStream outputStream = connection.getOutputStream()) {
-                outputStream.write(jsonRequest.toString().getBytes("UTF-8"));
+                outputStream.write(jsonRequest.toString().getBytes(getCharsetName()));
                 outputStream.flush();
 
                 int responseCode = connection.getResponseCode();
@@ -132,6 +131,11 @@ public class llmConnction {
             return "Error: " + e.getMessage();
         }
     }
+
+    private static String getCharsetName() {
+        return "UTF-8";
+    }
+
     public String sugestmealBasedONIngredients(int time, String restrictions, String ingredient) {
     String prompt = promptAll(time, restrictions, ingredient);
     String response = "";
@@ -158,7 +162,7 @@ public class llmConnction {
 
             // Send request
             try (OutputStream outputStream = connection.getOutputStream()) {
-                outputStream.write(jsonRequest.toString().getBytes("UTF-8"));
+                outputStream.write(jsonRequest.toString().getBytes(getCharsetName()));
                 outputStream.flush();
 
                 int responseCode = connection.getResponseCode();
@@ -228,7 +232,7 @@ public class llmConnction {
 
             // Send request
             try (OutputStream outputStream = connection.getOutputStream()) {
-                outputStream.write(jsonRequest.toString().getBytes("UTF-8"));
+                outputStream.write(jsonRequest.toString().getBytes(getCharsetName()));
                 outputStream.flush();
 
                 int responseCode = connection.getResponseCode();
