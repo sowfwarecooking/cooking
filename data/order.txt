@@ -1,4 +1,4 @@
-admin,burger,pizza,pasta,salad,Veggie Burger,Veggie Burger,Tofu Stir Fry,Veggie Burger,Tofu Stir Fry
+admin,burger,pizza,pasta,salad,Veggie Burger,Veggie Burger,Tofu Stir Fry,Veggie Burger,Tofu Stir Fry,Veggie Burger,Veggie Burger,Tofu Stir Fry,Veggie Burger,Tofu Stir Fry,Veggie Burger,Veggie Burger,Tofu Stir Fry,Veggie Burger,Tofu Stir Fry
 amalia_johnson,Vegan Tacos, Buddha Bowl, Quinoa Salad, Avocado Toast, Smoothie Bowl
 alice_smith,Vegan Burger, Spaghetti Aglio e Olio, Lentil Soup, Grilled Veggies, Chia Pudding
 michael_jordan,Chicken Caesar Salad, Grilled Salmon, Quinoa Pilaf, Avocado Toast, Protein Shake

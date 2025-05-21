@@ -7,3 +7,4 @@ admin,1234,No Allergies,None
 john_doe,john12345,Peanuts,Vegetarian
 newUserName,StrongPass123,none,none
 mohammed,strongPass123,none,none
+validUseer,Strong_Pass123,none,none
