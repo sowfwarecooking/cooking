@@ -19,7 +19,7 @@ rectangle "Special Cook System" {
   (View Menu) --> (Place Order)
   (View Menu) --> (Submit Ingredients)
   (Place Order) --> (Generate Invoice)
-
+   (Place Order) --> (Submit ORDER)
   ' Chef flow
   Chef --> (Login)
   (Login) --> (Chef Dashboard)
