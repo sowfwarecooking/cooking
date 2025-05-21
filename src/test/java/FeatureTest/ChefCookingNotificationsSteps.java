@@ -16,12 +16,12 @@ public class ChefCookingNotificationsSteps {
     @Given("a cooking task {string} is scheduled for tomorrow")
     public void a_cooking_task_is_scheduled_for_tomorrow(String string) {
         // Write code here that turns the phrase above into concrete actions
-        String targetDateTimeStr = "01-05-2025 22:10";
+        String targetDateTimeStr = "01-06-2025 22:10";
         String formatPattern = "dd-MM-yyyy HH:mm";
 
        ChefCookingAlertManager m = new ChefCookingAlertManager(string, targetDateTimeStr, formatPattern);
 
-        String expected = "2025-05-01T22:10";
+        String expected = "2025-06-01T22:10";
         assertEquals(expected,String.valueOf(m.getTaskDateTime()) );
         assertEquals(string,m.getTaskName());
     }

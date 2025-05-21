@@ -15,7 +15,7 @@ public class Customer {
     private float charge = 0.0f;
     private String order ;
     private Order currentOrder;
-
+    private KitchenManager myOrderManager;
 
     // Constructor that sets all fields
     public Customer(String username, String dietaryPreferences, String allergies) {
@@ -26,8 +26,19 @@ public class Customer {
         this.orderHistory = new ArrayList<>();
         this.items = new menuItems();  // Initialize to avoid null
         this.charge = 0.0f;
-
         this.currentOrder = new Order();
+    }
+
+    public Customer(String username, String dietaryPreferences, String allergies, KitchenManager m) {
+        this.username = username;
+        this.dietaryPreferences = dietaryPreferences;
+        this.allergies = allergies;
+        this.loggedIn = true; // Simulate userLogin
+        this.orderHistory = new ArrayList<>();
+        this.items = new menuItems();  // Initialize to avoid null
+        this.charge = 0.0f;
+        this.currentOrder = new Order();
+        this.myOrderManager = m;
     }
 
 
@@ -100,6 +111,9 @@ public class Customer {
         currentOrder.updateQuantities(currentOrder.getIngredientsFromFile(order));
         currentOrder.submitOrderWithDietaryPreferences();
         addOrderToHistory(order, this.username);
+        if(myOrderManager!=null){
+            myOrderManager.setOrderMessage(order);
+        }
 
     }
     //Todo : Add the order to the order history
@@ -135,6 +149,8 @@ public class Customer {
     public void selectOrder(String selected) {
         this.order= selected;
     }
+
+
 
     public String getSected() {
         return this.order;

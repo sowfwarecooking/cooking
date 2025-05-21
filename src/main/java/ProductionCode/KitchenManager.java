@@ -4,9 +4,20 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class KitchenManager {
+
+    String orderMessage ="";
+
     ArrayList<Chef> availableChefs = new ArrayList<>();
 
     Task currentTask = new Task();
+
+    public void setOrderMessage(String sected) {
+        this.orderMessage = sected;
+    }
+    public String getOrderMessage(){
+     return this.orderMessage;
+    }
+
 
     public Task getCurrentTask() {
         return currentTask;

@@ -1,21 +1,36 @@
 package FeatureTest;
 
+import ProductionCode.Customer;
+import ProductionCode.KitchenManager;
 import ProductionCode.Order;
 import ProductionCode.Page;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.junit.Test;
+
+import java.io.IOException;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class customMealRequestSteps {
 
+
     @Given("I am on the {string} page")
-    public void iAmOnThePage(String string) {
+    public void iAmOnThePage(String string) throws IOException {
         Page p = new Page();
         p.setTitle(string);
         assertTrue(p.title.equalsIgnoreCase(string));
+
+
+        KitchenManager m = new KitchenManager();
+        Customer c = new Customer("", "","", m);
+        String s = "Tuna Salad";
+        c.placeOrder(s);
+        assertEquals(s, m.getOrderMessage());
+
+
 
     }
 
