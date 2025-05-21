@@ -1,0 +1,54 @@
+@startuml
+left to right direction
+
+actor Customer
+actor Chef
+actor "Kitchen Manager" as KM
+actor "System Administrator" as Admin
+
+rectangle "Special Cook System" {
+
+  ' Customer flow
+  (Login) --> (Customer Dashboard)
+  Customer --> (Login)
+
+  (Customer Dashboard) --> (View Profile)
+  (Customer Dashboard) --> (Edit Profile)
+  (Customer Dashboard) --> (View Menu)
+  (Customer Dashboard) --> (View Order History)
+  (View Menu) --> (Place Order)
+  (View Menu) --> (Submit Ingredients)
+  (Place Order) --> (Generate Invoice)
+
+  ' Chef flow
+  Chef --> (Login)
+  (Login) --> (Chef Dashboard)
+  (Chef Dashboard) --> (View Assigned Tasks)
+  (Chef Dashboard) --> (View Customer Preferences)
+  (Chef Dashboard) --> (Approve Ingredient Substitution)
+  (Chef Dashboard) --> (View Order History)
+
+  ' Kitchen Manager flow
+  KM --> (Login)
+  (Login) --> (Manager Dashboard)
+  (Manager Dashboard) --> (Assign Tasks to Staff)
+  (Manager Dashboard) --> (Track Inventory)
+  (Manager Dashboard) --> (Receive Low Stock Alerts)
+  (Manager Dashboard) --> (Order from Suppliers)
+  (Manager Dashboard) --> (View Real-time Prices)
+  (Manager Dashboard) --> (Use Recipe Assistant)
+
+  ' LLM-based assistant
+  (Use Recipe Assistant) --> (Get Recipe Suggestions Based on Ingredients)
+  (Use Recipe Assistant) --> (Match Recipes with Dietary Restrictions)
+  (Use Recipe Assistant) --> (Optimize Recipes for Time and Cost)
+
+  ' Admin flow
+  Admin --> (Login)
+  (Login) --> (Admin Dashboard)
+  (Admin Dashboard) --> (Generate Financial Reports)
+  (Admin Dashboard) --> (Access Customer History)
+  (Admin Dashboard) --> (Monitor System Performance)
+}
+
+@enduml
