@@ -3,12 +3,30 @@ package productionCode;
 import java.util.ArrayList;
 import java.util.Random;
 
+/***
+ * The {@code Ingredients} class manages ingredient selection for a chef,
+ * including available ingredients, selected ingredients, and handling
+ * substitutions and compatibility rules between two ingredient groups (A and B).
+ *
+ * <p>It ensures that incompatible ingredient groups are not mixed, handles unavailable
+ * ingredients by offering suggestions, and tracks changes to selected ingredients
+ * for reporting or logging purposes.
+ */
+
 public class Ingredients {
     public ArrayList<String> availableIngredientsA = new ArrayList<>();
     public ArrayList<String> availableIngredientsB = new ArrayList<>();
     public ArrayList<String> selectedIngredients = new ArrayList<>();
+    /** A snapshot of previously selected ingredients before the most recent change. */
     public ArrayList<String> selectedIngredientsOld = new ArrayList<>();
     Random random = new Random();
+
+    /***
+     * Checks if the specified ingredient is available in either group A or B(all groups).
+     *
+     * @param s the ingredient name to check
+     * @return {@code true} if available, {@code false} otherwise
+     */
     public boolean isAvailableIngredient(String s){
         for(String i:this.availableIngredientsA){
             if(i.equalsIgnoreCase(s)){
@@ -22,14 +40,23 @@ public class Ingredients {
         }
         return false;
     }
-
+    /***
+     * Adds ingredients to a specified group(Grp A).
+     *
+     * @param s one or more ingredient names to add
+     */
     public void addAvailableIngredients(String ...s){
             for(String temp:s){
                 this.availableIngredientsA.add(temp);
             }
 
     }
-
+    /***
+     * Adds ingredients to a specified group.
+     *
+     * @param i if 2, adds to group B; otherwise, adds to group A
+     * @param s one or more ingredient names to add
+     */
     public void addAvailableIngredients(int i,String ...s) {
         if (i == 2) {
             for (String temp : s) {
@@ -43,7 +70,14 @@ public class Ingredients {
 
         }
     }
-
+    /***
+     * Attempts to add a list of desired ingredients for a chef.
+     * Handles unavailable items, suggests alternatives, and enforces group compatibility.
+     *
+     * @param c the {@link Chef} object to notify of ingredient changes
+     * @param s list of desired ingredient names
+     * @return status message indicating any unavailable ingredients and substitutions
+     */
     public String addDesiredIngredients(Chef c, String ...s){
         this.selectedIngredientsOld = new ArrayList<>(this.selectedIngredients) ;
 
@@ -122,6 +156,12 @@ public class Ingredients {
         c.setIngredientChangeMessage(selectedIngredientsOld +" to "+ selectedIngredients);
         return  status;
     }
+    /***
+     * Removes a specific ingredient from the list of selected ingredients.
+     *
+     * @param s the ingredient name to remove
+     * @param c the {@link Chef} to notify about the change
+     */
     public void removeDesiredIngredients(String s, Chef c){
         this.selectedIngredientsOld = new ArrayList<>(this.selectedIngredients) ;
 
@@ -133,9 +173,14 @@ public class Ingredients {
 
             c.setIngredientChangeMessage(selectedIngredientsOld+" to "+selectedIngredients);
         }
-
-
     }
+    /***
+     * Substitutes one selected ingredient with another.
+     *
+     * @param toBeSubbed   the ingredient to be removed
+     * @param subbedWith   the ingredient to be added instead
+     * @param c            the {@link Chef} to notify about the change
+     */
     public void substituteDesiredIngredients(String toBeSubbed, String subbedWith, Chef c){
         ArrayList<String> temp = new ArrayList<>(new ArrayList<>(this.selectedIngredients));
 
@@ -154,19 +199,12 @@ public class Ingredients {
 public ArrayList<String> getSelectedIngredients(){
 
         return selectedIngredients;
-
 }
+
 boolean containsIgnoreCase(ArrayList<String> arr, String s){
         for(String temp: arr){
             if (temp.equalsIgnoreCase(s))return true;
-
         }
-
         return false;
 }
-
-
-
-
-
 }

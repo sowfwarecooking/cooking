@@ -29,8 +29,6 @@ public class customMealRequestSteps {
         c.placeOrder(s);
         assertEquals(s, m.getOrderMessage());
 
-
-
     }
 
     @When("I select ingredients {string}, {string}, and {string}")

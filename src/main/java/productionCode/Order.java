@@ -23,7 +23,11 @@ public class Order {
          this.ingredients.add(a);
       }
    }
-
+   /***
+    * Sets the dietary preference based on the given string.
+    * Acceptable values: "vegan", "low-carb", "vegetarian", "keto", "gluten-free"
+    * @param a the dietary preference as a string
+    */
    public void setDietaryPreference(String a) {
       String s = a.toLowerCase();
       switch (s) {
@@ -46,7 +50,10 @@ public class Order {
             this.myDP = Dietarypreference.NONE;
       }
    }
-
+   /***
+    * Submits the order and returns a string of selected ingredients.
+    * @return comma-separated list of ingredients or a warning message if empty
+    */
    public String submitOrder() {
       String s = "";
       if (!this.ingredients.isEmpty()) {
@@ -61,7 +68,10 @@ public class Order {
       }
       return s;
    }
-
+   /***
+    * Submits the order with dietary preference and returns a formatted string.
+    * @return dietary preference followed by ingredients, or a warning if no ingredients selected
+    */
    public String submitOrderWithDietaryPreferences() {
       String s = "";
       if (!this.ingredients.isEmpty()) {
@@ -69,7 +79,7 @@ public class Order {
          for (int i = 0; i < this.ingredients.size(); i++) {
             s += ", " + this.ingredients.get(i);
          }
-         //JOptionPane.showMessageDialog(null,mealCreatedSuccessfullyMessage());
+         System.out.println(mealCreatedSuccessfullyMessage());
       } else {
          s = selectIngredientsMessage();
       }

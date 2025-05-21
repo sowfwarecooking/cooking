@@ -37,7 +37,16 @@ public class ChefCookingAlertManager {
         this.taskDateTime = taskDateTime;
     }
 
-    // Method to wait until 1-hour and 24-hour reminders are triggered
+    /***
+     * Starts waiting for the cooking alerts.
+     * This method blocks and continuously checks the current time.
+     * It prints and updates alert messages when:
+     * - 24 hours remain until the task start.
+     * - 1 hour remains until the task start.
+     * If the task date-time is already past, it prints an immediate warning.
+     * This method runs an internal loop, checking every second.
+     * It stops after the 1-hour alert is shown or if interrupted.
+     */
     public void waitForCookingAlerts() {
         cookingStatusMessage = "Waiting for cooking task \"" + taskName + "\" scheduled at: " + taskDateTime.format(formatter);
         System.out.println(cookingStatusMessage);
@@ -85,7 +94,13 @@ public class ChefCookingAlertManager {
         }
     }
 
-    // One-second check method for test-friendly validation
+    /***
+     * Performs a single 1-second wait and check for cooking alerts.
+     * This method is designed for test purposes to validate alert triggering logic.
+     * After sleeping for 1 second, it checks if 24-hour or 1-hour alerts should be triggered.
+     * If the task time is in the past, a warning is immediately printed.
+     * Prints appropriate messages based on the alert status.
+     */
     public void waitOneSecondAndStop() {
         LocalDateTime now = LocalDateTime.now().withSecond(0).withNano(0);
 

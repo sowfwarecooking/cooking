@@ -79,7 +79,12 @@ public class Chef {
     public void setIngredientChangeMessage(String s) {
         this. ingredientChangeMessage = s;
     }
-
+    /***
+     * Approves the order based on the given ingredients, updating the approvedOrder list.
+     *
+     * @param i The Ingredients object representing the order.
+     * @return Confirmation message indicating the order was approved.
+     */
     public String approveOrder(Ingredients i) {
         approvedOrder = i.getSelectedIngredients();
         return"\nOrder Approved\n";
@@ -87,22 +92,52 @@ public class Chef {
     public ArrayList<String> getApprovedOrder(){
         return approvedOrder;
     }
-
+    /***
+     * Removes a specified ingredient from the given Ingredients object.
+     * Also, re-approves the order to update the approved ingredients.
+     *
+     * @param i The Ingredients object to modify.
+     * @param s The ingredient to remove.
+     * @return Confirmation message indicating successful removal.
+     */
     public String removeIngredient(Ingredients i, String s){
         i.removeDesiredIngredients(s, this);
         this.approveOrder(i);
         return "\nChef Removed Ingredient Successfully\n";
     }
+    /***
+     * Adds one or more ingredients to the given Ingredients object.
+     * Also, re-approves the order to update the approved ingredients.
+     *
+     * @param i The Ingredients object to modify.
+     * @param s One or more ingredient names to add.
+     * @return Confirmation message indicating successful addition.
+     */
     public String addIngredient(Ingredients i, String... s){
         i.addDesiredIngredients(this, s);
         this.approveOrder(i);
         return "\nChef Added Ingredient Successfully\n";
     }
+    /***
+     * Substitutes one ingredient with another in the given Ingredients object.
+     * Also, re-approves the order to update the approved ingredients.
+     *
+     * @param i          The Ingredients object to modify.
+     * @param toBeSubbed The ingredient to be substituted.
+     * @param subbedWith The ingredient to substitute with.
+     * @return Confirmation message indicating successful substitution.
+     */
     public String subIngredient(Ingredients i, String toBeSubbed, String subbedWith){
         i.substituteDesiredIngredients(toBeSubbed, subbedWith, this);
         this.approveOrder(i);
         return "\nChef Substituted Ingredient Successfully\n";
     }
+    /***
+     * Adds a new task to the chef's task list and increments the workload.
+     * Also sets a notification message about the new task.
+     *
+     * @param t The task to add.
+     */
     public void addTask(Task t){
         myTasks.add(t);
         this.workLoad++;
@@ -116,6 +151,12 @@ public class Chef {
     public ArrayList<Task> getMyTasks(){
         return myTasks;
     }
+
+    /***
+     * Returns a string listing all current task names assigned to the chef.
+     *
+     * @return A formatted string of task names.
+     */
     public String printCurrentTasks(){
         String s = "Tasks: ";
         for(Task t: myTasks){
@@ -127,7 +168,12 @@ public class Chef {
     public void clearCurrentTasks() {
         myTasks.clear();
     }
-
+    /***
+     * Marks a task as completed by its name, removing it from the task list.
+     *
+     * @param s The name of the task to complete.
+     * @return A message indicating task completion or if no such task was found.
+     */
     public String completedTask(String s) {
         for(Task t:myTasks){
             if(s.equalsIgnoreCase(t.getTaskName())){

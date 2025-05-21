@@ -63,61 +63,61 @@ public class IngredientSubManager {
 
     public void setOrder(Order o){this.myOrder=o;}
 
+
     public String getOrderDietaryPreference(){
         return (this.myOrder.getDietaryPreference());
     }
-    public boolean hasADiet(){
-        String s = getOrderDietaryPreference();
-        if(getOrderDietaryPreference().equalsIgnoreCase("none")){
-            return false;
-
-        }else{return true;}
-
+    /***
+     * @date 27/3/2025
+     * Checks whether the current order has a dietary preference set other than "none".
+     * @return {@code true} if the dietary preference is set to a value other than "none" (case-insensitive),
+     *         {@code false} otherwise.
+     */
+    public boolean hasADiet() {
+        return !getOrderDietaryPreference().equalsIgnoreCase("none");
     }
+
+    /***
+     * @date 15/4/2025
+     * Checks if the ingredient is considered non-compliant for any of the following diets:
+     * vegan, low-carb, vegetarian, keto, or gluten-free.
+     *
+     * @param s The ingredient to check.
+     * @return {@code true} if the ingredient is restricted in any dietary category; {@code false} otherwise.
+     */
     public boolean isRestrictedIngredient(String s){
         if (containsNonVegan(s)) return true;
         if (containsNonLowCarb(s)) return true;
         if (containsNonVegetarian(s)) return true;
         if (containsNonKeto(s)) return true;
-        if (containsGluten(s)) return true;
-        return false;
+        return(containsGluten(s));
 
 
     }
 
     public boolean containsGluten(String s) {
-        if (this.restrictedGlutenFreeIngredients.stream().anyMatch(a -> a.equalsIgnoreCase(s))) {
-            return true;
-        }
-        return false;
+        return this.restrictedGlutenFreeIngredients.stream()
+                .anyMatch(a -> a.equalsIgnoreCase(s));
     }
 
     public boolean containsNonKeto(String s) {
-        if (this.restrictedKetoIngredients.stream().anyMatch(a -> a.equalsIgnoreCase(s))) {
-            return true;
-        }
-        return false;
+        return this.restrictedKetoIngredients.stream()
+                .anyMatch(a -> a.equalsIgnoreCase(s));
     }
 
     public boolean containsNonVegetarian(String s) {
-        if (this.restrictedVegetarianIngredients.stream().anyMatch(a -> a.equalsIgnoreCase(s))) {
-            return true;
-        }
-        return false;
+        return this.restrictedVegetarianIngredients.stream()
+                .anyMatch(a -> a.equalsIgnoreCase(s));
     }
 
     public boolean containsNonLowCarb(String s) {
-        if (this.restrictedLowCarbIngredients.stream().anyMatch(a -> a.equalsIgnoreCase(s))) {
-            return true;
-        }
-        return false;
+        return this.restrictedLowCarbIngredients.stream()
+                .anyMatch(a -> a.equalsIgnoreCase(s));
     }
 
     public boolean containsNonVegan(String s) {
-        if (this.restrictedVeganIngredients.stream().anyMatch(a -> a.equalsIgnoreCase(s))) {
-            return true;
-        }
-        return false;
+        return this.restrictedVeganIngredients.stream()
+                .anyMatch(a -> a.equalsIgnoreCase(s));
     }
 
     public boolean arrContainsGluten(ArrayList<String> myArr) {
@@ -152,7 +152,15 @@ public class IngredientSubManager {
         }
         return false;
     }
-    //
+
+    /***
+     * @date 15/4/2025
+     * Returns a comma-separated string of all ingredients from the given list that contain gluten.
+     *
+     * @param myArr The list of ingredient names to check.
+     * @return A string listing all gluten-containing ingredients separated by commas.
+     *         Returns an empty string if no gluten-containing ingredients are found.
+     */
     public String containsGlutenAsString(ArrayList<String> myArr) {
         ArrayList<String> contGluten = new ArrayList<>();
 
@@ -193,22 +201,45 @@ public class IngredientSubManager {
         }
         return String.join(", ", contNonLowCarb);
     }
-    //
 
     public ArrayList<String> getOrderAsArray(Order o){
         return o.getOrderAsArray();
     }
+
+    /***
+     * @date 27/3/2025
+     * Checks if any ingredient in the given list is restricted based on dietary preferences.
+     *
+     * @param arr The list of ingredient names to check.
+     * @return {@code true} if at least one ingredient is restricted; {@code false} if the list is empty
+     *         or none of the ingredients are restricted.
+     */
     public boolean selectionContainsRestrictions (ArrayList<String> arr){
         if(arr.isEmpty()){
             return false;
         }
         for(String s: arr){
-            if (isRestrictedIngredient(s));
-            return true;
+            if (isRestrictedIngredient(s)){
+            return true;}
         }
         return false;
     }
     //---------->Start From here
+
+    /***
+     * Suggests alternative ingredients for an order based on its dietary preference.
+     * This method analyzes the ingredients in the provided order and checks if any do not comply
+     * with the specified dietary preference (e.g., vegan, vegetarian, keto, low_carb, gluten_free).
+     * For each non-compliant ingredient found, it suggests a suitable alternative randomly chosen
+     * from the corresponding list of alternative ingredients. If all ingredients comply,
+     * a default message indicating no changes needed is returned.
+     *
+     * @param o The {@code Order} object whose ingredients are to be checked and for which
+     *          alternative suggestions are to be provided.
+     * @return A {@code String} containing a message with suggested alternative ingredients
+     *         for those that do not meet the dietary preference. If all ingredients comply,
+     *         returns a message indicating compliance.
+     */
     public String suggestAlternativeIngredients(Order o){
 
         myOrderForSubRev = getOrderAsArray(o);
@@ -276,7 +307,6 @@ public class IngredientSubManager {
             default: suggestionMessage = "All Your Ingredients Comply With Your Dietary Preference!";
             break;
         }
-
         return suggestionMessage;
     }
 public void reset(){

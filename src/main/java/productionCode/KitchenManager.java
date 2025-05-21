@@ -34,6 +34,12 @@ public class KitchenManager {
     public ArrayList<Chef> getAvailableChefs(){
         return availableChefs;
     }
+
+    /***
+     * @date 22/04/2025
+     * Returns a string representation of all available chefs' names.
+     * Each chef's name is placed on a new line.
+     */
     public String availableChefsToString(){
         String s="";
         for (Chef temp: availableChefs){
@@ -42,7 +48,12 @@ public class KitchenManager {
         return s;
 
     }
-
+    /***
+     * @date 26/04/2025
+     * Assigns the current task to the first available chef who matches
+     * the required expertise and has a workload of fewer than 5 tasks.
+     * If a suitable chef is found, the task is assigned and the current task is cleared.
+     */
     public String assignTask() {
         for(Chef chef: availableChefs){
             if(chef.getMyExpertise()==currentTask.taskExpertise && chef.getWorkLoad()<5){

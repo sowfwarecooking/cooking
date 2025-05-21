@@ -4,6 +4,15 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/***
+ * The {@code DeliveryAlertManager} class manages and monitors scheduled delivery times.
+ * It provides alert messages when a delivery is 24 hours or 1 hour away and can simulate
+ * a one-second check for testing purposes.
+ * <p>
+ * The class uses {@link LocalDateTime} for handling delivery scheduling and supports
+ * both string and object initialization.
+ * </p>
+ */
 public class DeliveryAlertManager {
     private final LocalDateTime deliveryDateTime;
     private final DateTimeFormatter formatter;
@@ -19,16 +28,33 @@ public class DeliveryAlertManager {
         return deliveryDateTime;
     }
 
+    /***
+     * Constructs a {@code DeliveryAlertManager} with a delivery time provided as a string.
+     *
+     * @param deliveryDateTimeStr the delivery date and time as a string
+     * @param formatPattern       the pattern used to parse the delivery time string
+     */
     public DeliveryAlertManager(String deliveryDateTimeStr, String formatPattern) {
         this.formatter = DateTimeFormatter.ofPattern(formatPattern);
         this.deliveryDateTime = LocalDateTime.parse(deliveryDateTimeStr, formatter);
     }
-
+    /***
+     * Constructs a {@code DeliveryAlertManager} with a delivery time provided as a {@link LocalDateTime} object.
+     *
+     * @param deliveryDateTime the delivery date and time
+     * @param formatPattern    the pattern used for formatting
+     */
     public DeliveryAlertManager(LocalDateTime deliveryDateTime, String formatPattern) {
         this.formatter = DateTimeFormatter.ofPattern(formatPattern);
         this.deliveryDateTime = deliveryDateTime;
     }
-
+    /***
+     * Continuously checks the system time and prints alerts when the delivery time is
+     * 24 hours or 1 hour away. If the delivery time has already passed, a warning is displayed.
+     * <p>
+     * This method runs an infinite loop until the 1-hour warning has been shown.
+     * </p>
+     */
     public void waitForDeliveryAlerts() {
         deliveryStatusMessage = "Waiting for delivery scheduled at: " + deliveryDateTime.format(formatter);
 
@@ -72,6 +98,13 @@ public class DeliveryAlertManager {
             }
         }
     }
+    /***
+     * Performs a one-second wait and checks if either the 24-hour or 1-hour alert
+     * should be triggered. This method is primarily intended for testing purposes.
+     * <p>
+     * Displays a console message based on the current proximity to the delivery time.
+     * </p>
+     */
     public void waitOneSecondAndStop() {
         LocalDateTime now = LocalDateTime.now().withSecond(0).withNano(0);
 
