@@ -197,7 +197,6 @@ public class Chef {
     public List<Meal> viewCustomerOrders(String customerUsername) {
         return new ArrayList<>(Arrays.asList(new Meal("Pizza"), new Meal("Pasta")));
     }
-
     public MealPlan suggestMealPlan(List<Meal> customerOrders) {
         return new MealPlan("Custom Healthy Meal Plan");
     }
