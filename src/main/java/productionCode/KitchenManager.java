@@ -7,7 +7,7 @@ public class KitchenManager {
 
     String orderMessage ="";
 
-    ArrayList<Chef> availableChefs = new ArrayList<>();
+    ArrayList<productionCode.Chef> availableChefs = new ArrayList<>();
 
     Task currentTask = new Task();
 
