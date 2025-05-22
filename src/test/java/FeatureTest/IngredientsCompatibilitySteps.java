@@ -1,7 +1,7 @@
 package FeatureTest;
 
-import ProductionCode.Chef;
-import ProductionCode.Ingredients;
+import productionCode.Chef;
+import productionCode.Ingredients;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;

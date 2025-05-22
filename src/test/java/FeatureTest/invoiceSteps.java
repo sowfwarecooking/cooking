@@ -1,8 +1,8 @@
 package FeatureTest;
 
-import ProductionCode.Customer;
-import ProductionCode.finance;
-import ProductionCode.menuItems;
+import productionCode.Customer;
+import productionCode.finance;
+import productionCode.menuItems;
 import io.cucumber.java.en.*;
 
 import java.io.IOException;

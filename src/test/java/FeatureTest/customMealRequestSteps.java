@@ -1,13 +1,12 @@
 package FeatureTest;
 
-import ProductionCode.Customer;
-import ProductionCode.KitchenManager;
-import ProductionCode.Order;
-import ProductionCode.Page;
+import productionCode.Customer;
+import productionCode.KitchenManager;
+import productionCode.Order;
+import productionCode.Page;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import org.junit.Test;
 
 import java.io.IOException;
 

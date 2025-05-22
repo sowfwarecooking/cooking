@@ -1,12 +1,9 @@
 package FeatureTest;
 
-import ProductionCode.userLogin;
-import io.cucumber.java.en.And;
+import productionCode.userLogin;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import org.junit.Assert;
-import org.junit.jupiter.api.Test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThrows;

@@ -2,8 +2,8 @@ package FeatureTest;
 
 import io.cucumber.java.en.*;
 import static org.junit.jupiter.api.Assertions.*;
-import ProductionCode.supplyVewing;
-import ProductionCode.Admin;
+import productionCode.supplyVewing;
+import productionCode.Admin;
 
 public class supplyTest {
 

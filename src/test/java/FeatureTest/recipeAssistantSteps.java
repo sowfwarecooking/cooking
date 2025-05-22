@@ -1,6 +1,6 @@
 package FeatureTest;
 
-import ProductionCode.recipeAssistant;
+import productionCode.recipeAssistant;
 import io.cucumber.java.Before;
 import io.cucumber.java.en.*;
 

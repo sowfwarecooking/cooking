@@ -1,15 +1,12 @@
 package FeatureTest;
 
-import ProductionCode.SignUper;
-import io.cucumber.java.en.And;
+import productionCode.SignUper;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import org.junit.Assert;
 import org.junit.Test;
 
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.io.PrintStream;
 
 import static org.junit.Assert.*;

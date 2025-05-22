@@ -1,8 +1,6 @@
 package FeatureTest;
 
-import ProductionCode.Chef;
-import ProductionCode.ChefCookingAlertManager;
-import ProductionCode.DeliveryAlertManager;
+import productionCode.ChefCookingAlertManager;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;

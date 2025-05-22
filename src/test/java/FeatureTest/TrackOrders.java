@@ -1,6 +1,6 @@
 package FeatureTest;
 
-import ProductionCode.*;
+import productionCode.*;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -10,7 +10,7 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
-public class TrackOrders {
+ class TrackOrders {
     Customer customer;
     Chef chef;
     Admin admin;
@@ -96,7 +96,7 @@ public class TrackOrders {
     }
 
     @Test
-    public void testWrongFile() {
+     void testWrongFile() {
         // Temporarily set the file path to a non-existent file
         TrendsReport report = new TrendsReport("Test Report");
         report.setFilePath("nonexistent_file.txt");

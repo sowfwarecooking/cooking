@@ -1,16 +1,11 @@
 package FeatureTest;
 
-import ProductionCode.Admin;
-import ProductionCode.CookReportPDF;
-import ProductionCode.finance;
+import productionCode.Admin;
+import productionCode.CookReportPDF;
+import productionCode.finance;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import org.apache.pdfbox.pdmodel.PDDocument;
-import org.apache.pdfbox.pdmodel.PDPage;
-import org.apache.pdfbox.pdmodel.PDPageContentStream;
-import org.junit.After;
-import org.junit.jupiter.api.Test;
 
 import java.io.File;
 
@@ -19,13 +14,15 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-import static javax.management.Query.times;
 import static org.junit.Assert.*;
 
 public class balanceSteps {
-    finance F = new finance();
+    finance F ;
     CookReportPDF reportPDF = new CookReportPDF(F);
-    public balanceSteps() throws IOException {
+
+
+    public balanceSteps() throws IOException { // Constructor to initialize finance object
+        F = new finance();
     }
 
 

@@ -1,4 +1,4 @@
-C:\Users\Asus\Desktop\new test cook\src\main\java\ProductionCode\Page.java (6, 7)
-//Todo : delete the class and its usages Page.javaC:\Users\Asus\Desktop\new test cook\src\main\java\ProductionCode\Customer.java (106, 7)
-//Todo : Add the order to the order history Customer.javaC:\Users\Asus\Desktop\new test cook\src\main\java\ProductionCode\CookReportPDF.java (28, 8)
+C:\Users\Asus\Desktop\new test cook\src\main\java\productionCode\Page.java (6, 7)
+//Todo : delete the class and its usages Page.javaC:\Users\Asus\Desktop\new test cook\src\main\java\productionCode\Customer.java (106, 7)
+//Todo : Add the order to the order history Customer.javaC:\Users\Asus\Desktop\new test cook\src\main\java\productionCode\CookReportPDF.java (28, 8)
 // Todo: Add a method to generate the PDF from the customer buy  CookReportPDF.java

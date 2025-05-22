@@ -1,6 +1,6 @@
 package FeatureTest;
 
-import ProductionCode.Suppliers;
+import productionCode.Suppliers;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
