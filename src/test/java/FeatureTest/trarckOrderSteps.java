@@ -1,16 +1,18 @@
 package FeatureTest;
 
-import productionCode.*;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.jupiter.api.Test;
+import productionCode.*;
 
 import java.util.List;
 
 import static org.junit.Assert.*;
+import static org.junit.Assert.assertThrows;
 
- class TrackOrders {
+public class trarckOrderSteps {
+
     Customer customer;
     Chef chef;
     Admin admin;
@@ -83,6 +85,7 @@ import static org.junit.Assert.*;
         assertFalse(databaseOrders.isEmpty());
     }
 
+
     @Then("they should be able to analyze trends to improve service offerings")
     public void they_should_be_able_to_analyze_trends_to_improve_service_offerings() {
         TrendsReport report = admin.analyzeTrends(databaseOrders);
@@ -96,7 +99,7 @@ import static org.junit.Assert.*;
     }
 
     @Test
-     void testWrongFile() {
+    void testWrongFile() {
         // Temporarily set the file path to a non-existent file
         TrendsReport report = new TrendsReport("Test Report");
         report.setFilePath("nonexistent_file.txt");
@@ -106,6 +109,4 @@ import static org.junit.Assert.*;
             report.loadOrdersFromFile(); // This should throw an exception because the file doesn't exist
         });
     }
-
-
 }
