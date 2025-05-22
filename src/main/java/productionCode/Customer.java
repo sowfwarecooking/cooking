@@ -119,19 +119,45 @@ public class Customer {
     public void addOrderToHistory(String order, String username) {
         File file = new File("data/order.txt");
         List<String> lines = new ArrayList<>();
+        boolean userFound = false;
 
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             String line;
             while ((line = reader.readLine()) != null) {
-                // Check if the line belongs to the user
                 if (line.startsWith(username + ",")) {
-                    line = line + "," + order; // Append new order to this line
+                    String[] parts = line.split(",", 2); // Split into username and order history
+                    String currentOrders = parts.length > 1 ? parts[1] : "";
+
+                    // Create a set to prevent duplicates
+                    Set<String> orderSet = new LinkedHashSet<>(Arrays.asList(currentOrders.split(",")));
+                    orderSet.addAll(Arrays.asList(order.split(","))); // Add new order(s)
+
+                    String updatedLine = username + "," + String.join(",", orderSet);
+                    lines.add(updatedLine);
+                    userFound = true;
+                } else {
+                    lines.add(line);
                 }
-                lines.add(line);
             }
         } catch (IOException e) {
             throw new RuntimeException("Error reading the order file", e);
         }
+
+        // If the user has no previous orders, add a new line
+        if (!userFound) {
+            lines.add(username + "," + order);
+        }
+
+        // Write updated content back to file
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
+            for (String updatedLine : lines) {
+                writer.write(updatedLine);
+                writer.newLine();
+            }
+        } catch (IOException e) {
+            throw new RuntimeException("Error writing to the order file", e);
+        }
+
 
         // Write the updated lines back to the file
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {

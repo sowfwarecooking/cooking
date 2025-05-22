@@ -28,7 +28,7 @@ public class trarckOrderSteps {
     @When("they navigate to the order history section")
     public void they_navigate_to_the_order_history_section() {
         String orderHistoryString = customer.viewOrderHistory("admin");
-        String expected = "burger,pizza,pasta,salad";
+        String expected = "admin,burger,pizza,pasta,salad,Veggie Burger,Tofu Stir Fry";
 
         assertNotNull(orderHistoryString);
         assertEquals(expected, orderHistoryString);
